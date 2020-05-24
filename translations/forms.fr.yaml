@@ -1,11 +1,14 @@
+bio: Biographie
+confirm_password: Confirmer le mot de passe
+dtn: Date de Naissance
+email: E-Mail
+Enregistrer: Enregistrer
+Femme: Femme
+Homme: Homme
+Inconnu: Inconnu
+new_password: Nouveau mot de passe
 nom: Nom
 prenom: Prénom
-email: E-Mail
-username: Nom d'Utilisateur
-sexe: Sexe
-dtn: Date de Naissance
-bio: Biographie
-Inconnu: Inconnu
-Homme: Homme
-Femme: Femme
 Photo: Photo
+sexe: Sexe
+username: Nom d'Utilisateur

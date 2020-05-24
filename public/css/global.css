@@ -53,6 +53,10 @@ a.delete_picture_user span.bg {
     z-index: 10;
 }
 
+.form_delete {
+    display: inline-block;
+}
+
 .picture {
     border: 1px solid black;
     border-radius: 10px;

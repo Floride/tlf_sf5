@@ -1,0 +1,52 @@
+{# templates\admin\index.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-8">
+            <h1>Paramètres du Site</h1>
+        </div>
+        <div class="col-4 text-right align-self-center">
+            <a href="{{ path('admin_index') }}">Retour</a>
+        </div>
+    </div>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
+    
+    <div class="row">
+        <div class="col-12">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-bold">Clé</th>
+                        <th class="text-bold">Valeur</th>
+                        <th class="text-bold">Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+                {% for param in params %}
+                    <tr>
+                        <td>{{ param.nom }}</td>
+                        <td>{{ param.valeur|nl2br }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('site_params_edit', {id: param.id}) }}" class="btn btn-sm btn-primary">
+                                <i class="far fa-edit" title="Editer"></i>
+                            </a>
+                        </td>
+                    <tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>        
+{% endblock %}

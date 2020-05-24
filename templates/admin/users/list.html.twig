@@ -21,18 +21,26 @@
     {% endfor %}
 
     <div class="row">
+        <div class="col-12 text-right mb-4 mt4 ">
+            <button class="btn btn-info">Nouveau Joueur</button>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-12">
             <table class="table table-striped">
-            <thead>
-                <th class="text-bold text-center">#</th>
-                <th class="text-bold">Nom</th>
-                <th class="text-bold">Prénom</th>
-                <th class="text-bold">Username</td>
-                <th class="text-bold">Email</th>
-                <th class="text-bold text-center">Validé</th>
-                <th class="text-bold text-center">Activé</th>
-                <th class="text-bold text-center">Action</th>
-            </thead>
+                <thead>
+                    <tr>
+                        <th class="text-bold text-center">#</th>
+                        <th class="text-bold">Nom</th>
+                        <th class="text-bold">Prénom</th>
+                        <th class="text-bold">Username</td>
+                        <th class="text-bold">Email</th>
+                        <th class="text-bold text-center">Validé</th>
+                        <th class="text-bold text-center">Activé</th>
+                        <th class="text-bold text-center">Action</th>
+                    </tr>
+                </thead>
                 <tbody>
                 {% for user in users %}
                     <tr>
@@ -74,17 +82,20 @@
                             <a href="{{ path('users_user_edit', {id: user.id}) }}" class="btn btn-sm btn-primary">
                                 <i class="far fa-edit" title="Editer"></i>
                             </a>
-                            <a href="{{ path('users_user_pass_reset', {id: user.id}) }}" class="btn btn-sm btn-warning">
-                                <i class="fas fa-unlock-alt" title="Réinitialiser le mot de passe"></i>
-                            </a>
-                            <a href="{{ path('users_user_delete', {id: user.id}) }}" class="btn btn-sm btn-danger">
-                                <i class="far fa-trash-alt" title="Supprimer"></i>
-                            </a>
+                            <form action="{{ path('users_user_delete', {id: user.id}) }}" method="POST" id="delete_form_{{ user.id }}" class="form_delete">
+                                <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ user.id }}">
+                                    <i class="far fa-trash-alt" title="Supprimer"></i>
+                                </button>
+                                <input type="hidden" id="method_{{ user.id }}" name="_method" value="DELETE" />
+                                <input type="hidden" id="token_{{ user.id }}" name="_token" value="{{ csrf_token('adm_suppr_user') }}" />
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+
         </div>
     </div>
+
 {% endblock %}
