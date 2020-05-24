@@ -1,0 +1,68 @@
+/* public\css\global.css */
+
+a.delete_picture_user {
+    display: inline-block;
+    height: 300px;
+    position: relative;
+    text-decoration: none;
+    width: 225px; 
+}
+
+a.delete_picture_user img {
+    border: 1px solid black;
+    height: 300px;
+    width: 225px; 
+}
+
+a.delete_picture_user span {
+    display: none;
+    left: 25px;
+    position: absolute;
+    top: 25px;
+}
+
+a.delete_picture_user:hover span {
+    display: block;
+}
+
+a.delete_picture_user span.titre {
+    color: #111;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    top: 60px;
+    z-index: 100;
+}
+
+a.delete_picture_user span.description {
+    color: #222;
+    font-size: 0.7em;
+    text-align: center;
+    top: 120px;
+    z-index: 100;
+}
+
+a.delete_picture_user span.bg {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid black;
+    height: 300px;
+    left: 0;
+    border-radius: 10px;
+    top: 0;
+    width: 225px; 
+    z-index: 10;
+}
+
+.picture {
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 200px;
+    width: 150px; 
+}
+
+.picture_user {
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 300px;
+    width: 225px; 
+}

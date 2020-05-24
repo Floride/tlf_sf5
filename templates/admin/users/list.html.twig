@@ -1,0 +1,90 @@
+{# templates\admin\index.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-8">
+            <h1>Joueurs</h1>
+        </div>
+        <div class="col-4 text-right align-self-center">
+            <a href="{{ path('admin_index') }}">Retour</a>
+        </div>
+    </div>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+            <thead>
+                <th class="text-bold text-center">#</th>
+                <th class="text-bold">Nom</th>
+                <th class="text-bold">Prénom</th>
+                <th class="text-bold">Username</td>
+                <th class="text-bold">Email</th>
+                <th class="text-bold text-center">Validé</th>
+                <th class="text-bold text-center">Activé</th>
+                <th class="text-bold text-center">Action</th>
+            </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{% if user.nom %}
+                            {{ user.nom }}
+                            {% else %}
+                            - non renseigné -
+                            {% endif %}</td>
+                        <td>{% if user.prenom %}
+                            {{ user.prenom }}
+                            {% else %}
+                            - non renseigné -
+                            {% endif %}</td>
+                        <td>{% if user.username %}
+                            {{ user.username }}
+                            {% else %}
+                            - non renseigné -
+                            {% endif %}</td>
+                        <td>{{ user.email }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('users_user_valid', {id: user.id}) }}">
+                                {% if user.valided %}
+                                <i class="far fa-envelope-open text-success" title="Oui"></i>
+                                {% else %}
+                                <i class="far fa-envelope text-warning" title="Non"></i>
+                            {% endif %}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('users_user_enable', {id: user.id}) }}">{% if user.enabled %}
+                                <i class="far fa-check-square text-success" title="Oui"></i>
+                                {% else %}
+                                <i class="far fa-square text-danger" title="Non"></i>
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('users_user_edit', {id: user.id}) }}" class="btn btn-sm btn-primary">
+                                <i class="far fa-edit" title="Editer"></i>
+                            </a>
+                            <a href="{{ path('users_user_pass_reset', {id: user.id}) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-unlock-alt" title="Réinitialiser le mot de passe"></i>
+                            </a>
+                            <a href="{{ path('users_user_delete', {id: user.id}) }}" class="btn btn-sm btn-danger">
+                                <i class="far fa-trash-alt" title="Supprimer"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

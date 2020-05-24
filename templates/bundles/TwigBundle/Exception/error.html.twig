@@ -1,0 +1,11 @@
+{# templates/bundles/TwigBundle/Exception/error.html.twig #}
+{% extends 'bundles/TwigBundle/Exception/layout.html.twig' %}
+
+{% block body_content %}
+    <h1>Page introuvable</h1>
+
+    <p>
+        Désolé, nous n’avons pas trouvé la page demandée... Vérifiez votre URL
+        ou <a href="{{ path('accueil') }}">retournez à la page d'accueil</a>.
+    </p>
+{% endblock %}
