@@ -53,20 +53,34 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Liste des joueurs
-     * 
+     * Suppression d'un joueur
+     *
+     * @param Request $request
+     * @param User $user
+     *
      * @return Response
      * 
-     * @Route("", name="users_list", methods={"GET"})
+     * @Route("/{id}/delete", name="users_user_delete", requirements={"id"="\d+"}, methods={"DELETE"})
      */
-    public function list(): Response
+    public function delete(Request $request, User $user): Response
     {
-        $users = $this->userRepository->findAll();
-        //dump($users);
-        return $this->render('admin/users/list.html.twig', [
-            'users' => $users,
-            'controller_name' => 'UsersController'
-        ]);
+        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
+        if (!$user->getEnabled()) {
+            // TODO : Transfert des personnages vers user PNJ
+            $this->manager->remove($user); // On retire l'objet $user
+            $this->manager->flush(); // On enregistre en BDD
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a bien été supprimé.'
+            );
+            // TODO : Email pour informer delete joueur
+        } else {
+            $this->addFlash(
+                'danger',
+                'L\'utilisateur ne peut pas être supprimé avec un status Activé.'
+            );
+        }
+        return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
     }
 
     /**
@@ -102,6 +116,43 @@ class UsersController extends AbstractController
         ]);
     }
 
+    /**
+     * valide ou invalide un joueur
+     *
+     * @param User $user
+     *
+     * @return Response
+     *
+     * @Route("/{id}/enable", name="users_user_enable", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function enabled(User $user): Response
+    {
+        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
+
+        $user->setEnabled(!$user->getEnabled()); // Mise à jour statut is_enable
+        $this->manager->persist($user);
+        $this->manager->flush();
+        // TODO : Email pour informer activation ou désactivation du compte
+        
+        return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
+    }
+
+    /**
+     * Liste des joueurs
+     * 
+     * @return Response
+     * 
+     * @Route("", name="users_list", methods={"GET"})
+     */
+    public function list(): Response
+    {
+        $users = $this->userRepository->findAll();
+        //dump($users);
+        return $this->render('admin/users/list.html.twig', [
+            'users' => $users,
+            'controller_name' => 'UsersController'
+        ]);
+    }
     
     /**
      * Editer un joueur
@@ -115,7 +166,7 @@ class UsersController extends AbstractController
      public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
      {
         $user = new User();
-        dump($user);
+        $pwd = uniqid();
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
  
@@ -124,7 +175,7 @@ class UsersController extends AbstractController
             $user->setValided(false);
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
-                uniqid()
+                $pwd
             ));
             $this->manager->persist($user); // On persiste l'objet $user
             $this->manager->flush(); // On enregistre en BDD
@@ -145,66 +196,6 @@ class UsersController extends AbstractController
      }
 
     /**
-     * Réinitialise le mot de passe d'un joueur
-     *
-     * @param Request $request
-     * @param User $user
-     *
-     * @return Response
-     *
-     * @Route("/{id}/password/reset", name="users_user_pass_reset", requirements={"id"="\d+"}, methods={"GET", "POST"})
-     */
-    public function resetPassword(Request $request, User $user): Response
-    {
-        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
-        dump($user);
-        $form = $this->createForm(AdminUserType::class, $user);
-        
-        return $this->render('admin/users/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-            'controller_name' => 'UsersController'
-        ]);
-        // TODO : Mise à jour du pwd
-        // TODO : Mise à jour statut is_valid
-        // TODO : Création token validation
-        // TODO : Email pour confirmer email
-        // TODO : Msg flash pour informer changement pwd
-        return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
-    }
-
-    /**
-     * Suppression d'un joueur
-     *
-     * @param Request $request
-     * @param User $user
-     *
-     * @return Response
-     * 
-     * @Route("/{id}/delete", name="users_user_delete", requirements={"id"="\d+"}, methods={"DELETE"})
-     */
-    public function delete(Request $request, User $user): Response
-    {
-        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
-        if (!$user->getEnabled()) {
-            // TODO : Transfert des personnages vers user PNJ
-            $this->manager->remove($user); // On retire l'objet $user
-            $this->manager->flush(); // On enregistre en BDD
-            $this->addFlash(
-                'success',
-                'L\'utilisateur a bien été supprimé.'
-            );
-            // TODO : Email pour informer delete joueur
-        } else {
-            $this->addFlash(
-                'danger',
-                'L\'utilisateur ne peut pas être supprimé avec un status actif.'
-            );
-        }
-        return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
-    }
-
-    /**
      * Demande de validation de l'email un joueur
      * 
      * @param User $user
@@ -222,27 +213,6 @@ class UsersController extends AbstractController
         $this->manager->flush();
         // TODO : Email pour demander confirmation email
 
-        return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
-    }
-
-    /**
-     * valide ou invalide un joueur
-     *
-     * @param User $user
-     *
-     * @return Response
-     *
-     * @Route("/{id}/enable", name="users_user_enable", requirements={"id"="\d+"}, methods={"GET"})
-     */
-    public function enabled(User $user): Response
-    {
-        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
-
-        $user->setEnabled(!$user->getEnabled()); // Mise à jour statut is_enable
-        $this->manager->persist($user);
-        $this->manager->flush();
-        // TODO : Email pour informer activation ou désactivation du compte
-        
         return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
     }
 }

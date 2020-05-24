@@ -44,7 +44,14 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // Les noms d'utilisateurs à créer
-        $listNames = array('Demo', 'Nicolas', 'Sylvain', 'Alexandre', 'Marine', 'Anna');
+        $listNames = [
+            'Demo', 
+            'Nicolas', 
+            'Sylvain', 
+            'Alexandre', 
+            'Marine', 
+            'Anna'
+        ];
         
         // On crée l'utilisateur (un Testeur par defaut)
         $user = new User();
@@ -58,15 +65,16 @@ class UserFixtures extends Fixture
                 $user,
                 'password'
             )) // On définit le mot de passe
-            ->setRoles(array('ROLE_USER')); // On définit uniquement le role ROLE_USER qui est le role de base
+            ->setRoles(['ROLE_USER']); // On définit uniquement le role ROLE_USER qui est le role de base
 
         // On persiste l'objet $user
         $manager->persist($user);
-
        
         foreach ($listNames as $name) {
             $user = new User(); // On crée l'un des utilisateurs de la liste
             $user->setEmail(strtolower($name) . '@tlf.fr') // On définit l'adresse mail
+                ->setEnabled(true) // On définit le compte comme actif
+                ->setValided(false) // On définit le compte comme non validé
                 ->setPassword($this->passwordEncoder->encodePassword(
                     $user,
                     $name
@@ -75,11 +83,11 @@ class UserFixtures extends Fixture
                 case 'Nicolas':
                 case 'Sylvain':
                     // On définit uniquement le role ROLE_ADMIN
-                    $user->setRoles(array('ROLE_ADMIN'));
+                    $user->setRoles(['ROLE_ADMIN']);
                     break;
                 default:
                     // On définit uniquement le role ROLE_USER qui est le role de base
-                    $user->setRoles(array('ROLE_USER'));
+                    $user->setRoles(['ROLE_USER']);
                     break;
             }
             // On persiste l'objet $user
