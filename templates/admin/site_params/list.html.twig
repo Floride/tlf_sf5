@@ -1,4 +1,4 @@
-{# templates\admin\index.html.twig #}
+{# templates\admin\list.html.twig #}
 {% extends 'admin/layout.html.twig' %}
 
 {% block body_content %}
@@ -50,6 +50,10 @@
                             </a>
                         </td>
                     <tr>
+                {% else %}
+                    <tr>
+                    <td colspan="4" class="text-center">- Aucun enregistrement _</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

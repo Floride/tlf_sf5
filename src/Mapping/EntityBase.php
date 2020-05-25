@@ -5,6 +5,7 @@ namespace App\Mapping;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 use DateTimeInterface;
+
 /**
  * Class EntityBase
  *

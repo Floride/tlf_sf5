@@ -89,7 +89,7 @@ class SiteParamsController extends AbstractController
     {
         $params = $this->paramsRepository->findAll();
         
-        return $this->render('admin/site_params/index.html.twig', [
+        return $this->render('admin/site_params/list.html.twig', [
             'controller_name' => 'SiteParamsController',
             'params' => $params
         ]);

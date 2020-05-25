@@ -89,7 +89,7 @@
                                     <i class="far fa-trash-alt" title="Supprimer"></i>
                                 </button>
                                 <input type="hidden" id="method_{{ user.id }}" name="_method" value="DELETE" />
-                                <input type="hidden" id="token_{{ user.id }}" name="_token" value="{{ csrf_token('adm_suppr_user') }}" />
+                                <input type="hidden" id="token_{{ user.id }}" name="_token" value="{{ csrf_token('users_user_delete_' ~ user.id) }}" />
                             </form>
                         </td>
                     </tr>

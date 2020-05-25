@@ -64,22 +64,39 @@ class UsersController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
-        if (!$user->getEnabled()) {
-            // TODO : Transfert des personnages vers user PNJ
-            $this->manager->remove($user); // On retire l'objet $user
-            $this->manager->flush(); // On enregistre en BDD
-            $this->addFlash(
-                'success',
-                'L\'utilisateur a bien été supprimé.'
-            );
-            // TODO : Email pour informer delete joueur
+        /**
+         * @var int|null id
+         */
+        $id = $user->getId();
+
+        if ($this->isCsrfTokenValid('users_user_delete_' . $id, $request->get('_token'))) {
+            /**
+             * @var User|null
+             */
+            $user = $this->userRepository->findOneBy(['id' => $id]);
+
+            if (!$user->getEnabled()) {
+                // TODO : Transfert des personnages vers user PNJ
+                $this->manager->remove($user); // On retire l'objet $user
+                $this->manager->flush(); // On enregistre en BDD
+                $this->addFlash(
+                    'success',
+                    'L\'utilisateur a bien été supprimé.'
+                );
+                // TODO : Email pour informer delete joueur
+            } else {
+                $this->addFlash(
+                    'danger',
+                    'L\'utilisateur ne peut pas être supprimé avec un status Activé.'
+                );
+            }
         } else {
             $this->addFlash(
                 'danger',
-                'L\'utilisateur ne peut pas être supprimé avec un status Activé.'
+                'Impossible de valider le formulaire (Token CSRF).'
             );
         }
+
         return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
     }
 

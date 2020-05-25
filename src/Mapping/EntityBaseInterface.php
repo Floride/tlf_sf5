@@ -6,10 +6,11 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * EntityBase Interface
+ * interface EntityBaseInterface
  *
  * PHP version 7.2
  *
+ * @package    App\Mapping
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
  */
