@@ -2,6 +2,9 @@
 // src\Controller\Backend\UsersController.php
 namespace App\Controller\Backend;
 
+use App\Entity\Caracs;
+use App\Repository\CaracsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,11 +25,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PersoCaracsController extends AbstractController
 {
     /**
+     * @var CaracsRepository
+     */
+    private $caracsRepository;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    /**
+     * Constructor
+     *
+     * @param CaracsRepository   $caracsRepository
+     * @param EntityManagerInterface $objectManager
+     */
+    public function __construct(CaracsRepository $caracsRepository, EntityManagerInterface $entityManager)
+    {
+        $this->caracsRepository = $caracsRepository;
+        $this->manager = $entityManager;
+    }
+    /**
      * @Route("", name="perso_caracs_list")
      */
     public function list()
     {
-        $caracs = null;
+        $caracs = $this->caracsRepository->findAll();;
         return $this->render('admin/perso/caracs/list.html.twig', [
             'caracs' => $caracs,
             'controller_name' => 'PersoCaracsController',
@@ -38,8 +62,8 @@ class PersoCaracsController extends AbstractController
      */
     public function new()
     {
-        $caracs = new Caracs();
-        return $this->render('admin/perso/caracs/list.html.twig', [
+        $carac = new Caracs();
+        return $this->render('admin/perso/caracs/new.html.twig', [
             'carac' => $carac,
             'controller_name' => 'PersoCaracsController',
         ]);
@@ -51,8 +75,8 @@ class PersoCaracsController extends AbstractController
      */
     public function edit()
     {
-        $caracs = new Caracs();
-        return $this->render('admin/perso/caracs/list.html.twig', [
+        $carac = new Caracs();
+        return $this->render('admin/perso/caracs/edit.html.twig', [
             'carac' => $carac,
             'controller_name' => 'PersoCaracsController',
         ]);

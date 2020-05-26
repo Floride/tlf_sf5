@@ -19,7 +19,7 @@
             </div>
         {% endfor %}
     {% endfor %}
-
+ 
     <div class="row">
         <div class="col-12 text-left mb-4 mt4 ">
             Les caractérisques d'un personnage, dans Troopers, la Légion Fédérale (TLF), sont une constituante de base d'un personnage. <br />
@@ -45,6 +45,7 @@
                     <tr>
                         <th class="text-bold">Nom</th>
                         <th class="text-bold">Abréviation</th>
+                        <th class="text-bold">Description</th>
                         <th class="text-bold">Action</th>
                     <tr>
                 </thead>
@@ -53,6 +54,7 @@
                     <tr>
                         <td>{{ carac.nom }}</td>
                         <td>{{ carac.abreviation }}</td>
+                        <td>{{ carac.description|nl2br }}</td>
                         <td class="text-center">
                             <a href="{{ path('perso_caracs_edit', {id: carac.id}) }}" class="btn btn-sm btn-primary">
                                 <i class="far fa-edit" title="Editer"></i>

@@ -71,9 +71,11 @@ class SiteParamsFixtures extends Fixture
         ];
 
         foreach ($params as $param) {
-            $siteParams = new SiteParams();  // On crée un paramètre
-            $siteParams->setNom($param['nom']); // On la clé
-            $siteParams->setValeur($param['valeur']); // On la valeur
+            $siteParams = (new SiteParams())    // On crée un paramètre
+                ->setNom($param['nom'])         // On la clé
+                ->setValeur($param['valeur'])   // On la valeur
+            ;
+
             $manager->persist($siteParams);
         }
 
@@ -86,6 +88,6 @@ class SiteParamsFixtures extends Fixture
      * {@inheritdoc}
      */
     public function getOrder():int {
-        return 100;
+        return 1000;
     }
 }

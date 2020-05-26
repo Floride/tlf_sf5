@@ -41,7 +41,7 @@ class SiteParamsController extends AbstractController
     /**
      * Constructor
      *
-     * @param SiteParamsRepository   $userRepository
+     * @param SiteParamsRepository   $paramsRepository
      * @param EntityManagerInterface $objectManager
      */
     public function __construct(SiteParamsRepository $paramsRepository, EntityManagerInterface $entityManager)

@@ -104,6 +104,6 @@ class UserFixtures extends Fixture
      */
     public function getOrder():int 
     {
-        return 100;
+        return 1000;
     }
 }

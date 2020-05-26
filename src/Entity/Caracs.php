@@ -44,7 +44,7 @@ class Caracs extends EntityBase
      * @var string
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $decription;
+    private $description;
 
     /**
      * @var string
@@ -98,47 +98,47 @@ class Caracs extends EntityBase
     }
 
     /**
-     * Get abbreviation
+     * Get abreviation
      *
      * @return string|null
      */
-    public function getAbbreviation(): ?string
+    public function getAbreviation(): ?string
     {
-        return $this->abbreviation;
+        return $this->abreviation;
     }
 
     /**
-     * Set abbreviation
+     * Set abreviation
      *
-     * @param string $abbreviation
+     * @param string $abreviation
      * @return self
      */
-    public function setAbbreviation(string $abbreviation): self
+    public function setAbreviation(string $abreviation): self
     {
-        $this->abbreviation = $abbreviation;
+        $this->abreviation = $abreviation;
 
         return $this;
     }
 
     /**
-     * Get decription
+     * Get description
      *
      * @return string|null
      */
-    public function getDecription(): ?string
+    public function getDescription(): ?string
     {
-        return $this->decription;
+        return $this->description;
     }
 
     /**
-     * Set decription
+     * Set description
      *
-     * @param string|null $decription
+     * @param string|null $description
      * @return self
      */
-    public function setDecription(?string $decription): self
+    public function setDescription(?string $description): self
     {
-        $this->decription = $decription;
+        $this->description = $description;
 
         return $this;
     }
