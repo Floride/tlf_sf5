@@ -13,16 +13,16 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package    App\Controller\Frontend
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
     /**
      * Profil utilisateur (FrontEnd)
-     * 
+     *
      * @return Response
-     * 
+     *
      * @Route("/profil", name="user_profil", methods={"GET", "POST"})
      */
     public function profil()

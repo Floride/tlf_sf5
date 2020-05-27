@@ -1,4 +1,4 @@
-{# templates\admin\index.html.twig #}
+{# templates\admin\list.html.twig #}
 {% extends 'admin/layout.html.twig' %}
 
 {% block body_content %}
@@ -12,13 +12,7 @@
         </div>
     </div>
 
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+    {% include "alert.html.twig" %}
 
     <div class="row">
         <div class="col-12 text-right mb-4 mt4 ">
@@ -50,6 +44,8 @@
                             </a>
                         </td>
                     <tr>
+                {% else %}
+                    <tr><td colspan="4" class="text-center">- Aucun enregistrement -</td></tr>
                 {% endfor %}
                 </tbody>
             </table>

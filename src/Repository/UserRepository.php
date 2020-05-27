@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @package    App\Repository
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
@@ -38,10 +38,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * upgradePassword
      * Used to upgrade (rehash) the user's password automatically over time.
-     * 
+     *
      * @param UserInterface $user
      * @param string $newEncodedPassword
-     * 
+     *
      * @return void
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void

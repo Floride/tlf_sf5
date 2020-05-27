@@ -14,5 +14,4 @@ class userPictureListener
         //dump($event);
         // do your stuff with $object and/or $mapping...
     }
-
 }

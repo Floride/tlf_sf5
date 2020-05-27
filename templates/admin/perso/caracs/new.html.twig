@@ -1,0 +1,25 @@
+{# templates\admin\perso\caracs\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-8">
+            <h1>Personnage : Caractéristiques</h1>
+        </div>
+        <div class="col-4 text-right align-self-center">
+            <a href="{{ path('perso_caracs_list') }}">Retour</a>
+        </div>
+    </div>
+    
+    <div class="row">
+
+        <div class="col-12">
+            <h4>Créer une nouvelle caractéristique de personnage</h4>
+        </div>
+        
+    </div>
+
+    {% include "admin/perso/caracs/_form.html.twig" %}
+
+{% endblock %}

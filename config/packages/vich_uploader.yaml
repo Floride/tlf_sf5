@@ -9,6 +9,14 @@ vich_uploader:
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
+        
+        caracs_pictures:
+            uri_prefix: /images/perso/caracs
+            upload_destination: '%kernel.project_dir%/public/images/perso/caracs'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
 
         medals_pictures:
             uri_prefix: /images/medals

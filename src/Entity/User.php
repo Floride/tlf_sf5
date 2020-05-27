@@ -8,9 +8,9 @@ use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class User
@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @package    App\Entity
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="user")
@@ -139,7 +139,7 @@ class User extends EntityBase implements UserInterface
     
     /**
      * Get Id
-     * 
+     *
      * @return null|int
      */
     public function getId(): ?int
@@ -195,7 +195,7 @@ class User extends EntityBase implements UserInterface
 
     /**
      * Get email
-     * 
+     *
      * @return  null|string
      */
     public function getEmail(): ?string
@@ -205,7 +205,7 @@ class User extends EntityBase implements UserInterface
 
     /**
      * Set email
-     * 
+     *
      * @param   string  $email
      * @return  User
      */
@@ -241,7 +241,7 @@ class User extends EntityBase implements UserInterface
 
     /**
      * Get nom
-     * 
+     *
      * @return  null|string
      */
     public function getNom(): ?string
@@ -376,7 +376,9 @@ class User extends EntityBase implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt() {}
+    public function getSalt()
+    {
+    }
 
     /**
      * Get sexe
@@ -480,11 +482,13 @@ class User extends EntityBase implements UserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+    }
 
     /**
      * Genere un token
-     * 
+     *
      * @return string
      */
     public function generateToken(): string
@@ -493,5 +497,4 @@ class User extends EntityBase implements UserInterface
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
-
 }
