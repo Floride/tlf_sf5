@@ -50,7 +50,7 @@ abstract class AbstractCrudController extends AbstractController
         switch ($categorie) {
             case 'delete_ok': // supression OK
                 $message = sprintf('%s a bien été supprimé.', $element);
-                // no break
+            break;
             case 'save_ok': // enregistrement OK
                 $message = sprintf('%s a bien été sauvegardé.', $element);
             break;
@@ -112,16 +112,12 @@ abstract class AbstractCrudController extends AbstractController
         $elides = ['a', 'o', 'e', 'i', 'u', 'y', 'h'];
         $type = 'success';
 
-        $el = $this->enleveaccents($chaine);
+        $firstletter = $this->enleveaccents(substr($chaine, 0, 1));
         
-        if (in_array(substr($el, 0, 1), $elides)) {
-            $element = 'L\'' . $chaine; // Elidé
+        if (in_array($firstletter, $elides)) {
+            $chaine = 'L\'' . $chaine; // Elidé
         } else {
-            if ($masculin) {
-                $element = 'Le ' . $element[0]; // Masculin
-            } else {
-                $element = 'La ' . $element[0]; // Féminin
-            }
+            $chaine =  ($masculin) ? 'Le ' . $chaine : 'La ' . $chaine;
         }
 
         return (string) $chaine;

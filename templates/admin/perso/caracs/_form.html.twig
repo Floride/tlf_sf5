@@ -1,0 +1,67 @@
+{{ form_start(form) }}
+    <div class="row">
+            
+        <div class="col-6">
+            {{ form_row(form.nom) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(form.abreviation) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(form.type) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+            
+        <div class="col-12">
+            {{ form_row(form.description) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+            
+        <div class="col-4">
+            {{ form_row(form.valeurMin) }}
+        </div>
+        <div class="col-4">
+            {{ form_row(form.valeurMoyenne) }}
+        </div>
+        <div class="col-4">
+            {{ form_row(form.valeurMax) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+            
+        <div class="col-12">
+            {{ form_row(form.picture) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-12">
+            
+                {% if not carac.picture or carac.picture == '' %}
+                    <img src="{{ asset('images/perso/caracs/default-carac.jpg') }}" alt="image par defaut - Caractéristique" />
+                {% else %}
+                    {% set iden = carac.nom ~ ' [' ~ carac.abreviation ~ ']' %}
+                    <a href="" />
+                        <img src="{{ vich_uploader_asset(carac) }}" alt="{{ iden }}" />
+                    </a>
+                {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">Enregistrer</button>
+        </div>
+    </div>
+{{ form_end(form) }}
