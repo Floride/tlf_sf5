@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @package    App\Repository
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()

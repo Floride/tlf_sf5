@@ -19,9 +19,9 @@ class HomeController extends AbstractController
 {
     /**
      * Page de Garde
-     * 
+     *
      * @return Response
-     * 
+     *
      * @Route("/", name="root", methods={"GET"})
      */
     public function index(): Response
@@ -33,9 +33,9 @@ class HomeController extends AbstractController
 
     /**
      * Page Accueil
-     * 
+     *
      * @return Response
-     * 
+     *
      * @Route("/accueil", name="accueil", methods={"GET"})
      */
     public function accueil(): Response

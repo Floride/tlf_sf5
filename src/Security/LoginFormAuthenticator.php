@@ -20,7 +20,6 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-
 /**
  * Class LoginFormAuthenticator
  *
@@ -155,7 +154,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param   Request         $request
      * @param   TokenInterface  $token
      * @param   mixed           $providerKey
-     * @return  RedirectResponse 
+     * @return  RedirectResponse
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse
     {

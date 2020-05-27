@@ -118,7 +118,7 @@ class PersoCaracsFixtures extends Fixture
     /**
      * {@inheritdoc}
      */
-    public function getOrder():int 
+    public function getOrder():int
     {
         return 1100;
     }

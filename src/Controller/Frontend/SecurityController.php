@@ -20,9 +20,9 @@ class SecurityController extends AbstractController
 {
     /**
      * Page de connexion
-     * 
+     *
      * @return Response
-     * 
+     *
      * @Route("/login", name="security_login", methods={"GET", "POST"})
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -36,7 +36,8 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', 
+        return $this->render(
+            'security/login.html.twig',
             [
                 'last_username' => $lastUsername,
                 'error' => $error
@@ -46,9 +47,9 @@ class SecurityController extends AbstractController
 
     /**
      * Page de déconnexion
-     * 
+     *
      * @return Response
-     * 
+     *
      * @Route("/logout", name="security_logout", methods={"GET"})
      */
     public function logout()

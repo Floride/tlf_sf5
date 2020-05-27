@@ -14,7 +14,7 @@ use DateTimeInterface;
  * @package    App\Mapping
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @ORM\HasLifecycleCallbacks
  */
 class EntityBase implements EntityBaseInterface
@@ -36,12 +36,14 @@ class EntityBase implements EntityBaseInterface
     /**
      * Constructor
      */
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
-     * 
+     *
      * @return void
      */
     public function updatedTimestamps(): void

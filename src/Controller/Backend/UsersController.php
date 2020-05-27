@@ -3,6 +3,7 @@
 namespace App\Controller\Backend;
 
 use DateTime;
+use App\Controller\AbstractCrudController;
 use App\Entity\User;
 use App\Form\AdminUserType;
 use App\Repository\UserRepository;
@@ -12,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -23,12 +23,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * @package    App\Controller\Backend
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @IsGranted("ROLE_ADMIN")
- * 
+ *
  * @Route("/admin/users")
  */
-class UsersController extends AbstractController
+class UsersController extends AbstractCrudController
 {
     /**
      * @var UserRepository
@@ -36,20 +36,17 @@ class UsersController extends AbstractController
     private $userRepository;
 
     /**
-     * @var EntityManagerInterface
-     */
-    private $manager;
-
-    /**
      * Constructor
      *
+     * @param EntityManagerInterface $entityManager
      * @param UserRepository         $userRepository
-     * @param EntityManagerInterface $objectManager
+     * 
+     * @return void
      */
-    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
+        parent::__construct($entityManager);
         $this->userRepository = $userRepository;
-        $this->manager = $entityManager;
     }
 
     /**
@@ -59,42 +56,22 @@ class UsersController extends AbstractController
      * @param User $user
      *
      * @return Response
-     * 
+     *
      * @Route("/{id}/delete", name="users_user_delete", requirements={"id"="\d+"}, methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
-        /**
-         * @var int|null id
-         */
-        $id = $user->getId();
-
-        if ($this->isCsrfTokenValid('users_user_delete_' . $id, $request->get('_token'))) {
-            /**
-             * @var User|null
-             */
-            $user = $this->userRepository->findOneBy(['id' => $id]);
-
+        if ($this->isCsrfTokenValid('users_user_delete_' . $user->getId(), $request->get('_token'))) {
             if (!$user->getEnabled()) {
                 // TODO : Transfert des personnages vers user PNJ
-                $this->manager->remove($user); // On retire l'objet $user
-                $this->manager->flush(); // On enregistre en BDD
-                $this->addFlash(
-                    'success',
-                    'L\'utilisateur a bien été supprimé.'
-                );
-                // TODO : Email pour informer delete joueur
+                $this->suppression($user);
+                $this->messageFlash('delete_ok', 'utilisateur');
+            // TODO : Email pour informer delete joueur
             } else {
-                $this->addFlash(
-                    'danger',
-                    'L\'utilisateur ne peut pas être supprimé avec un status Activé.'
-                );
+                $this->messageFlash('status_bad', 'utilisateur');
             }
         } else {
-            $this->addFlash(
-                'danger',
-                'Impossible de valider le formulaire (Token CSRF).'
-            );
+            $this->messageFlash('csrf_bad');
         }
 
         return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
@@ -107,22 +84,17 @@ class UsersController extends AbstractController
      * @param User $user
      *
      * @return Response
-     * 
+     *
      * @Route("/{id}/edit", name="users_user_edit", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user): Response
     {
-
-        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->manager->flush(); // Mise à jour du joueur en BDD
-            $this->addFlash(
-                'success',
-                'L\'utilisateur a bien été modifié.'
-            );
+            $this->sauvegarde($user);
+            $this->messageFlash('save_ok', 'utilisateur');
             return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
         }
         
@@ -144,11 +116,8 @@ class UsersController extends AbstractController
      */
     public function enabled(User $user): Response
     {
-        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
-
         $user->setEnabled(!$user->getEnabled()); // Mise à jour statut is_enable
-        $this->manager->persist($user);
-        $this->manager->flush();
+        $this->sauvegarde($user);
         // TODO : Email pour informer activation ou désactivation du compte
         
         return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
@@ -156,15 +125,15 @@ class UsersController extends AbstractController
 
     /**
      * Liste des joueurs
-     * 
+     *
      * @return Response
-     * 
+     *
      * @Route("", name="users_list", methods={"GET"})
      */
     public function list(): Response
     {
         $users = $this->userRepository->findAll();
-        //dump($users);
+        
         return $this->render('admin/users/list.html.twig', [
             'users' => $users,
             'controller_name' => 'UsersController'
@@ -177,11 +146,11 @@ class UsersController extends AbstractController
      * @param Request $request
      *
      * @return Response
-     * 
+     *
      * @Route("/new", name="users_user_new", methods={"GET", "POST"})
      */
-     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
-     {
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
         $user = new User();
         $pwd = uniqid();
         $form = $this->createForm(AdminUserType::class, $user);
@@ -194,12 +163,8 @@ class UsersController extends AbstractController
                 $user,
                 $pwd
             ));
-            $this->manager->persist($user); // On persiste l'objet $user
-            $this->manager->flush(); // On enregistre en BDD
-            $this->addFlash(
-                'success',
-                'L\'utilisateur a bien été enregistré.'
-            );
+            $this->sauvegarde($user);
+            $this->messageFlash('save_ok', 'utilisateur');
             // TODO : Envoi mail : confirmation email
             // TODO : Envoi mail : mot de passe
             return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
@@ -210,24 +175,21 @@ class UsersController extends AbstractController
             'form' => $form->createView(),
             'controller_name' => 'UsersController'
         ]);
-     }
+    }
 
     /**
      * Demande de validation de l'email un joueur
-     * 
+     *
      * @param User $user
      *
      * @return Response
-     * 
+     *
      * @Route("/{id}/valid", name="users_user_valid", requirements={"id"="\d+"}, methods={"GET"})
      */
     public function valided(User $user): Response
     {
-        $user = $this->userRepository->findOneBy(['id' => $user->getId()]);
-        
         $user->setValided(!$user->getValided()); // Mise à jour statut is_valid
-        $this->manager->persist($user);
-        $this->manager->flush();
+        $this->sauvegarde($user);
         // TODO : Email pour demander confirmation email
 
         return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs

@@ -14,12 +14,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @package    App\Entity
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @ORM\Entity(repositoryClass=SiteParamsRepository::class)
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="site_params")
  */
-class SiteParams extends EntityBase 
+class SiteParams extends EntityBase
 {
     /**
      * @ORM\Id()
@@ -52,7 +52,7 @@ class SiteParams extends EntityBase
 
     /**
      * Get Id
-     * 
+     *
      * @return null|int
      */
     public function getId(): ?int
@@ -62,7 +62,7 @@ class SiteParams extends EntityBase
 
     /**
      * Get Nom
-     * 
+     *
      * @return null|string
      */
     public function getNom(): ?string
@@ -86,7 +86,7 @@ class SiteParams extends EntityBase
 
     /**
      * Get Valeur
-     * 
+     *
      * @return null|string
      */
     public function getValeur(): ?string
@@ -108,5 +108,4 @@ class SiteParams extends EntityBase
     }
     
     /* ---------------------- Autres méthodes ---------------------- */
-
 }

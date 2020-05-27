@@ -1,14 +1,23 @@
 bio: Biographie
 confirm_password: Confirmer le mot de passe
+description: Description
 dtn: Date de Naissance
 email: E-Mail
 Enregistrer: Enregistrer
 Femme: Femme
 Homme: Homme
+illustration: Illustration
 Inconnu: Inconnu
+Mentale: Mentale
 new_password: Nouveau mot de passe
 nom: Nom
+Non précisée: Non précisée
+photo: Photo
 prenom: Prénom
-Photo: Photo
+Physique: Physique
 sexe: Sexe
+type: Type
 username: Nom d'Utilisateur
+valeurMax: Valeur Maximum
+valeurMin: Valeur Minimum
+valeurMoyenne: Valeur Moyenne

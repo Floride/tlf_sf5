@@ -45,11 +45,11 @@ class UserFixtures extends Fixture
     {
         // Les noms d'utilisateurs à créer
         $listNames = [
-            'Demo', 
-            'Nicolas', 
-            'Sylvain', 
-            'Alexandre', 
-            'Marine', 
+            'Demo',
+            'Nicolas',
+            'Sylvain',
+            'Alexandre',
+            'Marine',
             'Anna'
         ];
         
@@ -102,7 +102,7 @@ class UserFixtures extends Fixture
     /**
      * {@inheritdoc}
      */
-    public function getOrder():int 
+    public function getOrder():int
     {
         return 1000;
     }

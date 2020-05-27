@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Mapping\EntityBase;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CaracsRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class Caracs
@@ -14,12 +17,13 @@ use App\Repository\CaracsRepository;
  * @package    App\Entity
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
- * 
+ *
  * @ORM\Entity(repositoryClass=CaracsRepository::class)
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="perso_caracs")
+ * @Vich\Uploadable
  */
-class Caracs extends EntityBase 
+class Caracs extends EntityBase
 {
     const TYPE = [
         0 => 'Non précisée',
@@ -51,6 +55,18 @@ class Caracs extends EntityBase
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $nom;
+
+    /**
+     * @var string|null Picture name
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     */
+    private $picture;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="caracs_pictures", fileNameProperty="picture")
+     */
+    private $pictureFile;
 
     /**
      * @var int
@@ -167,6 +183,54 @@ class Caracs extends EntityBase
     }
 
     /**
+     * Get picture name
+     *
+     * @return string|null
+     */
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * Set picture name
+     *
+     * @param string|null $pictureName
+     * @return self
+     */
+    public function setPicture(?string $pictureName = null): self
+    {
+        $this->picture = $pictureName;
+        return $this;
+    }
+    
+    /**
+     * Get picture file
+     *
+     * @return File|null
+     */
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * Set picture file
+     *
+     * @param  File|UploadedFile|null $file
+     * @return self
+     */
+    public function setPictureFile(?File $file = null): self
+    {
+        $this->pictureFile = $file;
+        if (null !== $file) {
+            $this->setUpdatedAt(new DateTime('now'));
+        }
+
+        return $this;
+    }
+
+    /**
      * Get valeurMax
      *
      * @return int|null
@@ -259,5 +323,4 @@ class Caracs extends EntityBase
     }
     
     /* ---------------------- Autres méthodes ---------------------- */
-    
 }
