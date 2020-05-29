@@ -61,8 +61,10 @@ Developpeur(s) Background : Sylvain FLORIDE, Nicolas SEGUINEAU, Hélène BOUTELO
                 ->setNom($param['nom'])         // On la clé
                 ->setValeur($param['valeur'])   // On la valeur
             ;
+
             $manager->persist($siteParams);
         }
+
         $manager->flush();
 
         return;

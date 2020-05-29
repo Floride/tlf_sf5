@@ -50,6 +50,7 @@ abstract class AbstractCrudController extends AbstractController
         switch ($categorie) {
             case 'delete_ok': // supression OK
                 $message = sprintf('%s a bien été supprimé.', $element);
+
             break;
             case 'save_ok': // enregistrement OK
                 $message = sprintf('%s a bien été sauvegardé.', $element);

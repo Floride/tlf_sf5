@@ -45,6 +45,7 @@ class SiteParamsController extends AbstractCrudController
     {
         parent::__construct($entityManager);
         $this->paramsRepository = $paramsRepository;
+
     }
 
     /**
