@@ -41,6 +41,12 @@ class User extends EntityBase implements UserInterface
      * @ORM\Column(name="id", type="integer")
      */
     private $id;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="is_banned", type="boolean", options={"default" : false})
+     */
+    private $banned;
     
     /**
      * @var string|null Biographie
@@ -61,10 +67,16 @@ class User extends EntityBase implements UserInterface
     private $email;
 
     /**
-     * @var bool
+     * @var bool Actif?
      * @ORM\Column(name="is_enable", type="boolean", options={"default" : true})
      */
     private $enabled;
+    
+    /**
+     * @var DateTime|null Date of Last connexion
+     * @ORM\Column(name="Last_connexion",type="datetime", nullable=true)
+     */
+    private $lastConnexion;
 
     /**
      * @var string|null Last name
@@ -146,6 +158,36 @@ class User extends EntityBase implements UserInterface
     {
         return $this->id;
     }
+
+    /**
+     * Get banned
+     *
+     * @return boolean|null
+     */
+    public function getBanned(): ?bool
+    {
+        return $this->banned;
+    }
+
+    /**
+     * Set banned
+     *
+     * @param boolean $banned
+     * @return self
+     */
+    public function setBanned(bool $banned = false): self
+    {
+        $this->banned = $banned;
+
+        if ($banned) { // anonymisation du compte
+            $this->setNom(null);
+            $this->setPrenom(null);
+            $this->setPassword(md5(uniqid()));
+            $this->setEnabled(false);
+        }
+
+        return $this;
+    }
     
     /**
      * Get biographie
@@ -186,9 +228,9 @@ class User extends EntityBase implements UserInterface
      * @param DateTimeInterface|null $dateNaissance
      * @return self
      */
-    public function setDateNaissance(?DateTimeInterface $dateNaissance = null): self
+    public function setDateNaissance(?DateTimeInterface $date = null): self
     {
-        $this->dateNaissance = $dateNaissance;
+        $this->dateNaissance = $date;
 
         return $this;
     }
@@ -235,6 +277,28 @@ class User extends EntityBase implements UserInterface
     public function setEnabled(bool $enabled = true): self
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+    /**
+     * Get Date of last connexion
+     *
+     * @return DateTimeInterface|null
+     */
+    public function getLastConnexion(): ?DateTimeInterface
+    {
+        return $this->lastConnexion;
+    }
+
+    /**
+     * Set Date of last connexion
+     *
+     * @param DateTimeInterface|null $date
+     * @return self
+     */
+    public function setLastConnexion(?DateTimeInterface $date = null): self
+    {
+        $this->lastConnexion = $date;
 
         return $this;
     }

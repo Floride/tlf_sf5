@@ -24,12 +24,14 @@
     
     <div class="row">
         <div class="col-12">
-
+        
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th class="text-bold">Clé</th>
-                        <th class="text-bold">Valeur</th>
+
+                        <th class="text-bold text-justify">Valeur</th>
+
                         <th class="text-bold">Action</th>
                     <tr>
                 </thead>
@@ -37,11 +39,25 @@
                 {% for param in params %}
                     <tr>
                         <td>{{ param.nom }}</td>
-                        <td>{{ param.valeur|nl2br }}</td>
+
+                        <td class="text-justify">{{ param.valeur|nl2br }}</td>
+
                         <td class="text-center">
                             <a href="{{ path('site_params_edit', {id: param.id}) }}" class="btn btn-sm btn-primary">
                                 <i class="far fa-edit" title="Editer"></i>
                             </a>
+
+                            <form action="{{ path('site_params_delete', {id: param.id}) }}"
+                                method="POST" id="delete_form_{{ param.id }}" class="form_delete"
+                                onSubmit="return confirm('Êtes-vous sur de vouloir supprimer ce paramètre ?')"
+                            />
+                                <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ param.id }}">
+                                    <i class="far fa-trash-alt" title="Supprimer"></i>
+                                </button>
+                                <input type="hidden" id="method_{{ param.id }}" name="_method" value="DELETE" />
+                                <input type="hidden" id="token_{{ param.id }}" name="_token" value="{{ csrf_token('site_params_delete_' ~ param.id) }}" />
+                            </form>
+                            
                         </td>
                     <tr>
                 {% else %}

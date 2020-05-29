@@ -45,6 +45,29 @@ class SiteParamsController extends AbstractCrudController
     {
         parent::__construct($entityManager);
         $this->paramsRepository = $paramsRepository;
+
+    }
+
+    /**
+     * Suppression d'une caractéristique
+     *
+     * @param Request $request
+     * @param SiteParams $param
+     *
+     * @return Response
+     *
+     * @Route("/{id}/delete", name="site_params_delete", requirements={"id"="\d+"}, methods={"DELETE"})
+     */
+    public function delete(Request $request, SiteParams $param): Response
+    {
+        if ($this->isCsrfTokenValid('perso_caracs_delete_' . $param->getId(), $request->get('_token'))) {
+            $this->suppression($param);
+            $this->messageFlash('delete_ok', 'paramètre');
+        } else {
+            $this->messageFlash('csrf_bad');
+        }
+
+        return $this->redirect($this->generateUrl('site_params_list')); // redirection vers la liste des Paramètres de site
     }
 
     /**
@@ -63,7 +86,7 @@ class SiteParamsController extends AbstractCrudController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->sauvegarde($user);
+            $this->sauvegarde($param);
             $this->messageFlash('save_ok', 'paramètre');
             return $this->redirect($this->generateUrl('site_params_list')); // redirection vers la liste des Paramètres de site
         }
@@ -84,7 +107,7 @@ class SiteParamsController extends AbstractCrudController
      */
     public function list(): Response
     {
-        $params = $this->paramsRepository->findAll();
+        $params = $this->paramsRepository->findBy([], ['nom' => 'ASC']);
         
         return $this->render('admin/site_params/list.html.twig', [
             'controller_name' => 'SiteParamsController',
@@ -110,7 +133,7 @@ class SiteParamsController extends AbstractCrudController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->sauvegarde($user);
+            $this->sauvegarde($param);
             $this->messageFlash('save_ok', 'paramètre');
             return $this->redirect($this->generateUrl('site_params_list')); // redirection vers la liste des Paramètres de site
         }

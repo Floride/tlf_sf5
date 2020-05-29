@@ -1,0 +1,17 @@
+{# templates\admin\perso\comps\list.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-8">
+            <h1>Personnage : Compétences</h1>
+        </div>
+        <div class="col-4 text-right align-self-center">
+            <a href="{{ path('admin_index') }}">Retour</a>
+        </div>
+    </div>
+
+    {% include "alert.html.twig" %}
+
+{% endbody %}

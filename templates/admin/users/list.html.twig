@@ -78,7 +78,10 @@
                             <a href="{{ path('users_user_edit', {id: user.id}) }}" class="btn btn-sm btn-primary">
                                 <i class="far fa-edit" title="Editer"></i>
                             </a>
-                            <form action="{{ path('users_user_delete', {id: user.id}) }}" method="POST" id="delete_form_{{ user.id }}" class="form_delete">
+                            <form action="{{ path('users_user_delete', {id: user.id}) }}"
+                                method="POST" id="delete_form_{{ user.id }}" class="form_delete"
+                                onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cet utilisateur ?')"
+                            />
                                 <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ user.id }}">
                                     <i class="far fa-trash-alt" title="Supprimer"></i>
                                 </button>
