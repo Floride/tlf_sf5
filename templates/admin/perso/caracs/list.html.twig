@@ -50,7 +50,10 @@
                     <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#carac{{ carac.id }}">
                         <i class="far fa-eye" title="Visualiser"></i>
                     </button>
-                    <form action="{{ path('perso_caracs_delete', {id: carac.id}) }}" method="POST" id="delete_form_{{ carac.id }}" class="form_delete">
+                    <form action="{{ path('perso_caracs_delete', {id: carac.id}) }}" 
+                        method="POST" id="delete_form_{{ carac.id }}" class="form_delete"
+                        onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cette caractéristique ?')"
+                    />
                         <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ carac.id }}">
                             <i class="far fa-trash-alt" title="Supprimer"></i>
                         </button>

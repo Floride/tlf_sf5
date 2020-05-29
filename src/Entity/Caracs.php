@@ -2,12 +2,15 @@
 // src\Entity\Caracs.php
 namespace App\Entity;
 
+use App\Entity\Comps;
 use App\Mapping\EntityBase;
-use App\Repository\CaracsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CaracsRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class Caracs
@@ -32,7 +35,7 @@ class Caracs extends EntityBase
     ];
 
     /**
-     * @var int
+     * @var int|null
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(name="id", type="integer")
@@ -40,18 +43,43 @@ class Caracs extends EntityBase
     private $id;
 
     /**
+     * @var string|null
      * @ORM\Column(name="abreviation", type="string", nullable=false, length=4)
      */
     private $abreviation;
 
     /**
-     * @var string
+     * @var Collection|Comps[]|null
+     * @ORM\OneToMany(targetEntity=Comps::class, mappedBy="caracPrimae")
+     */
+    private $compPrimae;
+
+    /**
+     * @var Collection|Comps[]|null
+     * @ORM\OneToMany(targetEntity=Comps::class, mappedBy="caracSecundae")
+     */
+    private $compSecundae;
+
+    /**
+     * @var Collection|Comps[]|null
+     * @ORM\OneToMany(targetEntity=Comps::class, mappedBy="caracTertiae")
+     */
+    private $compTertiae;
+
+    /**
+     * @var Collection|Comps[]|null
+     * @ORM\OneToMany(targetEntity=Comps::class, mappedBy="caracQuartae")
+     */
+    private $compQuartae;
+
+    /**
+     * @var string|null
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $nom;
@@ -99,6 +127,10 @@ class Caracs extends EntityBase
     {
         parent::__construct();
         $this->setType();
+        $this->compPrimae = new ArrayCollection();
+        $this->compSecundae = new ArrayCollection();
+        $this->compTertiae = new ArrayCollection();
+        $this->compQuartae = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -137,6 +169,194 @@ class Caracs extends EntityBase
     }
 
     /**
+     * Get Compétences Primaires
+     * 
+     * @return Collection|Comps[]
+     */
+    public function getCompPrimae(): Collection
+    {
+        return $this->compPrimae;
+    }
+
+    /**
+     * Add Compétence Primaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function addCompPrimae(Comps $comp): self
+    {
+        if (!$this->compPrimae->contains($comp)) {
+            $this->compPrimae[] = $comp;
+            $comp->setCaracPrima($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove Compétence Primaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function removeCompPrimae(Comps $comp): self
+    {
+        if ($this->compPrimae->contains($comp)) {
+            $this->compPrimae->removeElement($comp);
+            // set the owning side to null (unless already changed)
+            if ($comp->getCaracPrimae() === $this) {
+                $comp->setCaracPrimae(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Compétences Secondaires
+     * 
+     * @return Collection|Comps[]
+     */
+    public function getCompSecundae(): Collection
+    {
+        return $this->compSecundae;
+    }
+
+    /**
+     * Add Compétence Secondaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function addCompSecundae(Comps $comp): self
+    {
+        if (!$this->compSecundae->contains($comp)) {
+            $this->compSecundae[] = $comp;
+            $comp->setCaracSecundae($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove Compétence Secondaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function removeCompSecundae(Comps $comp): self
+    {
+        if ($this->compSecundae->contains($comp)) {
+            $this->compSecundae->removeElement($comp);
+            // set the owning side to null (unless already changed)
+            if ($comp->getCaracSecundae() === $this) {
+                $comp->setCaracSecundae(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Compétences Tertiaires
+     * 
+     * @return Collection|Comps[]
+     */
+    public function getCompTertiae(): Collection
+    {
+        return $this->compTertiae;
+    }
+
+    /**
+     * Add Compétence Tertiaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function addCompTertiae(Comps $comp): self
+    {
+        if (!$this->compTertiae->contains($comp)) {
+            $this->compTertiae[] = $comp;
+            $comp->setCaracTertiae($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove Compétence Tertiaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function removeCompTertiae(Comps $comp): self
+    {
+        if ($this->compTertiae->contains($comp)) {
+            $this->compTertiae->removeElement($comp);
+            // set the owning side to null (unless already changed)
+            if ($comp->getCaracTertiae() === $this) {
+                $comp->setCaracTertiae(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Compétences Quaternaires
+     * 
+     * @return Collection|Comps[]
+     */
+    public function getCompQuartae(): Collection
+    {
+        return $this->compQuartae;
+    }
+
+    /**
+     * Add Compétence Quaternaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function addCompQuartae(Comps $comp): self
+    {
+        if (!$this->compQuartae->contains($comp)) {
+            $this->compQuartae[] = $comp;
+            $comp->setCaracQuartae($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove Compétence Quaternaire
+     *
+     * @param Comps $comp
+     * 
+     * @return self
+     */
+    public function removeCompQuartae(Comps $comp): self
+    {
+        if ($this->compQuartae->contains($comp)) {
+            $this->compQuartae->removeElement($comp);
+            // set the owning side to null (unless already changed)
+            if ($comp->getCaracQuartae() === $this) {
+                $comp->setCaracQuartae(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Get description
      *
      * @return string|null
@@ -152,7 +372,7 @@ class Caracs extends EntityBase
      * @param string|null $description
      * @return self
      */
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description = null): self
     {
         $this->description = $description;
 
