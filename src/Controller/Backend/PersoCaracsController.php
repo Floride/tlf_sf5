@@ -2,11 +2,11 @@
 // src\Controller\Backend\UsersController.php
 namespace App\Controller\Backend;
 
+use App\Controller\AbstractCrudController;
 use App\Entity\Caracs;
 use App\Form\PersoCaracType;
 use App\Repository\CaracsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Controller\AbstractCrudController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

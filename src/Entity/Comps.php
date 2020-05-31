@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Entity\Caracs;
 use App\Mapping\EntityBase;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CompsRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class Caracs
@@ -43,6 +44,7 @@ class Comps extends EntityBase
     /**
      * @var string
      * @ORM\Column(name="abreviation", type="string", nullable=false, length=4)
+     * @Assert\NotBlank
      */
     private $abreviation;
 
@@ -50,6 +52,7 @@ class Comps extends EntityBase
      * @var Caracs|null
      * @ORM\ManyToOne(targetEntity=Caracs::class, inversedBy="compPrimae")
      * @ORM\JoinColumn(name="carac_1", nullable=false)
+     * @Assert\NotBlank
      */
     private $caracPrimae;
 
@@ -83,6 +86,7 @@ class Comps extends EntityBase
     /**
      * @var string|null
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank
      */
     private $nom;
 
@@ -101,6 +105,7 @@ class Comps extends EntityBase
     /**
      * @var int
      * @ORM\Column(name="type", type="smallint", nullable=false, options={"default" : 0})
+     * @Assert\NotBlank
      */
     private $type;
     

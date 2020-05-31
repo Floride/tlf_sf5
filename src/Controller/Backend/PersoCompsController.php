@@ -2,12 +2,14 @@
 // src\Controller\Backend\PersoCompsController.php
 namespace App\Controller\Backend;
 
-use App\Entity\Comps;
 use App\Controller\AbstractCrudController;
+use App\Entity\Comps;
 use App\Repository\CompsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class PersoCompsController

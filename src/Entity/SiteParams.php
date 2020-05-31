@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Mapping\EntityBase;
 use App\Repository\SiteParamsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class SiteParams
@@ -31,12 +32,14 @@ class SiteParams extends EntityBase
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=128, unique=true, nullable=false)
+     * @Assert\NotBlank
      */
     private $nom;
 
     /**
      * @var string
      * @ORM\Column(name="value", type="text", nullable=false)
+     * @Assert\NotBlank
      */
     private $valeur;
 
