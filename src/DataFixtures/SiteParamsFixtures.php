@@ -13,7 +13,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
  *
  * @package    App\DataFixtures
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
- * @version    1.0.0
+ * @version    1.0.3
  */
 class SiteParamsFixtures extends Fixture
 {
@@ -36,7 +36,7 @@ Donec gravida nunc dui, non accumsan leo rhoncus et. Suspendisse pellentesque fe
             ['nom' => 'site_title_abbr', 'valeur' => 'TLF'],
             ['nom' => 'site_statut', 'valeur' => 'true'],
             ['nom' => 'site_version', 'valeur' => '5.0'],
-            ['nom' => 'site_release', 'valeur' => 'Alpha 1.0.0'],
+            ['nom' => 'site_release', 'valeur' => 'Alpha 1.0.6'],
             ['nom' => 'webmaster_nom', 'valeur' => 'Sylvain FLORIDE'],
             ['nom' => 'webmaster_email', 'valeur' => 'sfloride@gmail.com'],
             ['nom' => 'auteur_nom', 'valeur' => 'Sylvain FLORIDE'],

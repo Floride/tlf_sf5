@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  *
  * @package    App\DataFixtures
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
- * @version    1.0.0
+ * @version    1.0.1
  */
 class UserFixtures extends Fixture
 {
@@ -65,7 +65,9 @@ class UserFixtures extends Fixture
                 $user,
                 'password'
             )) // On définit le mot de passe
-            ->setRoles(['ROLE_USER']); // On définit uniquement le role ROLE_USER qui est le role de base
+            ->setRoles(['ROLE_USER']) // On définit uniquement le role ROLE_USER qui est le role de base
+            ->setBanned(false) // Pas bannix
+        ;
 
         // On persiste l'objet $user
         $manager->persist($user);
@@ -78,12 +80,20 @@ class UserFixtures extends Fixture
                 ->setPassword($this->passwordEncoder->encodePassword(
                     $user,
                     $name
-                )); // On définit le mot de passe
+                )) // On définit le mot de passe
+                ->setBanned(false) // Pas banni
+            ;
             switch ($name) {
                 case 'Nicolas':
                 case 'Sylvain':
                     // On définit uniquement le role ROLE_ADMIN
                     $user->setRoles(['ROLE_ADMIN']);
+                    break;
+                case 'Anna':
+                    // On définit uniquement le role ROLE_USER qui est le role de base
+                    $user->setRoles(['ROLE_USER'])
+                        ->setBanned(true) // Bannie
+                    ;
                     break;
                 default:
                     // On définit uniquement le role ROLE_USER qui est le role de base

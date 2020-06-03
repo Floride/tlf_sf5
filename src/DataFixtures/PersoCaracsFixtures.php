@@ -72,7 +72,7 @@ C\'est la caractéristique principale des personnages "qui assurent", imposent "
         foreach ($caracs as $carac) {
             $c = (new Caracs())  // On crée une caractéristique
                 ->setNom($carac['nom'])                 // On ajoute la clé
-                ->setAbreviation($carac['abrev'])      // On ajoute l'abréviation
+                ->setAbreviation($carac['abrev'])       // On ajoute l'abréviation
                 ->setValeurMin($carac['valeurMin'])     // On ajoute la valeur min
                 ->setValeurMax($carac['valeurMax'])     // On ajoute la valeur max
                 ->setValeurMoyenne($carac['valeurMoy']) // On ajoute la valeur moy
