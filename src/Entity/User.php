@@ -5,11 +5,12 @@ namespace App\Entity;
 use DateTime;
 use DateTimeInterface;
 use App\Mapping\EntityBase;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -45,6 +46,7 @@ class User extends EntityBase implements UserInterface
     /**
      * @var bool
      * @ORM\Column(name="is_banned", type="boolean", options={"default" : false})
+     * @Assert\NotBlank
      */
     private $banned;
     
@@ -62,7 +64,11 @@ class User extends EntityBase implements UserInterface
 
     /**
      * @var string Email
-     * @ORM\Column(name="email", type="string", length=180, unique=true)
+     * @ORM\Column(name="email", type="string", length=180, nullable=false, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "L'Email '{{ value }}' n'est pas un email valide."
+     * )
      */
     private $email;
 
@@ -135,6 +141,7 @@ class User extends EntityBase implements UserInterface
     /**
      * @var bool
      * @ORM\Column(name="is_valid", type="boolean", options={"default" : false})
+     * @Assert\NotBlank
      */
     private $valided;
 

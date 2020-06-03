@@ -170,7 +170,7 @@ class UsersController extends AbstractCrudController
             return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
         }
          
-        return $this->render('admin/users/edit.html.twig', [
+        return $this->render('admin/users/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
             'controller_name' => 'UsersController'

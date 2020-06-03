@@ -96,11 +96,20 @@
     "friendsoftwig/twigcs": {
         "version": "v3.2.2"
     },
+    "fzaninotto/faker": {
+        "version": "v1.9.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
     "jms/metadata": {
         "version": "2.1.0"
+    },
+    "knplabs/knp-components": {
+        "version": "v2.3.5"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.2.0"
     },
     "monolog/monolog": {
         "version": "2.0.2"

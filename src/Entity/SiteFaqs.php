@@ -1,14 +1,14 @@
 <?php
-// src\Entity\SiteParams.php
+// src\Entity\SiteFaqs.php
 namespace App\Entity;
 
 use App\Mapping\EntityBase;
-use App\Repository\SiteParamsRepository;
+use App\Repository\SiteFaqsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class SiteParams
+ * Class SiteFaqs
  *
  * PHP version 7.2
  *
@@ -16,11 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
  *
- * @ORM\Entity(repositoryClass=SiteParamsRepository::class)
+ * @ORM\Entity(repositoryClass=SiteFaqsRepository::class)
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="site_params")
+ * @ORM\Table(name="site_faqs")
  */
-class SiteParams extends EntityBase
+class SiteFaqs extends EntityBase
 {
     /**
      * @ORM\Id()
@@ -31,17 +31,17 @@ class SiteParams extends EntityBase
 
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=128, unique=true, nullable=false)
+     * @ORM\Column(name="question", type="string", length=512, unique=true, nullable=false)
      * @Assert\NotBlank
      */
-    private $nom;
+    private $question;
 
     /**
      * @var string
-     * @ORM\Column(name="value", type="text", nullable=false)
+     * @ORM\Column(name="response", type="text", nullable=false)
      * @Assert\NotBlank
      */
-    private $valeur;
+    private $reponse;
 
     /**
      * Constructor
@@ -64,48 +64,48 @@ class SiteParams extends EntityBase
     }
 
     /**
-     * Get Nom
+     * Get Question
      *
      * @return null|string
      */
-    public function getNom(): ?string
+    public function getQuestion(): ?string
     {
-        return $this->nom;
+        return $this->question;
     }
 
     /**
-     * Set Nom
+     * Set Question
      *
-     * @param string|null $nom
+     * @param string|null $question
      * @return self
      */
-    public function setNom(string $nom): self
+    public function setQuestion(string $question): self
     {
-        $this->nom = $nom;
+        $this->question = $question;
 
         return $this;
     }
 
 
     /**
-     * Get Valeur
+     * Get Reponse
      *
      * @return null|string
      */
-    public function getValeur(): ?string
+    public function getReponse(): ?string
     {
-        return $this->valeur;
+        return $this->reponse;
     }
 
     /**
-     * Set Valeur
+     * Set Reponse
      *
-     * @param string|null $valeur
+     * @param string|null $reponse
      * @return self
      */
-    public function setValeur(string $valeur): self
+    public function setReponse(string $reponse): self
     {
-        $this->valeur = $valeur;
+        $this->reponse = $reponse;
 
         return $this;
     }

@@ -13,7 +13,18 @@
 
                 <div class="row mb-4">
 
-                    <div class="col-12 small text-justify">{{ carac.description|nl2br }}</div>
+                    <div class="col-12 small text-justify">
+                    [ Caractéristique 
+                    {% if carac.type == 1 %}
+                        Physique
+                    {% elseif carac.type == 2 %}
+                        Mentale
+                    {% else %}
+                        Non précisée
+                    {% endif %}
+                    ]<br />
+                    {{ carac.description|nl2br }}
+                    </div>
 
                 </div>
                 
@@ -28,6 +39,19 @@
                 </div>
 
             </div>
+
+            <div class="modal-header">
+                <small>
+                    Compétence(s) associée(s): <br />
+                    {% for comp in carac.getCompsAsso() %}
+                        - <a href="{{ path('perso_comps_edit', {id: comp.id}) }}">{{ comp.nom }}</a>, 
+                        {% if not loop.last %}<br />{% endif %}
+                    {% else %}
+                        - <strong>aucune</strong>
+                    {% endfor %}
+                </small>
+            </div>
+
         </div>
     </div>
 </div>

@@ -3,77 +3,33 @@
 
 {% block body_content %}
 
-    <div class="row">
-        <div class="col-8">
-            <h1>Personnage : Caractéristiques</h1>
-        </div>
-        <div class="col-4 text-right align-self-center">
-            <a href="{{ path('admin_index') }}">Retour</a>
-        </div>
-    </div>
+    {% include "admin/elements/_header.html.twig" with {
+            'h_titre':'Personnage : Caractéristiques',
+            'h_path_retour':'admin_index'
+        }
+    %}
 
-    {% include "alert.html.twig" %}
+    {% include "admin/elements/_alert.html.twig" %}
  
-    <div class="row mb-4 mt4">
-        <div class="col-8 text-justify">
-            Les caractérisques d'un personnage, dans Troopers, la Légion Fédérale (TLF), sont une constituante de base d'un personnage.
-            Elles constituent le "matériaux brut", la base de tout personnage : son corps, ce qu'il en a fait, se qui le rend unique.
-            C'est en quelque sorte sa prédisposition génétique et l'amélioration dûe à l'acquis, l'entrainement.<br />
-            Les caractéristiques sont donc, une représentation chiffrée de ce qui fait l'essence du personnage. 
-        </div>
-        <div class="col-4 text-right">
-            <a href="{{ path('perso_caracs_new') }}">
-                <button class="btn btn-info">Nouvelle Caractéristique</button>
-            </a>
-        </div>
-    </div>
-
-    <div class="row">
-    </div>
-
-    <div class="card-deck">
-        {% for carac in caracs %}
-        <div class="col-3">
-            <div class="card mb-4">
-                <img class="card-img-top" 
-                    src="{{ asset('images/perso/caracs/default-carac.jpg') }}" 
-                    alt="Caractéristique : {{ carac.nom }} [{{ carac.abreviation }}]"
-                    data-toggle="modal" data-target="#carac{{ carac.id }}"
-                />
-                <div class="card-body">
-                    <h5 class="card-title text-bold text-center">{{ carac.nom }} [{{ carac.abreviation }}]</h5>
-                </div>
-                <div class="card-footer text-center">
-                    <a href="{{ path('perso_caracs_edit', {id: carac.id}) }}" class="btn btn-sm btn-primary">
-                        <i class="far fa-edit" title="Editer"></i>
-                    </a>
-                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#carac{{ carac.id }}">
-                        <i class="far fa-eye" title="Visualiser"></i>
-                    </button>
-                    
-                    <form action="{{ path('perso_caracs_delete', {id: carac.id}) }}" 
-                        method="POST" id="delete_form_{{ carac.id }}" class="form_delete"
-                        onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cette caractéristique ?')"
-                    />
-                    
-                        <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ carac.id }}">
-                            <i class="far fa-trash-alt" title="Supprimer"></i>
-                        </button>
-                        <input type="hidden" id="method_{{ carac.id }}" name="_method" value="DELETE" />
-                        <input type="hidden" id="token_{{ carac.id }}" name="_token" value="{{ csrf_token('perso_caracs_delete_' ~ carac.id) }}" />
-                    </form>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-</div>
+    {% set sh_description = "Les caractérisques d'un personnage, dans Troopers, la Légion Fédérale (TLF), sont une constituante de base d'un personnage. Elles constituent le \"matériaux brut\", la base de tout personnage : son corps, ce qu'il en a fait, se qui le rend unique. C'est en quelque sorte sa prédisposition génétique et l'amélioration dûe à l'acquis, l'entrainement.<br />Les caractéristiques sont donc, une représentation chiffrée de ce qui fait l'essence du personnage." %}
     
-    {% for carac in caracs %}
-        
-        {% include "admin/perso/caracs/_modal.html.twig"  with {'title': 'carac' ~ carac.id } %}
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':sh_description,
+            'sh_lien':'perso_caracs_new',
+            'sh_btn_txt':'Nouvelle Caractéristique'
+        }
+    %}
+    
+    {% include "admin/elements/_affichage.html.twig" with {'route': 'perso_caracs_list'} %}
 
-    {% endfor %}
+    {% if affichage == 'vignette' %}
+    
+        {% include "admin/perso/caracs/_vignette.html.twig" %}
+
+    {% else %}
+    
+        {% include "admin/perso/caracs/_liste.html.twig" %}
+
+    {% endif %}
 
 {% endblock %}

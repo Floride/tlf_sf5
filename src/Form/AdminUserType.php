@@ -1,5 +1,5 @@
 <?php
-
+// src\Form\AdminUserType.php
 namespace App\Form;
 
 use App\Entity\User;
@@ -13,8 +13,24 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class AdminUserType
+ *
+ * PHP version 7.2
+ *
+ * @package    App\Form
+ * @author     Sylvain FLORIDE <sfloride@gmail.com>
+ * @version    1.0.0
+ */
 class AdminUserType extends AbstractType
 {
+    /**
+     * buildForm
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -48,12 +64,18 @@ class AdminUserType extends AbstractType
                 'required' => false,
             ])
             ->add('pictureFile', FileType::class, [
-                'label' => 'Photo',
+                'label' => 'photo',
                 'required' => false,
             ])
         ;
     }
 
+    /**
+     * configureOptions
+     *
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

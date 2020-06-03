@@ -1,23 +1,66 @@
+# ------- A ------- #
+abreviation: Abreviation
+# ------- B ------- #
 bio: Biographie
+# ------- C ------- #
+caracPrimae: Caractéristique associée 1
+caracQuartae: Caractéristique associée 4
+caracSecundae: Caractéristique associée 2
+caracTertiae: Caractéristique associée 3
+compsRemplacerPar: Compétence remplacée par
 confirm_password: Confirmer le mot de passe
+Connaissance: Connaissance
+# ------- D ------- #
+defaultCaracPrimae: "- Choisissez la Caractéristique -"
+defaultCaracQuartae: "- Choisissez la Caractéristique -"
+defaultCaracSecundae: "- Choisissez la Caractéristique -"
+defaultCaracTertiae: "- Choisissez la Caractéristique -"
 description: Description
 dtn: Date de Naissance
+# ------- E ------- #
 email: E-Mail
 Enregistrer: Enregistrer
+# ------- F ------- #
 Femme: Femme
+# ------- G ------- #
+# ------- H ------- #
 Homme: Homme
+# ------- I ------- #
 illustration: Illustration
 Inconnu: Inconnu
+# ------- J ------- #
+# ------- K ------- #
+# ------- L ------- #
+# ------- M ------- #
 Mentale: Mentale
+# ------- N ------- #
 new_password: Nouveau mot de passe
 nom: Nom
 Non précisée: Non précisée
+# ------- O ------- #
+obsolete: Obsolète
+# ------- P ------- #
 photo: Photo
 prenom: Prénom
 Physique: Physique
+Pratique: Pratique
+# ------- Q ------- #
+question: Question
+# ------- R ------- #
+reponse: Réponse
+# ------- S ------- #
 sexe: Sexe
+# ------- T ------- #
 type: Type
+# ------- U ------- #
 username: Nom d'Utilisateur
+# ------- V ------- #
+valeur: Valeur
+valeurFixe: Valeur Fixe
 valeurMax: Valeur Maximum
 valeurMin: Valeur Minimum
 valeurMoyenne: Valeur Moyenne
+# ------- W ------- #
+# ------- X ------- #
+# ------- Y ------- #
+# ------- Z ------- #

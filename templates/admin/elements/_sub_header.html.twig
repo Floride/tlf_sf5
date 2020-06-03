@@ -1,0 +1,13 @@
+{# templates\admin\elements\_sub_header.html.twig #}
+<div class="row mb-4 mt4">
+    <div class="col-8 text-justify">
+        {{ sh_description|raw('html') }}
+    </div>
+    <div class="col-4 text-right">
+        {% if not sh_lien == '' %}
+        <a href="{{ path(sh_lien) }}">
+            <button class="btn btn-info">{{ sh_btn_txt }}</button>
+        </a>
+        {% endif %}
+    </div>
+</div>

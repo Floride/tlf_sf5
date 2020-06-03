@@ -1,21 +1,21 @@
-{# templates\admin\users\new.html.twig #}
+{# templates\admin\site\faqs\edit.html.twig #}
 {% extends 'admin/layout.html.twig' %}
 
 {% block body_content %}
-    
+
     {% include "admin/elements/_header.html.twig" with {
-            'h_titre':'Joueurs',
-            'h_path_retour':'users_list'
+            'h_titre':'F.A.Q\'s',
+            'h_path_retour':'site_params_list'
         }
     %}
 
     {% include "admin/elements/_sub_header.html.twig" with {
-            'sh_description':'Créer un nouveau joueur',
+            'sh_description':'Modifier un paramètre',
             'sh_lien':'',
             'sh_btn_txt':''
         }
     %}
 
-    {% include "admin/users/_form.html.twig" with {'button': 'Enregistrer'} %}
-    
+    {% include "admin/site/faqs/_form.html.twig" with {'button': 'Enregistrer'} %}
+
 {% endblock %}

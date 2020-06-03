@@ -4,13 +4,14 @@ namespace App\Entity;
 
 use App\Entity\Comps;
 use App\Mapping\EntityBase;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CaracsRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class Caracs
@@ -44,7 +45,8 @@ class Caracs extends EntityBase
 
     /**
      * @var string|null
-     * @ORM\Column(name="abreviation", type="string", nullable=false, length=4)
+     * @ORM\Column(name="abreviation", type="string", nullable=false, length=4, unique=true)
+     * @Assert\NotBlank
      */
     private $abreviation;
 
@@ -81,6 +83,7 @@ class Caracs extends EntityBase
     /**
      * @var string|null
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank
      */
     private $nom;
 
@@ -99,24 +102,28 @@ class Caracs extends EntityBase
     /**
      * @var int
      * @ORM\Column(name="val_min", type="integer", nullable=false, options={"default" : 0})
+     * @Assert\NotBlank
      */
     private $valeurMin;
 
     /**
      * @var int
      * @ORM\Column(name="val_max", type="integer", nullable=false, options={"default" : 100})
+     * @Assert\NotBlank
      */
     private $valeurMax;
 
     /**
      * @var int
      * @ORM\Column(name="val_moy", type="integer", nullable=false, options={"default" : 50})
+     * @Assert\NotBlank
      */
     private $valeurMoyenne;
 
     /**
      * @var int
      * @ORM\Column(name="type", type="smallint", nullable=false, options={"default" : 0})
+     * @Assert\NotBlank
      */
     private $type;
     
@@ -543,4 +550,35 @@ class Caracs extends EntityBase
     }
     
     /* ---------------------- Autres méthodes ---------------------- */
+
+    public function getCompsAsso() 
+    {
+        $compAsso = new ArrayCollection();
+
+        foreach($this->compPrimae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        foreach($this->compSecundae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        foreach($this->compTertiae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        foreach($this->compQuartae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        return $compAsso;
+    }
 }

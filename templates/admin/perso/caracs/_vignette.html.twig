@@ -1,0 +1,44 @@
+<div class="card-deck">
+    {% for carac in caracs %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/perso/caracs/default-carac.jpg') }}" 
+                alt="Caractéristique : {{ carac.nom }} [{{ carac.abreviation }}]"
+                data-toggle="modal" data-target="#carac{{ carac.id }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ carac.nom }} [{{ carac.abreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ path('perso_caracs_edit', {id: carac.id}) }}" class="btn btn-sm btn-primary">
+                    <i class="far fa-edit" title="Editer"></i>
+                </a>
+                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#carac{{ carac.id }}">
+                    <i class="far fa-eye" title="Visualiser"></i>
+                </button>
+                
+                <form action="{{ path('perso_caracs_delete', {id: carac.id}) }}" 
+                    method="POST" id="delete_form_{{ carac.id }}" class="form_delete"
+                    onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cette caractéristique ?')"
+                />
+                
+                    <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ carac.id }}">
+                        <i class="far fa-trash-alt" title="Supprimer"></i>
+                    </button>
+                    <input type="hidden" id="method_{{ carac.id }}" name="_method" value="DELETE" />
+                    <input type="hidden" id="token_{{ carac.id }}" name="_token" value="{{ csrf_token('perso_caracs_delete_' ~ carac.id) }}" />
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for carac in caracs %}
+    
+    {% include "admin/perso/caracs/_modal.html.twig"  with {'title': 'carac' ~ carac.id } %}
+
+{% endfor %}

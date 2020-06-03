@@ -1,26 +1,22 @@
-{# templates\admin\list.html.twig #}
+{# templates\admin\site\params\list.html.twig #}
 {% extends 'admin/layout.html.twig' %}
 
 {% block body_content %}
 
-    <div class="row">
-        <div class="col-8">
-            <h1>Paramètres du Site</h1>
-        </div>
-        <div class="col-4 text-right align-self-center">
-            <a href="{{ path('admin_index') }}">Retour</a>
-        </div>
-    </div>
+    {% include "admin/elements/_header.html.twig" with {
+            'h_titre':'Paramètres du Site',
+            'h_path_retour':'admin_index'
+        }
+    %}
 
-    {% include "alert.html.twig" %}
-
-    <div class="row">
-        <div class="col-12 text-right mb-4 mt4 ">
-            <a href="{{ path('site_params_new') }}">
-                <button class="btn btn-info">Nouveau Paramètre</button>
-            </a>
-        </div>
-    </div>
+    {% include "admin/elements/_alert.html.twig" %}
+    
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description': '',
+            'sh_lien':'site_params_new',
+            'sh_btn_txt':'Nouveau Paramètre'
+        }
+    %}
     
     <div class="row">
         <div class="col-12">
