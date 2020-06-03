@@ -97,15 +97,19 @@ class PersoCaracsController extends AbstractCrudController
     /**
      * Liste des caractéristiques
      * 
+     * @param Request $request
+     * 
      * @return Response
      * 
      * @Route("", name="perso_caracs_list", methods={"GET"})
      */
-    public function list(): Response
+    public function list(Request $request): Response
     {
+        $affichage = $request->get('affichage', 'viguette');
         $caracs = $this->caracsRepository->findBy([], ['nom' => 'ASC']);
         
         return $this->render('admin/perso/caracs/list.html.twig', [
+            'affichage' => $affichage,
             'caracs' => $caracs,
             'controller_name' => 'PersoCaracsController',
         ]);

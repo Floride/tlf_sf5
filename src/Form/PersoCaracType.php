@@ -1,5 +1,5 @@
 <?php
-
+// src\Form\PersoCaracType.php
 namespace App\Form;
 
 use App\Entity\Caracs;
@@ -12,8 +12,24 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class PersoCaracType
+ *
+ * PHP version 7.2
+ *
+ * @package    App\Form
+ * @author     Sylvain FLORIDE <sfloride@gmail.com>
+ * @version    1.0.0
+ */
 class PersoCaracType extends AbstractType
 {
+    /**
+     * buildForm
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -52,6 +68,12 @@ class PersoCaracType extends AbstractType
         ;
     }
 
+    /**
+     * configureOptions
+     *
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

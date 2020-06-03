@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * Class AdminController
+ * Class SiteParamsController
  *
  * PHP version 7.2
  *
@@ -49,7 +49,7 @@ class SiteParamsController extends AbstractCrudController
     }
 
     /**
-     * Suppression d'une caractéristique
+     * Suppression d'un paramètre
      *
      * @param Request $request
      * @param SiteParams $param
@@ -60,7 +60,7 @@ class SiteParamsController extends AbstractCrudController
      */
     public function delete(Request $request, SiteParams $param): Response
     {
-        if ($this->isCsrfTokenValid('perso_caracs_delete_' . $param->getId(), $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('site_params_delete_' . $param->getId(), $request->get('_token'))) {
             $this->suppression($param);
             $this->messageFlash('delete_ok', 'paramètre');
         } else {
@@ -91,7 +91,7 @@ class SiteParamsController extends AbstractCrudController
             return $this->redirect($this->generateUrl('site_params_list')); // redirection vers la liste des Paramètres de site
         }
 
-        return $this->render('admin/site_params/edit.html.twig', [
+        return $this->render('admin/site/params/edit.html.twig', [
             'controller_name' => 'SiteParamsController',
             'form' => $form->createView(),
             'param' => $param,
@@ -109,7 +109,7 @@ class SiteParamsController extends AbstractCrudController
     {
         $params = $this->paramsRepository->findBy([], ['nom' => 'ASC']);
         
-        return $this->render('admin/site_params/list.html.twig', [
+        return $this->render('admin/site/params/list.html.twig', [
             'controller_name' => 'SiteParamsController',
             'params' => $params
         ]);
@@ -138,7 +138,7 @@ class SiteParamsController extends AbstractCrudController
             return $this->redirect($this->generateUrl('site_params_list')); // redirection vers la liste des Paramètres de site
         }
 
-        return $this->render('admin/site_params/new.html.twig', [
+        return $this->render('admin/site/params/new.html.twig', [
             'controller_name' => 'SiteParamsController',
             'form' => $form->createView(),
             'param' => $param,

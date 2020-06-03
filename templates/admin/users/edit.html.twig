@@ -1,27 +1,20 @@
-{# templates\admin\index.html.twig #}
+{# templates\admin\users\edit.html.twig #}
 {% extends 'admin/layout.html.twig' %}
 
 {% block body_content %}
+    
+    {% include "admin/elements/_header.html.twig" with {
+            'h_titre':'Joueurs',
+            'h_path_retour':'users_list'
+        }
+    %}
 
-    <div class="row">
-
-        <div class="col-8">
-            <h1>Joueurs</h1>
-        </div>
-
-        <div class="col-4 text-right align-self-center">
-            <a href="{{ path('users_list') }}">Retour</a>
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-12">
-            <h4>Modifier un joueur</h4>
-        </div>
-        
-    </div>
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Modifier un joueur',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
 
     {% include './admin/users/_form.html.twig' with {'button': 'Enregistrer'} %}
 

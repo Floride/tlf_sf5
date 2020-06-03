@@ -2,16 +2,34 @@
 {% extends 'admin/layout.html.twig' %}
 
 {% block body_content %}
+    
+    {% include "admin/elements/_header.html.twig" with {
+            'h_titre':'Personnage : Compétences',
+            'h_path_retour':'admin_index'
+        }
+    %}
 
-    <div class="row">
-        <div class="col-8">
-            <h1>Personnage : Compétences</h1>
-        </div>
-        <div class="col-4 text-right align-self-center">
-            <a href="{{ path('admin_index') }}">Retour</a>
-        </div>
-    </div>
+    {% include "admin/elements/_alert.html.twig" %}
+    
+    {% set sh_description = "" %}
+    
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':sh_description,
+            'sh_lien':'perso_comps_new',
+            'sh_btn_txt':'Nouvelle Compétences'
+        }
+    %}
 
-    {% include "alert.html.twig" %}
+    {% include "admin/elements/_affichage.html.twig" with {'route': 'perso_comps_list'} %}
 
-{% endbody %}
+    {% if affichage == 'vignette' %}
+    
+        {% include "admin/perso/comps/_vignette.html.twig" %}
+
+    {% else %}
+    
+        {% include "admin/perso/comps/_liste.html.twig" %}
+
+    {% endif %}
+
+{% endblock %}

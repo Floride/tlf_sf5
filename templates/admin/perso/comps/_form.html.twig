@@ -1,0 +1,96 @@
+{# templates\admin\perso\comps\_form.html.twig #}
+{{ form_start(form) }}
+    <div class="row">
+
+        <div class="col-8">
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.nom) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.abreviation) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.type) }}
+                </div>
+            </div>
+            
+            <div class="row">
+            
+                <div class="col-12">
+                    {{ form_row(form.description) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-6">
+                    {{ form_row(form.caracPrimae) }}
+                </div>
+            
+                <div class="col-6">
+                    {{ form_row(form.caracSecundae) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-6">
+                    {{ form_row(form.caracTertiae) }}
+                </div>
+            
+                <div class="col-6">
+                    {{ form_row(form.caracQuartae) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-3   ">
+                    {{ form_row(form.valeur) }}
+                </div>
+
+            </div>
+            
+            <div class="row">
+
+                <div class="col-12">
+                    {{ form_row(form.obsolete) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+                
+                <div class="col-12">
+                    {{ form_row(form.remplacerPar) }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-4">
+            {{ form_row(form.picture) }}
+            {% if not comp.picture or comp.picture == '' %}
+                <img src="{{ asset('images/perso/comps/default-comps.png') }}" alt="image par defaut - Compétence" />
+            {% else %}
+                {% set iden = comp.nom ~ ' [' ~ comp.abreviation ~ ']' %}
+                <a href="" />
+                    <img src="{{ vich_uploader_asset(comp) }}" alt="{{ iden }}" />
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">{{ button }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

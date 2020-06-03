@@ -1,0 +1,45 @@
+{# templates\admin\perso\comps\_vignette.html.twig #}
+<div class="card-deck">
+    {% for comp in comps %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/perso/comps/default-comp.jpg') }}" 
+                alt="Caractéristique : {{ comp.nom }} [{{ comp.abreviation }}]"
+                data-toggle="modal" data-target="#comp{{ comp.id }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ comp.nom }} [{{ comp.abreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ path('perso_comps_edit', {id: comp.id}) }}" class="btn btn-sm btn-primary">
+                    <i class="far fa-edit" title="Editer"></i>
+                </a>
+                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#comp{{ comp.id }}">
+                    <i class="far fa-eye" title="Visualiser"></i>
+                </button>
+                
+                <form action="{{ path('perso_comps_delete', {id: comp.id}) }}" 
+                    method="POST" id="delete_form_{{ comp.id }}" class="form_delete"
+                    onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cette comptéristique ?')"
+                />
+                
+                    <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ comp.id }}">
+                        <i class="far fa-trash-alt" title="Supprimer"></i>
+                    </button>
+                    <input type="hidden" id="method_{{ comp.id }}" name="_method" value="DELETE" />
+                    <input type="hidden" id="token_{{ comp.id }}" name="_token" value="{{ csrf_token('perso_comps_delete_' ~ comp.id) }}" />
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for comp in comps %}
+    
+    {% include "admin/perso/comps/_modal.html.twig"  with {'title': 'comp' ~ comp.id } %}
+
+{% endfor %}

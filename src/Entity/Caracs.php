@@ -45,7 +45,7 @@ class Caracs extends EntityBase
 
     /**
      * @var string|null
-     * @ORM\Column(name="abreviation", type="string", nullable=false, length=4)
+     * @ORM\Column(name="abreviation", type="string", nullable=false, length=4, unique=true)
      * @Assert\NotBlank
      */
     private $abreviation;
@@ -550,4 +550,35 @@ class Caracs extends EntityBase
     }
     
     /* ---------------------- Autres méthodes ---------------------- */
+
+    public function getCompsAsso() 
+    {
+        $compAsso = new ArrayCollection();
+
+        foreach($this->compPrimae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        foreach($this->compSecundae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        foreach($this->compTertiae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        foreach($this->compQuartae as $comp) {
+            if (!$compAsso->contains($comp)) {
+                $compAsso[] = $comp;
+            }
+        }
+
+        return $compAsso;
+    }
 }
