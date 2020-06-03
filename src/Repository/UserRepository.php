@@ -43,6 +43,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @param string $newEncodedPassword
      *
      * @return void
+     * 
+     * @throws UnsupportedUserException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
