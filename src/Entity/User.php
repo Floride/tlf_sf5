@@ -44,7 +44,7 @@ class User extends EntityBase implements UserInterface
     private $id;
 
     /**
-     * @var bool
+     * @var bool Banni ?
      * @ORM\Column(name="is_banned", type="boolean", options={"default" : false})
      * @Assert\NotBlank
      */
@@ -73,7 +73,7 @@ class User extends EntityBase implements UserInterface
     private $email;
 
     /**
-     * @var bool Actif?
+     * @var bool Actif ?
      * @ORM\Column(name="is_enable", type="boolean", options={"default" : true})
      */
     private $enabled;
@@ -139,7 +139,7 @@ class User extends EntityBase implements UserInterface
     private $username;
 
     /**
-     * @var bool
+     * @var bool Valide ?
      * @ORM\Column(name="is_valid", type="boolean", options={"default" : false})
      * @Assert\NotBlank
      */

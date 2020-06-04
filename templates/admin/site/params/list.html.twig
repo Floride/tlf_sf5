@@ -28,7 +28,7 @@
 
                         <th class="text-bold text-justify">Valeur</th>
 
-                        <th class="text-bold">Action</th>
+                        <th class="text-bold text-center w-10">Action</th>
                     <tr>
                 </thead>
                 <tbody>
@@ -38,7 +38,7 @@
 
                         <td class="text-justify">{{ param.valeur|nl2br }}</td>
 
-                        <td class="text-center">
+                        <td class="text-center w-10">
                             <a href="{{ path('site_params_edit', {id: param.id}) }}" class="btn btn-sm btn-primary">
                                 <i class="far fa-edit" title="Editer"></i>
                             </a>

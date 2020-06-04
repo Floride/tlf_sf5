@@ -42,8 +42,13 @@ Donec gravida nunc dui, non accumsan leo rhoncus et. Suspendisse pellentesque fe
             ['nom' => 'auteur_nom', 'valeur' => 'Sylvain FLORIDE'],
             ['nom' => 'auteur_email', 'valeur' => 'sfloride@gmail.com'],
             ['nom' => 'meta_keywords', 'valeur' => 'Troopers, Légion, Fédérale, TLF, PbEM, JdR, jeu de rôle, Jeu par correspondance'],
-            ['nom' => 'meta_description', 'valeur' => 'Troopers, la Légion Fédérale est un jeu de rôle par  correspondance se déroulant dans un univers futuriste (anticipation), créé par Sylvain FLORIDE et Nicolas SEGUINEAU,  d\'après une idée originale de Sylvain FLORIDE, développé et maintenu par des bénévoles.
-Il s\'inspire librement d\'univers de livres, films, jeux de rôle ou de jeux vidéo (Troopers, Alien, Judge Dredd, X-COM, Shadowrun, etc...).'],
+            ['nom' => 'meta_description', 'valeur' => 'Troopers, la Légion Fédérale est un jeu de rôle par  correspondance '
+                . 'se déroulant dans un univers futuriste (anticipation), créé par Sylvain FLORIDE et Nicolas SEGUINEAU, ' 
+                . 'd\'après une idée originale de Sylvain FLORIDE, développé et maintenu par des bénévoles.' . PHP_EOL
+                . 'Pas complètement situé dans un univers dystopique, il de dépeint pas un monde qui est dirigé par une Fédération '
+                . 'très autoritaire et ou l\'individu n\'est mis en avant qu\'en tant que citoyen. ' . PHP_EOL
+                . 'Il s\'inspire librement d\'univers de livres, films, série TV, jeux de rôle ou vidéo '
+                . '(Troopers, Alien, Judge Dredd, COSMO 1999, Star Trek, X-COM, Shadowrun, etc...).'],
             ['nom' => 'remerciements', 'valeur' => 'Chargé(s) de projet : Sylvain FLORIDE, Nicolas SEGUINEAU
 Developeur(s) Web (PHP) : Sylvain FLORIDE
 Developeur(s) Web (Symfony 5) : Sylvain FLORIDE

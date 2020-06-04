@@ -116,7 +116,7 @@ class Comps extends EntityBase
     private $valeur;
 
     /**
-     * @var Bool
+     * @var bool Obsolète ?
      * @ORM\Column(name="obsolete", type="boolean", nullable=false, options={"default" : false})
      */
     private $obsolete;
