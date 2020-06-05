@@ -23,7 +23,7 @@ class Specialite extends EntityBase
 
     /**
      * @var string
-     * @ORM\Column(name="description", type="text", unique=true, nullable=false)
+     * @ORM\Column(name="description", type="text", nullable=false)
      * @Assert\NotBlank
      */
     private $description;

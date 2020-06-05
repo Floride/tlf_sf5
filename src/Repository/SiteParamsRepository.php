@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\SiteParams;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * Class SiteParamsRepository
@@ -22,8 +23,27 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SiteParamsRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructor
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SiteParams::class);
+    }
+
+    /**
+     * findByNameQuery
+     *
+     * @param string|null $order
+     * @return Query
+     */
+    public function findByNameQuery(?string $order = 'ASC'): Query 
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.nom', $order)
+            ->getQuery()
+        ;
     }
 }

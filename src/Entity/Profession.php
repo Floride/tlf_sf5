@@ -25,17 +25,17 @@ class Profession extends EntityBase
 
     /**
      * @var string
+     * @ORM\Column(type="text", nullable=false)
+     * @Assert\NotBlank
+     */
+    private $description;
+
+    /**
+     * @var string
      * @ORM\Column(type="string", length=255, unique=true, nullable=false)
      * @Assert\NotBlank
      */
     private $nom;
-
-    /**
-     * @var string
-     * @ORM\Column(type="text", unique=true, nullable=false)
-     * @Assert\NotBlank
-     */
-    private $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Specialite::class, mappedBy="profession", orphanRemoval=true)

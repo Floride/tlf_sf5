@@ -2,11 +2,12 @@
 // src\Controller\Backend\PersoCompsController.php
 namespace App\Controller\Backend;
 
-use App\Controller\AbstractCrudController;
 use App\Entity\Comps;
 use App\Form\PersoCompType;
 use App\Repository\CompsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\AbstractCrudController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,16 +98,21 @@ class PersoCompsController extends AbstractCrudController
     /**
      * Liste des compétences
      * 
+     * @param PaginatorInterface $paginator
      * @param Request $request
      * 
      * @return Response
      * 
      * @Route("", name="perso_comps_list", methods={"GET"})
      */
-    public function list(Request $request): Response
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
         $affichage = $request->get('affichage', 'liste');
-        $comps = $this->compsRepository->findBy([], ['nom' => 'ASC']);
+        $comps = $paginator->paginate(
+            $this->compsRepository->findByNameQuery(),
+            $request->query->getInt('page', 1), // Numéro de page
+            ($affichage == 'liste') ? 8 : 8    // Limite par page
+        );
         return $this->render('admin/perso/comps/list.html.twig', [
             'affichage' => $affichage,
             'comps' => $comps,

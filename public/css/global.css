@@ -57,6 +57,10 @@ a.delete_picture_user span.bg {
     display: inline-block;
 }
 
+.main-container {
+    min-height: 650px;
+}
+
 .picture {
     border: 1px solid black;
     border-radius: 10px;

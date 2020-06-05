@@ -53,7 +53,6 @@ class SiteParamsExtension extends AbstractExtension
     {
         return [
             new TwigFunction('siteParam', [$this, 'siteParam']),
-            new TwigFunction('siteTitle', [$this, 'siteTitle']),
         ];
     }
 
@@ -72,23 +71,5 @@ class SiteParamsExtension extends AbstractExtension
         $param = $this->paramsRepository->findOneBy(['nom' => $value]);
         
         return is_object($param) ? $param->getValeur(): null;
-    }
-
-    /**
-     * siteTitle
-     *
-     * @param string|null $value
-     * 
-     * @return string|null
-     */
-    public function siteTitle(?string $value = null): ?string
-    {
-        /**
-         * @var SiteParams
-         */
-        $param = $this->paramsRepository->findAll();
-        
-        // TODO : Générer le titre site (standard ou admin)
-        return null;
     }
 }

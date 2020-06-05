@@ -187,10 +187,16 @@ class User extends EntityBase implements UserInterface
         $this->banned = $banned;
 
         if ($banned) { // anonymisation du compte
-            $this->setNom(null);
-            $this->setPrenom(null);
-            $this->setPassword(md5(uniqid()));
-            $this->setEnabled(false);
+            $this->setBiographie(null)
+                ->setDateNaissance(null)
+                ->setEnabled(false)
+                ->setNom(null)
+                ->setPicture(null)
+                ->setPrenom(null)
+                ->setPassword(md5(uniqid()))
+                ->setRoles([])
+                ->setUsername(null)
+            ;
         }
 
         return $this;

@@ -1,5 +1,5 @@
 <?php
-// src\Controller\Backend\UsersController.php
+// src\Controller\Backend\PersoCaracsController.php
 namespace App\Controller\Backend;
 
 use App\Controller\AbstractCrudController;
@@ -7,6 +7,7 @@ use App\Entity\Caracs;
 use App\Form\PersoCaracType;
 use App\Repository\CaracsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,17 +98,22 @@ class PersoCaracsController extends AbstractCrudController
     /**
      * Liste des caractéristiques
      * 
+     * @param PaginatorInterface $paginator
      * @param Request $request
      * 
      * @return Response
      * 
      * @Route("", name="perso_caracs_list", methods={"GET"})
      */
-    public function list(Request $request): Response
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
-        $affichage = $request->get('affichage', 'viguette');
-        $caracs = $this->caracsRepository->findBy([], ['nom' => 'ASC']);
-        
+        $affichage = $request->get('affichage', 'vignette');
+        $caracs = $paginator->paginate(
+            $this->caracsRepository->findByNameQuery(),
+            $request->query->getInt('page', 1), // Numéro de page
+            ($affichage == 'vignette') ? 4 : 6  // Limite par page
+        );
+
         return $this->render('admin/perso/caracs/list.html.twig', [
             'affichage' => $affichage,
             'caracs' => $caracs,

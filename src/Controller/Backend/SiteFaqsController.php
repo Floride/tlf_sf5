@@ -5,9 +5,10 @@ namespace App\Controller\Backend;
 use DateTime;
 use App\Entity\SiteFaqs;
 use App\Form\SiteFaqType;
-use App\Controller\AbstractCrudController;
 use App\Repository\SiteFaqsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\AbstractCrudController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -101,14 +102,21 @@ class SiteFaqsController extends AbstractCrudController
     /**
      * Liste des F.A.Q's
      *
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * 
      * @return Response
      * 
      * @Route("/site/faqs", name="site_faqs_list", methods={"GET"})
      */
-    public function list(): Response
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
-        $faqs = $this->siteFaqsRepository->findAll();
-        
+        $faqs = $paginator->paginate(
+            $this->siteFaqsRepository->findByQuestionQuery(),
+            $request->query->getInt('page', 1), // Numéro de page
+            10                                  // Limite par page
+        );
+
         return $this->render('admin/site/faqs/list.html.twig', [
             'controller_name' => 'SiteParamsController',
             'faqs' => $faqs

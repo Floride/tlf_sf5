@@ -5,9 +5,10 @@ namespace App\Controller\Backend;
 use DateTime;
 use App\Entity\SiteParams;
 use App\Form\SiteParamType;
-use App\Controller\AbstractCrudController;
 use App\Repository\SiteParamsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\AbstractCrudController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -101,13 +102,20 @@ class SiteParamsController extends AbstractCrudController
     /**
      * Liste des paramètres du site
      *
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * 
      * @return Response
      * 
      * @Route("/site/params", name="site_params_list", methods={"GET"})
      */
-    public function list(): Response
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
-        $params = $this->paramsRepository->findBy([], ['nom' => 'ASC']);
+        $params = $paginator->paginate(
+            $this->paramsRepository->findByNameQuery(),
+            $request->query->getInt('page', 1), // Numéro de page
+            10                                  // Limite par page
+        );
         
         return $this->render('admin/site/params/list.html.twig', [
             'controller_name' => 'SiteParamsController',

@@ -40,14 +40,13 @@
 
             </div>
 
-            <div class="modal-header">
+            <div class="modal-footer">
                 <small>
                     Compétence(s) associée(s): <br />
                     {% for comp in carac.getCompsAsso() %}
-                        - <a href="{{ path('perso_comps_edit', {id: comp.id}) }}">{{ comp.nom }}</a>, 
-                        {% if not loop.last %}<br />{% endif %}
+                        <a href="{{ path('perso_comps_edit', {id: comp.id}) }}">{{ comp.nom }}</a>,
                     {% else %}
-                        - <strong>aucune</strong>
+                        <strong>aucune</strong>
                     {% endfor %}
                 </small>
             </div>

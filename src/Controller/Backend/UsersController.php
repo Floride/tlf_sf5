@@ -3,11 +3,12 @@
 namespace App\Controller\Backend;
 
 use DateTime;
-use App\Controller\AbstractCrudController;
 use App\Entity\User;
 use App\Form\AdminUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\AbstractCrudController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,6 +48,25 @@ class UsersController extends AbstractCrudController
     {
         parent::__construct($entityManager);
         $this->userRepository = $userRepository;
+    }
+
+    /**
+     * banni ?
+     *
+     * @param User $user
+     *
+     * @return Response
+     *
+     * @Route("/{id}/banned", name="users_user_banned", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function banned(User $user): Response
+    {
+        $beforeBan = $user; 
+        // TODO : Email pour informer bannissement du compte
+        $user->setBanned(!$user->getBanned()); // Mise à jour statut is_Banned
+        $this->sauvegarde($user);
+        
+        return $this->redirect($this->generateUrl('users_list')); // redirection vers la liste des Joueurs
     }
 
     /**
@@ -126,14 +146,21 @@ class UsersController extends AbstractCrudController
     /**
      * Liste des joueurs
      *
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * 
      * @return Response
      *
      * @Route("", name="users_list", methods={"GET"})
      */
-    public function list(): Response
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
-        $users = $this->userRepository->findAll();
-        
+        $users = $paginator->paginate(
+            $this->userRepository->findByEmailQuery(),
+            $request->query->getInt('page', 1), // Numéro de page
+            10                                  // Limite par page
+        );
+
         return $this->render('admin/users/list.html.twig', [
             'users' => $users,
             'controller_name' => 'UsersController'
