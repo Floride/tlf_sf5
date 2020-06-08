@@ -1,0 +1,30 @@
+{# templates\admin\character\feature\_card.html.twig #}
+<div class="card-deck">
+    {% for feature in features %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/characters/features/default.png') }}" 
+                alt="Caractéristique : {{ feature.name }} [{{ feature.abbreviation }}]"
+                data-toggle="modal" data-target="#feature{{ feature.id }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ feature.name }} [{{ feature.abbreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+
+                {% include "admin/character/feature/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for feature in features %}
+    
+    {% include "admin/character/feature/_modal.html.twig"  with {'title': 'feature' ~ feature.id } %}
+
+{% endfor %}

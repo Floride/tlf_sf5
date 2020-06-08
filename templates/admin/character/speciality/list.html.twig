@@ -1,0 +1,38 @@
+{# templates\admin\character\speciality\list.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnages: Professions (Spécialités)',
+            'h_path_retour':'admin_index'
+        }
+    %}
+
+    {% include "admin/elements/_alert.html.twig" %}
+ 
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'',
+            'sh_lien':'admin_character_speciality_new',
+            'sh_btn_txt':'Nouvelle specialité'
+        }
+    %}
+    
+    {% include "admin/elements/_display.html.twig" with {'route': 'admin_character_speciality_list'} %}
+
+    {% if display == 'card' %}
+    
+        {% include "admin/character/speciality/_card.html.twig" %}
+
+    {% else %}
+    
+        {% include "admin/character/speciality/_list.html.twig" %}
+
+    {% endif %}
+
+    {# display navigation #}
+    <div class="navigation text-center">
+        {{ knp_pagination_render(specialities) }}
+    </div>
+
+{% endblock %}

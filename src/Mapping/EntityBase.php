@@ -3,13 +3,13 @@
 namespace App\Mapping;
 
 use Doctrine\ORM\Mapping as ORM;
-use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 
 /**
  * Class EntityBase
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Mapping
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
@@ -20,16 +20,16 @@ use DateTimeInterface;
 class EntityBase implements EntityBaseInterface
 {
     /**
-     * @var DateTime $created
+     * @var null|DateTimeImmutable $created
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime_immutable", nullable=false)
      */
     protected $createdAt;
 
     /**
-     * @var DateTime $updated
+     * @var null|DateTimeImmutable $updated
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime_immutable", nullable=false)
      */
     protected $updatedAt;
 
@@ -38,6 +38,7 @@ class EntityBase implements EntityBaseInterface
      */
     public function __construct()
     {
+        $this->setCreatedAt(new DateTimeImmutable());
     }
 
     /**
@@ -48,7 +49,7 @@ class EntityBase implements EntityBaseInterface
      */
     public function updatedTimestamps(): void
     {
-        $dateTimeNow = new DateTime('now');
+        $dateTimeNow = new DateTimeImmutable('now');
 
         $this->setUpdatedAt($dateTimeNow);
 
@@ -68,7 +69,7 @@ class EntityBase implements EntityBaseInterface
     /**
      * @see EntityBaseInterface
      */
-    public function setCreatedAt(DateTimeInterface $createdAt): self
+    public function setCreatedAt(?DateTimeInterface $createdAt = null): self
     {
         $this->createdAt = $createdAt;
 
@@ -86,7 +87,7 @@ class EntityBase implements EntityBaseInterface
     /**
      * @see EntityBaseInterface
      */
-    public function setUpdatedAt(DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?DateTimeInterface $updatedAt = null): self
     {
         $this->updatedAt = $updatedAt;
 

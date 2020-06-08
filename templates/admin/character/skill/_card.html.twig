@@ -1,0 +1,30 @@
+{# templates\admin\character\skill\_card.html.twig #}
+<div class="card-deck">
+    {% for skill in skills %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/characters/skills/default.png') }}" 
+                alt="Compétence : {{ skill.name }} [{{ skill.abbreviation }}]"
+                data-toggle="modal" data-target="#skill{{ skill.id }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ skill.name }} [{{ skill.abbreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+                
+                {% include "admin/character/skill/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for skill in skills %}
+    
+    {% include "admin/character/skill/_modal.html.twig"  with {'title': 'skill' ~ skill.id } %}
+
+{% endfor %}

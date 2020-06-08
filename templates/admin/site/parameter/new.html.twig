@@ -1,0 +1,21 @@
+{# templates\admin\site\parameter\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Paramètres du Site',
+            'h_path_retour':'admin_site_parameter_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer un nouveau paramètre',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/site/parameter/_form.html.twig" with {'button': 'Enregistrer'} %}
+    
+{% endblock %}

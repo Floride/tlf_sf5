@@ -1,0 +1,40 @@
+{# templates\admin\character\feature\list.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Caractéristiques',
+            'h_path_retour':'admin_index'
+        }
+    %}
+
+    {% include "admin/elements/_alert.html.twig" %}
+ 
+    {% set sh_description = "Les caractérisques d'un personnage, dans Troopers, la Légion Fédérale (TLF), sont une constituante de base d'un personnage. Elles constituent le \"matériaux brut\", la base de tout personnage : son corps, ce qu'il en a fait, se qui le rend unique. C'est en quelque sorte sa prédisposition génétique et l'amélioration dûe à l'acquis, l'entrainement.<br />Les caractéristiques sont donc, une représentation chiffrée de ce qui fait l'essence du personnage." %}
+    
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':sh_description,
+            'sh_lien':'admin_character_feature_new',
+            'sh_btn_txt':'Nouvelle Caractéristique'
+        }
+    %}
+    
+    {% include "admin/elements/_display.html.twig" with {'route': 'admin_character_feature_list'} %}
+
+    {% if display == 'card' %}
+    
+        {% include "admin/character/feature/_card.html.twig" %}
+
+    {% else %}
+    
+        {% include "admin/character/feature/_list.html.twig" %}
+
+    {% endif %}
+
+    {# display navigation #}
+    <div class="navigation text-center">
+        {{ knp_pagination_render(features) }}
+    </div>
+
+{% endblock %}

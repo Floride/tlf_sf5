@@ -1,0 +1,19 @@
+{# templates\admin\site\parameter\_form.html.twig #}
+{{ form_start(form) }}
+    <div class="row">
+            
+        <div class="col-6">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form.value) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">Enregistrer</button>
+        </div>
+    </div>
+{{ form_end(form) }}

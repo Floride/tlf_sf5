@@ -1,0 +1,105 @@
+{# templates\admin\users\list.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Joueurs',
+            'h_path_retour':'admin_index'
+        }
+    %}
+
+    {% include "admin/elements/_alert.html.twig" %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'',
+            'sh_lien':'admin_user_new',
+            'sh_btn_txt':'Nouveau Joueur'
+        }
+    %}
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center"></th>
+                        <th class="text-bold">Nom</th>
+                        <th class="text-bold">Prénom</th>
+                        <th class="text-bold">Username</td>
+                        <th class="text-bold">Email</th>
+                        <th class="text-bold text-center">Validé</th>
+                        <th class="text-bold text-center">Activé</th>
+                        <th class="text-bold text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            {% if user.ban %}<i class="fas fa-ban text-danger" title="Banni"></i>{% endif %}
+                            {% if 'ROLE_ADMIN' in user.roles %}<i class="fas fa-star text-primary" title="Administrateur"></i>{% endif %}
+                        </td>
+                        <td>{% if user.lastname %}
+                            {{ user.lastname }}
+                            {% else %}
+                            - non renseigné -
+                            {% endif %}</td>
+                        <td>{% if user.firstname %}
+                            {{ user.firstname }}
+                            {% else %}
+                            - non renseigné -
+                            {% endif %}</td>
+                        <td>{% if user.username %}
+                            {{ user.username }}
+                            {% else %}
+                            - non renseigné -
+                            {% endif %}</td>
+                        <td>{{ user.email }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('admin_user_valid', {id: user.id}) }}">
+                                {% if user.valid %}
+                                <i class="far fa-envelope-open text-success" title="Oui"></i>
+                                {% else %}
+                                <i class="far fa-envelope text-warning" title="Non"></i>
+                            {% endif %}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('admin_user_enable', {id: user.id}) }}">
+                                {% if user.enable %}
+                                <i class="far fa-check-square text-success" title="Oui"></i>
+                                {% else %}
+                                <i class="far fa-square text-danger" title="Non"></i>
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('admin_user_edit', {id: user.id}) }}" class="btn btn-sm btn-primary">
+                                <i class="far fa-edit" title="Editer"></i>
+                            </a>
+                            <form action="{{ path('admin_user_delete', {id: user.id}) }}"
+                                method="POST" id="delete_form_{{ user.id }}" class="form_delete"
+                                onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cet utilisateur ?')"
+                            />
+                                <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ user.id }}">
+                                    <i class="far fa-trash-alt" title="Supprimer"></i>
+                                </button>
+                                <input type="hidden" id="method_{{ user.id }}" name="_method" value="DELETE" />
+                                <input type="hidden" id="token_{{ user.id }}" name="_token" value="{{ csrf_token('admin_user_delete_' ~ user.id) }}" />
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    {# display navigation #}
+    <div class="navigation text-center">
+        {{ knp_pagination_render(users) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{# templates\admin\character\feature\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Caractéristiques',
+            'h_path_retour':'admin_character_feature_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer une nouvelle caractéristique',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/character/feature/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

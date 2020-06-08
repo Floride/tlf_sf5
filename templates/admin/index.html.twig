@@ -8,7 +8,7 @@
             <h1>Tableau de Bord</h1>
         </div>
         <div class="col-4 text-right align-self-center">
-            <a href="{{ path('accueil') }}">Retour au site</a>
+            <a href="{{ path('home_welcome') }}">Retour au site</a>
         </div>
     </div>
 
@@ -16,39 +16,33 @@
         <div class="col-12">
             <ul>
                 <li>Site - Historique</li>
-                <li><a href="{{ path('site_params_list') }}">Site - Paramètres</a></li>
-                <li><a href="{{ path('site_faqs_list') }}">Site - F.A.Q's</a></li>
+                <li><a href="{{ path('admin_site_parameter_list') }}">Site - Paramètres</a></li>
+                <li><a href="{{ path('admin_site_faq_list') }}">Site - F.A.Q's</a></li>
 
-                <li><a href="{{ path('users_list') }}">Joueur - Joueurs</a></li>
+                <li><a href="{{ path('admin_user_list') }}">Joueur - Joueurs</a></li>
                 <li>Joueur - Groupes</li>
-                
-                <li>Personnages</li>
-                <li><a href="{{ path('perso_caracs_list') }}">Personnage - Caractéristiques</a></li>
-                <li><a href="{{ path('perso_comps_list') }}">Personnage - Compétences</a></li>
-                <li>Personnage - Professions</li>
-                <li>Personnage - Spécialités</li>
-                <li>Personnage - Promotions</li>
+                <li>Personnage - Personnages</li>
+                <li>Personnage - Accréditations</li>
+                <li><a href="{{ path('admin_character_feature_list') }}">Personnage - Caractéristiques</a></li>
+                <li><a href="{{ path('admin_character_skill_list') }}">Personnage - Compétences</a></li>
+                <li>Personnage - Hiérarchie - Fonctions</li>
+                <li><a href="{{ path('admin_character_rank_list') }}">Personnage - Hiérarchie - Grades</a></li>
+                <li><a href="{{ path('admin_character_profession_list') }}">Personnage - Professions</a></li>
+                <li><a href="{{ path('admin_character_speciality_list') }}">Personnage - Professions - Spécialités</a></li>
+                <li>Personnage - Récompences - Médailles</li>
                 <li>Personnage - Sanctions</li>
-                
-                <li>Géographie - Astres - Lieux</li>
-                <li>Géographie - Astres - Types</li>
-                <li>Géographie - Cités - Lieux</li>
-                <li>Géographie - Cités - Types</li>
-
                 <li>Jeu - Affectations</li>
-                <li>Jeu - Accréditations</li>
                 <li>Jeu - Equipements</li>
                 <li>Jeu - FanFics</li>
-                <li>Jeu - Hiérarchie - Fonctions</li>
-                <li>Jeu - Hiérarchie - Grades</li>
-                <li>Jeu - Récompences - Médailles</li>
-                <li>Jeu - Métiers</li>
+                <li>Jeu - Géographie - Astres - Lieux</li>
+                <li>Jeu - Géographie - Astres - Types</li>
+                <li>Jeu - Géographie - Cités - Lieux</li>
+                <li>Jeu - Géographie - Cités - Types</li>
                 <li>Jeu - Missions</li>
                 <li>Jeu - Missions - Campagnes</li>
                 <li>Jeu - Missions - Objectifs</li>
                 <li>Jeu - Missions - Scénario</li>
                 <li>Jeu - Règles</li>
-                <li>Jeu - Sanctions</li>
                 <li>Jeu - Troopédia - Chronologie Archives Fédérales</li>
                 <li>Jeu - Troopédia - Chronologie selon le Pr. G. H. Jurgen</li>
                 <li>Jeu - Troopédia - Chronologie selon le Dr. A. Rimenez</li>

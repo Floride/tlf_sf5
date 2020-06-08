@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class UserRepository
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Repository
  * @author     Sylvain FLORIDE <sfloride@gmail.com>

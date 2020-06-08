@@ -2,42 +2,74 @@ vich_uploader:
     db_driver: orm
 
     mappings:
-        users_pictures:
-            uri_prefix: /images/users
-            upload_destination: '%kernel.project_dir%/public/images/users'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        character_feature_picture:
+            uri_prefix: /images/characters/features
+            upload_destination: '%kernel.project_dir%/public/images/characters/features'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            
+        character_profession_picture:
+            uri_prefix: /images/characters/badges/professions
+            upload_destination: '%kernel.project_dir%/public/images/characters/badges/professions'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
         
-        caracs_pictures:
-            uri_prefix: /images/perso/caracs
-            upload_destination: '%kernel.project_dir%/public/images/perso/caracs'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        character_profession_speciality_picture:
+            uri_prefix: /images/characters/badges/professions/specialties
+            upload_destination: '%kernel.project_dir%/public/images/characters/badges/professions/specialties'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        
+        character_rank_picture:
+            uri_prefix: /images/characters/badges
+            upload_destination: '%kernel.project_dir%/public/images/characters/badges/ranks'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
 
-        medals_pictures:
-            uri_prefix: /images/medals
-            upload_destination: '%kernel.project_dir%/public/images/medals'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        character_skill_picture:
+            uri_prefix: /images/characters/skills
+            upload_destination: '%kernel.project_dir%/public/images/characters/skills'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
-
-        medals_reductions:
-            uri_prefix: /images/medals/reductions
-            upload_destination: '%kernel.project_dir%/public/images/medals/reductions'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
-            inject_on_load: false
-            delete_on_update: true
-            delete_on_remove: true
-
-        illustrations_pictures:
+        
+        illustration_picture:
             uri_prefix: /images/illustrations
             upload_destination: '%kernel.project_dir%/public/images/illustrations'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        medal_picture:
+            uri_prefix: /images/medals
+            upload_destination: '%kernel.project_dir%/public/images/medals'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        medal_ribbon_picture:
+            uri_prefix: /images/medals/ribbons
+            upload_destination: '%kernel.project_dir%/public/images/medals/ribbons'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        user_picture:
+            uri_prefix: /images/users
+            upload_destination: '%kernel.project_dir%/public/images/users'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true

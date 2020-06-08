@@ -1,0 +1,35 @@
+{# templates\admin\character\speciality\_card.html.twig #}
+<div class="card-deck">
+    {% for speciality in specialities %}
+    <div class="col-4">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/characters/badges/professions/specialities/default.png') }}" 
+                alt="speciality : {{ speciality.profession.name ~ ' ' ~ speciality.name }}"
+                data-toggle="modal" data-target="#speciality{{ speciality.id }}"
+            />
+            <div class="card-body">
+
+                <h5 class="card-title text-bold text-center">
+                    {{ speciality.profession.name }}<br />
+                    {{ speciality.name }}
+                </h5>
+                <div class="text-center">{% if speciality.playable %}
+                        <i class="fas fa-user-alt text-success" title="Jouable : Oui"></i>
+                    {% else %}
+                        <i class="fa fa-user-times text-warning" title="Jouable : Non"></i>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card-footer text-center">
+
+                {% include "admin/character/speciality/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>

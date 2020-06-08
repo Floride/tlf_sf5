@@ -6,13 +6,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         {% block meta %}
-            <meta name="description" content="{{ siteParam('meta_description') }}">
-            <meta name="keywords" content="{{ siteParam('meta_keywords') }}">
-            <meta name="author" content="{{ siteParam('auteur_nom') }}">
+            <meta name="description" content="{{ siteParams('meta_description') }}">
+            <meta name="keywords" content="{{ siteParams('meta_keywords') }}">
+            <meta name="author" content="{{ siteParams('auteur_nom') }}">
         {% endblock %}
         <title>
         {% block title %}
-            {{ siteParam('site_title') }} - V{{ siteParam('site_version')|number_format(0) }} {{ siteParam('site_release') }}
+            {{ siteParams('site_title') }} - V{{ siteParams('site_version')|number_format(0) }} {{ siteParams('site_release') }}
         {% endblock %}
         </title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
@@ -37,7 +37,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-small text-center">
-                            &copy; {{ siteParam('site_title') }} - 2003 - {{ 'now'|date('Y') }}
+                            &copy; {{ siteParams('site_title') }} - 2003 - {{ 'now'|date('Y') }}
                         </div>
                     </div>
                 </div>

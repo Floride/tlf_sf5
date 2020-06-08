@@ -1,0 +1,24 @@
+{# templates\admin\character\speciality\_form.html.twig #}
+{{ form_start(form) }}
+    <div class="row">
+            
+        <div class="col-12">
+            {{ form_row(form.name) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+            
+        <div class="col-12">
+            {{ form_row(form.description) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">{{ button }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

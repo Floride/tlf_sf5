@@ -2,7 +2,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ siteParam('site_title_abbr') }} - {{ 'Tableau de bord' }} - V{{ siteParam('site_version')|number_format(0) }} {{ siteParam('site_release') }}
+    {{ siteParams('site_title_abbr') }} - {{ 'Tableau de bord' }} - V{{ siteParams('site_version')|number_format(0) }} {{ siteParams('site_release') }}
 {% endblock %}
 
 {% block nav %}

@@ -1,0 +1,21 @@
+{# templates\admin\users\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+    
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Joueurs',
+            'h_path_retour':'admin_user_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer un nouveau joueur',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/user/_form.html.twig" with {'button': 'Enregistrer'} %}
+    
+{% endblock %}

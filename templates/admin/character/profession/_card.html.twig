@@ -1,0 +1,27 @@
+{# templates\admin\character\profession\_card.html.twig #}
+<div class="card-deck">
+    {% for profession in professions %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/characters/badges/professions/default.png') }}" 
+                alt="Profession : {{ profession.name }}"
+                data-toggle="modal" data-target="#profession{{ profession.id }}"
+            />
+            <div class="card-body">
+
+                <h5 class="card-title text-bold text-center">{{ profession.name }}</h5>
+            
+            </div>
+
+            <div class="card-footer text-center">
+
+                {% include "admin/character/profession/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
