@@ -32,6 +32,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class ProfessionController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_character_profession_list';
+
     /**
      * @var ProfessionRepository
      */
@@ -72,7 +74,7 @@ class ProfessionController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
 
-        return $this->redirectToRoute('admin_character_profession_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     
     }
     
@@ -99,7 +101,7 @@ class ProfessionController extends AbstractCrudController
             $this->save($profession);
             $this->sendFlashMessage('save_ok', 'profession', false);
 
-            return $this->redirectToRoute('admin_character_profession_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/profession/edit.html.twig', [
@@ -158,7 +160,7 @@ class ProfessionController extends AbstractCrudController
             $this->save($profession);
             $this->sendFlashMessage('save_ok', 'profession', false);
             
-            return $this->redirectToRoute('admin_character_profession_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/profession/new.html.twig', [
@@ -186,7 +188,7 @@ class ProfessionController extends AbstractCrudController
         $profession->setPlayable(!$profession->getPlayable()); // Mise à jour statut is_playable
         $this->save($profession);
 
-        return $this->redirectToRoute('admin_character_profession_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     
     }
 
@@ -209,7 +211,7 @@ class ProfessionController extends AbstractCrudController
         $profession->setObsolete(!$profession->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($profession);
 
-        return $this->redirectToRoute('admin_character_profession_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     
     }
 }

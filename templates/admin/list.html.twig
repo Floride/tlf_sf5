@@ -1,0 +1,270 @@
+{# templates\admin\index.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-8">
+            <h1>Tableau de Bord</h1>
+        </div>
+        <div class="col-4 text-right align-self-center">
+            <a href="{{ path('admin_index') }}">Retour</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-9">
+
+            <ul class="adminMenu">
+
+                <li>
+                    <div class="lvl1">
+                        <h2><i class="fas fa-arrow-circle-down text-light"></i> Site</h2>
+                        <ul>
+
+                            <li><a href="{{ path('admin_site_faq_list') }}">F.A.Q's</a></li>
+
+                            <li>Historique</li>
+
+                            <li><a href="{{ path('admin_site_parameter_list') }}">Paramètres</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="lvl1">
+                        <h2><i class="fas fa-arrow-circle-down text-light"></i> Joueur</h2>
+                        <ul>
+
+                            <li><a href="{{ path('admin_user_list') }}">Joueurs</a></li>
+
+                            <li>Groupes</li>
+
+                        </ul>
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="lvl1">
+                        <h2><i class="fas fa-arrow-circle-down text-light"></i> Personnage</h2>
+                        <ul>
+
+                            <li>Personnages</li>
+                            
+                            <li>Accréditations</li>
+                            
+                            <li><a href="{{ path('admin_character_feature_list') }}">Caractéristiques</a></li>
+                            
+                            <li><a href="{{ path('admin_character_skill_list') }}">Compétences</a></li>
+                            
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Hiérarchie</h3>
+                                    <ul>
+                                        <li>Fonctions</li>
+                                        <li><a href="{{ path('admin_character_rank_list') }}">Grades</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Professions</h3>
+                                    <ul>
+
+                                        <li><a href="{{ path('admin_character_profession_list') }}">Professions</a></li>
+
+                                        <li><a href="{{ path('admin_character_speciality_list') }}">Spécialités</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Récompences &amp; Sanctions</h3>
+                                    <ul>
+
+                                        <li>Médailles</li>
+
+                                        <li>Sanctions</li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="lvl1">
+                        <h2><i class="fas fa-arrow-circle-down text-light"></i> Jeu</h2>
+                        <ul>
+
+                            <li>Affectations</li>
+
+                            <li>Equipements</li>
+
+                            <li>FanFics</li>
+                            
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Géographie</h3>
+                                    <ul>
+
+                                        <li>
+                                            <div class="lvl3">
+                                                <h4><i class="fas fa-arrow-circle-down text-light"></i> Astre</h4>
+                                                <ul>
+
+                                                    <li>Astres</li>
+
+                                                    <li>Types</li>
+                                                
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="lvl3">
+                                                <h4><i class="fas fa-arrow-circle-down text-light"></i> Lieux</h4>
+                                                <ul>
+                                                    
+                                                    <li>Liste Lieux</li>
+
+                                                    <li>Liste Types</li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Mission</h3>
+                                    <ul>
+
+                                        <li>Missions</li>
+
+                                        <li>Campagnes</li>
+
+                                        <li>Objectifs</li>
+
+                                        <li>Scénario</li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Règles</h3>
+                                    <ul>
+
+                                        <li>Règles</li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Troopédia</h3>
+                                    <ul>
+
+                                        <li>Extraits de discours célèbres</li>
+
+                                        <li>Extraits de Loi</li>
+
+                                        <li>Lexique</li>
+
+                                        <li>
+                                            <div class="lvl3">
+                                                <h4><i class="fas fa-arrow-circle-down text-light"></i> Chronologie</h4>
+                                                <ul>
+
+                                                    <li>Archives Fédérales</li>
+
+                                                    <li>Selon le Pr. G. H. Jurgen</li>
+
+                                                    <li>Selon le Dr. A. Rimenez</li>
+
+                                                    <li>Evènements</li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        
+                                        <li>
+                                            <div  class="lvl3">
+                                                <h4><i class="fas fa-arrow-circle-down text-light"></i> Entreprises</h4>
+                                                <ul>
+
+                                                    <li>Entreprises</li>
+
+                                                    <li>Marques</li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="lvl1">
+                        <h2><i class="fas fa-arrow-circle-down text-light"></i> Maintenance</h2>
+                        <ul>
+
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Nettoyage BDD</h3>
+                                    <ul>
+
+                                        <li>Joueurs</li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                    
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Nettoyage répertoire</h3>
+                                    <ul>
+
+                                        <li>Images</li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="col-3">
+            <div id="notifications">
+                <h2>Notification(s)</h2>
+                <div class="content">
+                Reste à faire :/
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+{% endblock %}

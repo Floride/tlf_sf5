@@ -26,7 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminController extends AbstractController
 {
     /**
-     * List of all admin's actions
+     * Welcome admin page
      *
      * @return Response
      *
@@ -38,5 +38,20 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         return $this->render('admin/index.html.twig');
+    }
+    
+    /**
+     * List of all admin's actions
+     *
+     * @return Response
+     *
+     * @Route("/list",
+     *      name="list", 
+     *      methods={"GET"}
+     * )
+     */
+    public function list(): Response
+    {
+        return $this->render('admin/list.html.twig');
     }
 }

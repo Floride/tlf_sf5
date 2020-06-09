@@ -32,6 +32,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class SkillController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_character_skill_list';
+
     /**
      * @var SkillRepository
      */
@@ -72,7 +74,7 @@ class SkillController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
         
-        return $this->redirectToRoute('admin_character_skill_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
     
     /**
@@ -98,7 +100,7 @@ class SkillController extends AbstractCrudController
             $this->save($skill);
             $this->sendFlashMessage('save_ok', 'compétence', false);
             
-            return $this->redirectToRoute('admin_character_skill_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/skill/edit.html.twig', [
@@ -156,7 +158,7 @@ class SkillController extends AbstractCrudController
             $this->save($skill);
             $this->sendFlashMessage('save_ok', 'compétence', false);
 
-            return $this->redirectToRoute('admin_character_skill_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/skill/new.html.twig', [

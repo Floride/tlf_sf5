@@ -35,6 +35,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_user_list';
+
     /**
      * @var UserRepository
      */
@@ -71,7 +73,7 @@ class UserController extends AbstractCrudController
         $user->setBanned(!$user->getBanned()); // Mise à jour statut is_Banned
         $this->save($user);
 
-        return $this->redirectToRoute('admin_user_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
 
     /**
@@ -105,7 +107,7 @@ class UserController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
 
-        return $this->redirectToRoute('admin_user_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
 
     /**
@@ -131,7 +133,7 @@ class UserController extends AbstractCrudController
             $this->save($user);
             $this->sendFlashMessage('save_ok', 'utilisateur');
             
-            return $this->redirectToRoute('admin_user_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
         
         return $this->render('admin/user/edit.html.twig', [
@@ -159,7 +161,7 @@ class UserController extends AbstractCrudController
         $this->save($user);
         // TODO : Email pour informer activation ou désactivation du compt
             
-        return $this->redirectToRoute('admin_user_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
 
     /**
@@ -219,7 +221,7 @@ class UserController extends AbstractCrudController
             // TODO : Envoi mail : confirmation email
             // TODO : Envoi mail : mot de passe
 
-            return $this->redirectToRoute('admin_user_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
          
         return $this->render('admin/user/new.html.twig', [
@@ -247,6 +249,6 @@ class UserController extends AbstractCrudController
         $this->save($user);
         // TODO : Email pour demander confirmation email
 
-        return $this->redirectToRoute('admin_user_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
 }

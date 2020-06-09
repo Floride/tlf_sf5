@@ -1,9 +1,9 @@
 <?php
-// src\Entity\Character\Rank.php
+// src\Entity\Character\Role.php
 namespace App\Entity\Character;
 
 use App\Mapping\EntityBase;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Character\Rank;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
 use App\Helper\ORM\CategoriableTrait;
@@ -13,14 +13,14 @@ use App\Helper\ORM\IsPlayablableTrait;
 use App\Helper\ORM\UniqueNameableTrait;
 use App\Helper\ORM\DescriptionableTrait;
 use App\Helper\ORM\AbbreviationableTrait;
-use App\Repository\Character\RankRepository;
+use App\Repository\Character\RoleRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Rank
+ * Class Role
  *
  * PHP version 7.2.5
  *
@@ -28,12 +28,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
  *
- * @ORM\Entity(repositoryClass=RankRepository::class)
+ * @ORM\Entity(repositoryClass=RoleRepository::class)
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="c_rank")
+ * @ORM\Table(name="c_role")
  * @Vich\Uploadable
  */
-class Rank extends EntityBase
+class Role extends EntityBase
 {
     use AbbreviationableTrait;
     use CategoriableTrait;
@@ -48,6 +48,7 @@ class Rank extends EntityBase
         0 => 'Not specified',
         1 => 'Military',
         2 => 'Civilian',
+        2 => 'Mixte',
     ];
     
     const CATEGORY = [
@@ -80,29 +81,19 @@ class Rank extends EntityBase
     private $pictureFile;
 
     /**
-     * @var int|null score min to promote
-     * @ORM\Column(name="score", type="integer", options={"default" : 0})
+     * @var Rank|null
+     * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMin")
      */
-    private $score;
+    private $rankMin;
 
     /**
-     * @var int|null score OL min to promote
-     * @ORM\Column(name="score_ol", type="integer", nullable=true)
+     * @var Rank|null
+     * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMax")
      */
-    private $scoreOL;
+    private $rankMax;
 
     /**
-     * @ORM\OneToMany(targetEntity=Role::class, mappedBy="rankMin")
-     */
-    private $rolesMin;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Role::class, mappedBy="rankMax")
-     */
-    private $rolesMax;
-
-    /**
-     * Rank Constructor
+     * Role Constructor
      */
     public function __construct()
     {
@@ -111,8 +102,6 @@ class Rank extends EntityBase
         $this->setPlayable();
         $this->setObsolete();
         $this->setType();
-        $this->rolesMin = new ArrayCollection();
-        $this->rolesMax = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -176,109 +165,47 @@ class Rank extends EntityBase
     }
 
     /**
-     * @return Collection|Role[]
-     */
-    public function getRolesMin(): Collection
-    {
-        return $this->rolesMin;
-    }
-
-    public function addRolesMin(Role $rolesMin): self
-    {
-        if (!$this->rolesMin->contains($rolesMin)) {
-            $this->rolesMin[] = $rolesMin;
-            $rolesMin->setRankMin($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRolesMin(Role $rolesMin): self
-    {
-        if ($this->rolesMin->contains($rolesMin)) {
-            $this->rolesMin->removeElement($rolesMin);
-            // set the owning side to null (unless already changed)
-            if ($rolesMin->getRankMin() === $this) {
-                $rolesMin->setRankMin(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Role[]
-     */
-    public function getRolesMax(): Collection
-    {
-        return $this->rolesMax;
-    }
-
-    public function addRolesMax(Role $rolesMax): self
-    {
-        if (!$this->rolesMax->contains($rolesMax)) {
-            $this->rolesMax[] = $rolesMax;
-            $rolesMax->setRankMax($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRolesMax(Role $rolesMax): self
-    {
-        if ($this->rolesMax->contains($rolesMax)) {
-            $this->rolesMax->removeElement($rolesMax);
-            // set the owning side to null (unless already changed)
-            if ($rolesMax->getRankMax() === $this) {
-                $rolesMax->setRankMax(null);
-            }
-        }
-
-        return $this;
-    }
-    
-    /**
-     * getScore
+     * getRankMin
      *
-     * @return int|null
+     * @return Rank|null
      */
-    public function getScore(): ?int
+    public function getRankMin(): ?Rank
     {
-        return $this->score;
+        return $this->rankMin;
     }
 
     /**
-     * setScore
+     * setRankMin
      *
-     * @param int|null $score
+     * @param Rank|null $rankMin
      * @return self
      */
-    public function setScore(?int $score = 0): self
+    public function setRankMin(?Rank $rankMin): self
     {
-        $this->score = $score;
+        $this->rankMin = $rankMin;
 
         return $this;
     }
-    
+
     /**
-     * getScoreOL
+     * getRankMax
      *
-     * @return int|null
+     * @return Rank|null
      */
-    public function getScoreOL(): ?int
+    public function getRankMax(): ?Rank
     {
-        return $this->scoreOL;
+        return $this->rankMax;
     }
 
     /**
-     * setScoreOL
+     * setRankMax
      *
-     * @param int|null $score
+     * @param Rank|null $rankMax
      * @return self
      */
-    public function setScoreOL(?int $score = null): self
+    public function setRankMax(?Rank $rankMax): self
     {
-        $this->scoreOL = $score;
+        $this->rankMax = $rankMax;
 
         return $this;
     }

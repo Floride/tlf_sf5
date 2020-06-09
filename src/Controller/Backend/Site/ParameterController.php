@@ -33,6 +33,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class ParameterController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_site_parameter_list';
+
     /**
      * @var ParameterRepository
      */
@@ -76,7 +78,7 @@ class ParameterController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
             
-        return $this->redirectToRoute('admin_site_parameter_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
 
     /**
@@ -102,7 +104,7 @@ class ParameterController extends AbstractCrudController
             $this->save($parameter);
             $this->sendFlashMessage('save_ok', 'paramètre');
             
-            return $this->redirectToRoute('admin_site_parameter_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/site/parameter/edit.html.twig', [
@@ -160,7 +162,7 @@ class ParameterController extends AbstractCrudController
             $this->save($parametereter);
             $this->sendFlashMessage('save_ok', 'paramètre');
             
-            return $this->redirectToRoute('admin_site_parameter_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/site/parameter/new.html.twig', [

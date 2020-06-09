@@ -32,6 +32,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class SpecialityController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_character_speciality_list';
+
     /**
      * @var SpecialityRepository
      */
@@ -77,7 +79,7 @@ class SpecialityController extends AbstractCrudController
         $speciality->setDefault(!$speciality->getDefault()); // Mise à jour statut is_default
         $this->save($speciality);
 
-        return $this->redirectToRoute('admin_character_speciality_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
 
     /**
@@ -103,7 +105,7 @@ class SpecialityController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
 
-        return $this->redirectToRoute('admin_character_speciality_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     
     }
     
@@ -130,7 +132,7 @@ class SpecialityController extends AbstractCrudController
             $this->save($speciality);
             $this->sendFlashMessage('save_ok', 'speciality', false);
 
-            return $this->redirectToRoute('admin_character_speciality_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/speciality/edit.html.twig', [
@@ -189,7 +191,7 @@ class SpecialityController extends AbstractCrudController
             $this->save($speciality);
             $this->sendFlashMessage('save_ok', 'speciality', false);
             
-            return $this->redirectToRoute('admin_character_speciality_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/speciality/new.html.twig', [
@@ -217,7 +219,7 @@ class SpecialityController extends AbstractCrudController
         $speciality->setPlayable(!$speciality->getPlayable()); // Mise à jour statut is_playable
         $this->save($speciality);
 
-        return $this->redirectToRoute('admin_character_speciality_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     
     }
 
@@ -240,7 +242,7 @@ class SpecialityController extends AbstractCrudController
         $speciality->setObsolete(!$speciality->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($speciality);
 
-        return $this->redirectToRoute('admin_character_speciality_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     
     }
 }

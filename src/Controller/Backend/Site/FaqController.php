@@ -33,6 +33,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class FaqController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_character_profession_list';
+
     /**
      * @var FaqRepository
      */
@@ -76,7 +78,7 @@ class FaqController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
 
-        return $this->redirectToRoute('admin_site_faq_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
 
     /**
@@ -102,7 +104,7 @@ class FaqController extends AbstractCrudController
             $this->save($faq);
             $this->sendFlashMessage('save_ok', 'F.A.Q', false);
 
-            return $this->redirectToRoute('admin_site_faq_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/site/faq/edit.html.twig', [
@@ -162,7 +164,7 @@ class FaqController extends AbstractCrudController
             $this->save($faq);
             $this->sendFlashMessage('save_ok', 'F.A.Q', false);
             
-            return $this->redirectToRoute('admin_site_faq_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/site/faq/new.html.twig', [

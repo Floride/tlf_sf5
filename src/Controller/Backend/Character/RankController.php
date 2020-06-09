@@ -32,6 +32,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class RankController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_character_rank_list';
+
     /**
      * @var RankRepository
      */
@@ -72,7 +74,7 @@ class RankController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
         
-        return $this->redirectToRoute('admin_character_rank_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
     
     /**
@@ -98,7 +100,7 @@ class RankController extends AbstractCrudController
             $this->save($rank);
             $this->sendFlashMessage('save_ok', 'grade');
             
-            return $this->redirectToRoute('admin_character_rank_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/rank/edit.html.twig', [
@@ -156,7 +158,7 @@ class RankController extends AbstractCrudController
             $this->save($rank);
             $this->sendFlashMessage('save_ok', 'garde');
 
-            return $this->redirectToRoute('admin_character_rank_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/rank/new.html.twig', [

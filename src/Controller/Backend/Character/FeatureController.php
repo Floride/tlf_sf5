@@ -32,6 +32,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FeatureController extends AbstractCrudController
 {
+    const RETURN_ROUTE = 'admin_character_feature_list';
+    
     /**
      * @var FeatureRepository
      */
@@ -72,7 +74,7 @@ class FeatureController extends AbstractCrudController
             $this->sendFlashMessage('csrf_bad');
         }
 
-        return $this->redirectToRoute('admin_character_feature_list');
+        return $this->redirectToRoute(self::RETURN_ROUTE);
     }
     
     /**
@@ -98,7 +100,7 @@ class FeatureController extends AbstractCrudController
             $this->save($feature);
             $this->sendFlashMessage('save_ok', 'caractéristique', false);
 
-            return $this->redirectToRoute('admin_character_feature_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/feature/edit.html.twig', [
@@ -157,7 +159,7 @@ class FeatureController extends AbstractCrudController
             $this->save($feature);
             $this->sendFlashMessage('save_ok', 'caractéristique', false);
 
-            return $this->redirectToRoute('admin_character_feature_list');
+            return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
         return $this->render('admin/character/feature/new.html.twig', [
