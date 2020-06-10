@@ -1,0 +1,46 @@
+{# templates\admin\character\accreditation\_form.html.twig #}
+{{ form_start(form) }}
+    <div class="row">
+
+        <div class="col-8">
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.abbreviation) }}
+                </div>
+                
+                <div class="col-3">
+                    {{ form_row(form.level) }}
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-3">
+                    {{ form_row(form.type) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.category) }}
+                </div>
+            </div>
+            
+            <div class="row">
+            
+                <div class="col-12">
+                    {{ form_row(form.description) }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">{{ button }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

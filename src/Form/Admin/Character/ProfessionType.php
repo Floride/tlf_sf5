@@ -33,19 +33,19 @@ class ProfessionType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'name',
+                'label' => 'label.name',
                 'required' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'description',
+                'label' => 'label.description',
                 'required' => true,
             ])
             ->add('picture', FileType::class, [
-                'label' => 'badge',
+                'label' => 'label.badge',
                 'required' => false,
             ])
             ->add('type', ChoiceType::class, [
-                'label' => 'type',
+                'label' => 'label.type',
                 'choices' => array_flip(Profession::TYPE)
             ])
         ;

@@ -3,16 +3,18 @@
 namespace App\Entity\Character;
 
 use App\Mapping\EntityBase;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Character\Role;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
 use App\Helper\ORM\CategoriableTrait;
 use App\Helper\ORM\IsDefaultableTrait;
 use App\Helper\ORM\IsObsoletableTrait;
 use App\Helper\ORM\IsPlayablableTrait;
+use App\Entity\Character\Accreditation;
 use App\Helper\ORM\UniqueNameableTrait;
 use App\Helper\ORM\DescriptionableTrait;
 use App\Helper\ORM\AbbreviationableTrait;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\Character\RankRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -68,6 +70,19 @@ class Rank extends EntityBase
     private $id;
 
     /**
+     * @var Accreditation|null
+     * @ORM\ManyToOne(targetEntity=Accreditation::class, inversedBy="ranksMin")
+     * @ORM\JoinColumn(name="lvl_accred_min", nullable=false)
+     */
+    private $accreditationMin;
+
+    /**
+     * @var float|null
+     * @ORM\Column(name="coef_xp", type="float", options={"default" : 0})
+     */
+    private $coeficientXp;
+
+    /**
      * @var string|null Picture name
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
      */
@@ -87,16 +102,18 @@ class Rank extends EntityBase
 
     /**
      * @var int|null score OL min to promote
-     * @ORM\Column(name="score_ol", type="integer", nullable=true)
+     * @ORM\Column(name="score_ol", type="integer", nullable=true, options={"default" : NULL})
      */
     private $scoreOL;
 
     /**
+     * @var Collection|Role[]|null
      * @ORM\OneToMany(targetEntity=Role::class, mappedBy="rankMin")
      */
     private $rolesMin;
 
     /**
+     * @var Collection|Role[]|null
      * @ORM\OneToMany(targetEntity=Role::class, mappedBy="rankMax")
      */
     private $rolesMax;
@@ -107,6 +124,7 @@ class Rank extends EntityBase
     public function __construct()
     {
         parent::__construct();
+        $this->setCoeficientXp();
         $this->setDefault();
         $this->setPlayable();
         $this->setObsolete();
@@ -125,6 +143,52 @@ class Rank extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getAccreditationMin
+     *
+     * @return Accreditation|null
+     */
+    public function getAccreditationMin(): ?Accreditation
+    {
+        return $this->accreditationMin;
+    }
+
+    /**
+     * setAccreditationMin
+     *
+     * @param Accreditation|null $accreditationMin
+     * @return self
+     */
+    public function setAccreditationMin(?Accreditation $accreditationMin): self
+    {
+        $this->accreditationMin = $accreditationMin;
+
+        return $this;
+    }
+
+    /**
+     * getCoeficientXp
+     *
+     * @return float|null
+     */
+    public function getCoeficientXp(): ?float
+    {
+        return $this->coeficientXp;
+    }
+
+    /**
+     * setCoeficientXp
+     *
+     * @param float|null $coeficientXp
+     * @return self
+     */
+    public function setCoeficientXp(?float $coeficientXp = 0): self
+    {
+        $this->coeficientXp = $coeficientXp;
+
+        return $this;
     }
 
     /**
@@ -282,4 +346,7 @@ class Rank extends EntityBase
 
         return $this;
     }
+    
+    /* ---------------------- Autres méthodes ---------------------- */
+
 }

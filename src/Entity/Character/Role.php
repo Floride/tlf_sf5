@@ -48,7 +48,7 @@ class Role extends EntityBase
         0 => 'Not specified',
         1 => 'Military',
         2 => 'Civilian',
-        2 => 'Mixte',
+        3 => 'Mixte',
     ];
     
     const CATEGORY = [
@@ -58,6 +58,7 @@ class Role extends EntityBase
         3 => 'Officier',
         4 => 'Officier Général',
         5 => 'Elève',
+        6 => 'Other'
     ];
 
     /**
@@ -67,6 +68,12 @@ class Role extends EntityBase
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Accreditation::class, inversedBy="rolesMin")
+     * @ORM\JoinColumn(name="lvl_accred_min", nullable=false)
+     */
+    private $accreditationMin;
 
     /**
      * @var string|null Picture name
@@ -114,6 +121,18 @@ class Role extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAccreditationMin(): ?Accreditation
+    {
+        return $this->accreditationMin;
+    }
+
+    public function setAccreditationMin(?Accreditation $accreditationMin): self
+    {
+        $this->accreditationMin = $accreditationMin;
+
+        return $this;
     }
 
     /**
@@ -209,4 +228,6 @@ class Role extends EntityBase
 
         return $this;
     }
+    
+    /* ---------------------- Autres méthodes ---------------------- */
 }

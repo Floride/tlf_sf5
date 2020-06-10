@@ -1,0 +1,52 @@
+{# templates\admin\character\accreditation\_modal.html.twig #}
+<!-- Modal {{ title }} -->
+<div class="modal fade" id="{{ title }}" tabindex="-1" role="dialog" aria-labelledby="{{ title }}Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ title }}Label">{{ accreditation.name }} [{{ accreditation.abbreviation }}]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-4">
+
+                    <div class="col-12 small text-justify">
+                        [ 
+                            {% if accreditation.type == 1 %}
+                                Militaire
+                            {% elseif accreditation.type == 2 %}
+                                Civile
+                            {% elseif accreditation.type == 3 %}
+                                Mixte
+                            {% else %}
+                                Non précisée
+                            {% endif %}
+                        / 
+                            {% if accreditation.category == 1 %}
+                                Régimentaire
+                            {% elseif accreditation.category == 2 %}
+                                Commissariale
+                            {% elseif accreditation.category == 3 %}
+                                Autre
+                            {% else %}
+                                Non précisée
+                            {% endif %}
+                        ]<br />
+                        {{ accreditation.description|nl2br }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <small>Accréditation minimum pour les grades suivants : </small></br />
+                <small>Accréditation minimum pour les fonctions suivantes : </small>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -188,5 +188,7 @@ class Profession extends EntityBase
 
         return $this;
     }
+    
+    /* ---------------------- Autres méthodes ---------------------- */
 
 }

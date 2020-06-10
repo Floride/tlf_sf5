@@ -1,0 +1,21 @@
+{# templates\admin\character\role\edit.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+    
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Fonctions',
+            'h_path_retour':'admin_character_role_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Modifier une fonction',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/character/role/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

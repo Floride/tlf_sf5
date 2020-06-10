@@ -28,6 +28,19 @@
                             <li>Historique</li>
 
                             <li><a href="{{ path('admin_site_parameter_list') }}">Paramètres</a></li>
+                            
+                            <li>
+                                <div class="lvl2">
+                                    <h3><i class="fas fa-arrow-circle-down text-light"></i> Messagerie instantannée</h3>
+                                    <ul>
+
+                                        <li>Salons</li>
+
+                                        <li>Emotes &amp; Remplacements</li>
+
+                                    </ul>
+                                </div>
+                            </li>
 
                         </ul>
                     </div>
@@ -53,7 +66,7 @@
 
                             <li>Personnages</li>
                             
-                            <li>Accréditations</li>
+                            <li><a href="{{ path('admin_character_accreditation_list') }}">Accréditations</a></li>
                             
                             <li><a href="{{ path('admin_character_feature_list') }}">Caractéristiques</a></li>
                             
@@ -63,8 +76,11 @@
                                 <div class="lvl2">
                                     <h3><i class="fas fa-arrow-circle-down text-light"></i> Hiérarchie</h3>
                                     <ul>
-                                        <li>Fonctions</li>
+
+                                        <li><a href="{{ path('admin_character_role_list') }}">Fonctions</a></li>
+
                                         <li><a href="{{ path('admin_character_rank_list') }}">Grades</a></li>
+                                        
                                     </ul>
                                 </div>
                             </li>
@@ -257,8 +273,15 @@
         </div>
 
         <div class="col-3">
-            <div id="notifications">
+            <div class="notifications">
                 <h2>Notification(s)</h2>
+                <div class="content">
+                Reste à faire :/
+                </div>
+            </div>
+
+            <div class="notifications">
+                <h2>Statistiques</h2>
                 <div class="content">
                 Reste à faire :/
                 </div>

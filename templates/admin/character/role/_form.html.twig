@@ -1,4 +1,4 @@
-{# templates\admin\character\rank\_form.html.twig #}
+{# templates\admin\character\role\_form.html.twig #}
 {{ form_start(form) }}
     <div class="row">
 
@@ -28,17 +28,17 @@
             </div>
 
             <div class="row">
-            
-                <div class="col-3">
-                    {{ form_row(form.score) }}
-                </div>
 
-                <div class="col-3">
-                    {{ form_row(form.scoreOL) }}
-                </div>
-
-                <div class="col-3">
+                <div class="col-2">
                     {{ form_row(form.accreditationMin) }}
+                </div>
+
+                <div class="col-5">
+                    {{ form_row(form.rankMin) }}
+                </div>
+
+                <div class="col-5">
+                    {{ form_row(form.rankMax) }}
                 </div>
 
             </div>
@@ -47,12 +47,12 @@
 
         <div class="col-4">
             {{ form_row(form.picture) }}
-            {% if not rank.picture or rank.picture == '' %}
-                <img src="{{ asset('images/characters/badges/ranks/default.png') }}" alt="image par defaut - grade" />
+            {% if not role.picture or role.picture == '' %}
+                <img src="{{ asset('images/characters/badges/roles/default.png') }}" alt="image par defaut - Fonction" />
             {% else %}
-                {% set iden = rank.name ~ ' [' ~ rank.abbreviation ~ ']' %}
+                {% set iden = role.name ~ ' [' ~ role.abbreviation ~ ']' %}
                 <a href="" />
-                    <img src="{{ vich_uploader_asset(rank) }}" alt="{{ iden }}" />
+                    <img src="{{ vich_uploader_asset(role) }}" alt="{{ iden }}" />
                 </a>
             {% endif %}
         </div>

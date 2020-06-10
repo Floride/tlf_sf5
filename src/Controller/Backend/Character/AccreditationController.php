@@ -1,22 +1,22 @@
 <?php
-// src\Controller\Backend\Character\SpecialityController.php
+// src\Controller\Backend\Character\AccreditationController.php
 namespace App\Controller\Backend\Character;
 
-use App\Entity\Character\Speciality;
+use App\Entity\Character\Accreditation;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Controller\AbstractCrudController;
 use Knp\Component\Pager\PaginatorInterface;
-use App\Form\Admin\Character\SpecialityType;
+use App\Form\Admin\Character\AccreditationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\Character\SpecialityRepository;
+use App\Repository\Character\AccreditationRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * Class SpecialityController
- * CRUD for Speciality class
+ * Class AccreditationController
+ * CRUD for Accreditation class
  * 
  * PHP version 7.2.5
  *
@@ -26,36 +26,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  *
  * @IsGranted("ROLE_ADMIN")
  *
- * @Route("/admin/character/speciality",
- *      name="admin_character_speciality_"
+ * @Route("/admin/character/accreditation",
+ *      name="admin_character_accreditation_"
  * )
  */
-class SpecialityController extends AbstractCrudController
+class AccreditationController extends AbstractCrudController
 {
-    const RETURN_ROUTE = 'admin_character_speciality_list';
+    const RETURN_ROUTE = 'admin_character_accreditation_list';
 
     /**
-     * @var SpecialityRepository
+     * @var AccreditationRepository
      */
-    private $specialityRepository;
+    private $accreditationRepository;
 
     /**
-     * SpecialityController Constructor
+     * AccreditationController Constructor
      *
-     * @param SpecialityRepository   $specialityRepository
+     * @param AccreditationRepository   $accreditationRepository
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(SpecialityRepository $specialityRepository, EntityManagerInterface $entityManager)
+    public function __construct(AccreditationRepository $accreditationRepository, EntityManagerInterface $entityManager)
     {
         parent::__construct($entityManager);
-        $this->specialityRepository = $specialityRepository;
+        $this->accreditationRepository = $accreditationRepository;
     }
 
     /**
      * Default
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Accreditation $accreditation
      *
      * @return Response
      *
@@ -65,19 +65,20 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function default(Request $request, Speciality $speciality): Response
+    public function default(Request $request, Accreditation $accreditation): Response
     {
-        $specs = $this->specialityRepository->findBy(['profession' => $speciality->getProfession()]);
-        foreach ($specs as $spec) {
-            if ($spec != $speciality) {
-                $spec->setDefault(false);
-                $this->manager->persist($spec);
+        // Toutes les accreditations = false
+        $accreds = $this->accreditationRepository->findAll();
+        foreach ($accreds as $accred) {
+            if ($accred != $accreditation) {
+                $accred->setDefault(false);
+                $this->manager->persist($accred);
             }
         }
         $this->manager->flush();
 
-        $speciality->setDefault(!$speciality->getDefault()); // Mise à jour statut is_default
-        $this->save($speciality);
+        $accreditation->setDefault(!$accreditation->getDefault()); // Mise à jour statut is_default
+        $this->save($accreditation);
 
         return $this->redirectToRoute(self::RETURN_ROUTE);
     }
@@ -86,7 +87,7 @@ class SpecialityController extends AbstractCrudController
      * Delete
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Accreditation $accreditation
      *
      * @return Response
      *
@@ -96,11 +97,11 @@ class SpecialityController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Speciality $speciality): Response
+    public function delete(Request $request, Accreditation $accreditation): Response
     {
-        if ($this->isCsrfTokenValid('admin_character_speciality_delete_' . $speciality->getId(), $request->get('_token'))) {
-            $this->suppression($speciality);
-            $this->sendFlashMessage('delete_ok', 'speciality', false);
+        if ($this->isCsrfTokenValid('admin_character_accreditation_delete_' . $accreditation->getId(), $request->get('_token'))) {
+            $this->suppression($accreditation);
+            $this->sendFlashMessage('delete_ok', 'accréditation', false);
         } else {
             $this->sendFlashMessage('csrf_bad');
         }
@@ -113,7 +114,7 @@ class SpecialityController extends AbstractCrudController
      * Edit
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Accreditation $accreditation
      *
      * @return Response
      * 
@@ -123,20 +124,20 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Speciality $speciality): Response
+    public function edit(Request $request, Accreditation $accreditation): Response
     {
-        $form = $this->createForm(SpecialityType::class, $speciality);
+        $form = $this->createForm(AccreditationType::class, $accreditation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->save($speciality);
-            $this->sendFlashMessage('save_ok', 'speciality', false);
+            $this->save($accreditation);
+            $this->sendFlashMessage('save_ok', 'accréditation', false);
 
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
-        return $this->render('admin/character/speciality/edit.html.twig', [
-            'speciality' => $speciality,
+        return $this->render('admin/character/accreditation/edit.html.twig', [
+            'accreditation' => $accreditation,
             'form' => $form->createView(),
         ]);
     }
@@ -157,15 +158,15 @@ class SpecialityController extends AbstractCrudController
     public function list(Request $request, PaginatorInterface $paginator): Response
     {
         $display = $request->get('display', 'list');
-        $specialities = $paginator->paginate(
-            $this->specialityRepository->findByNameQuery(),
+        $accreditations = $paginator->paginate(
+            $this->accreditationRepository->findByNameQuery(),
             $request->query->getInt('page', 1), // Numéro de page
             ($display == 'list') ? 25 : 12      // Limite par page
         );
 
-        return $this->render('admin/character/speciality/list.html.twig', [
+        return $this->render('admin/character/accreditation/list.html.twig', [
             'display' => $display,
-            'specialities' => $specialities,
+            'accreditations' => $accreditations,
         ]);
     }
 
@@ -183,19 +184,20 @@ class SpecialityController extends AbstractCrudController
      */
     public function new(Request $request): Response
     {
-        $speciality = new Speciality();
-        $form = $this->createForm(SpecialityType::class, $speciality);
+        $accreditation = new Accreditation();
+        dump($accreditation);
+        $form = $this->createForm(AccreditationType::class, $accreditation);
         $form->handleRequest($request);
-
+        dump($accreditation);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->save($speciality);
-            $this->sendFlashMessage('save_ok', 'speciality', false);
+            $this->save($accreditation);
+            $this->sendFlashMessage('save_ok', 'accréditation', false);
             
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
-        return $this->render('admin/character/speciality/new.html.twig', [
-            'speciality' => $speciality,
+        return $this->render('admin/character/accreditation/new.html.twig', [
+            'accreditation' => $accreditation,
             'form' => $form->createView(),
         ]);
     }
@@ -204,7 +206,7 @@ class SpecialityController extends AbstractCrudController
      * Playable
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Accreditation $accreditation
      *
      * @return Response
      *
@@ -214,33 +216,10 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function playable(Request $request, Speciality $speciality): Response
+    public function playable(Request $request, Accreditation $accreditation): Response
     {
-        $speciality->setPlayable(!$speciality->getPlayable()); // Mise à jour statut is_playable
-        $this->save($speciality);
-
-        return $this->redirectToRoute(self::RETURN_ROUTE);
-    
-    }
-
-    /**
-     * Obsolete
-     *
-     * @param Request    $request
-     * @param Speciality $speciality
-     *
-     * @return Response
-     *
-     * @Route("/{id}/obsolete", 
-     *      name="obsolete", 
-     *      requirements={"id"="\d+"}, 
-     *      methods={"GET", "POST"}
-     * )
-     */
-    public function obsolete(Request $request, Speciality $speciality): Response
-    {
-        $speciality->setObsolete(!$speciality->getObsolete()); // Mise à jour statut is_obsolete
-        $this->save($speciality);
+        $accreditation->setPlayable(!$accreditation->getPlayable()); // Mise à jour statut is_playable
+        $this->save($accreditation);
 
         return $this->redirectToRoute(self::RETURN_ROUTE);
     

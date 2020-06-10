@@ -1,4 +1,4 @@
-{# templates\admin\character\rank\_list.html.twig #}
+{# templates\admin\character\accreditation\_list.html.twig #}
 <div class="row">
     <div class="col-12">
     
@@ -17,33 +17,31 @@
                 <tr>
             </thead>
             <tbody>
-            {% for rank in ranks %}
+            {% for accreditation in accreditations %}
                 <tr>
-                    <td>{{ rank.name }}</td>
+                    <td>{{ accreditation.name }}</td>
 
-                    <td>{{ rank.abbreviation }}</td>
+                    <td>{{ accreditation.abbreviation }}</td>
                     
                     <td>
-                        {% if rank.type == 1 %}
+                        {% if accreditation.type == 1 %}
                             Militaire
-                        {% elseif rank.type == 2 %}
-                            Civil
+                        {% elseif accreditation.type == 2 %}
+                            Civile
+                        {% elseif accreditation.type == 3 %}
+                            Mixte
                         {% else %}
                             Non précisée
                         {% endif %}
                     </td>
 
                     <td>
-                        {% if rank.category == 1 %}
-                            Homme du Rang
-                        {% elseif rank.category == 2 %}
-                            Sous-officier
-                        {% elseif rank.category == 3 %}
-                            Officier
-                        {% elseif rank.category == 4 %}
-                            Officier Général
-                        {% elseif rank.category == 5 %}
-                            Elève
+                        {% if accreditation.category == 1 %}
+                            Régimentaire
+                        {% elseif accreditation.category == 2 %}
+                            Commissariale
+                        {% elseif accreditation.category == 3 %}
+                            Autre
                         {% else %}
                             Non précisée
                         {% endif %}
@@ -51,7 +49,7 @@
 
                     <td class="text-center">
 
-                        {% include "admin/character/rank/_action.html.twig" %}
+                        {% include "admin/character/accreditation/_action.html.twig" %}
 
                     </td>
                 <tr>
@@ -64,8 +62,8 @@
     </div>
 </div>
 
-{% for rank in ranks %}
+{% for accreditation in accreditations %}
     
-    {% include "admin/character/rank/_modal.html.twig"  with {'title': 'rank' ~ rank.id } %}
+    {% include "admin/character/accreditation/_modal.html.twig"  with {'title': 'accreditation' ~ accreditation.id } %}
 
 {% endfor %}

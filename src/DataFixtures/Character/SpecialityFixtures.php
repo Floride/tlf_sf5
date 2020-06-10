@@ -26,7 +26,7 @@ class SpecialityFixtures extends Fixture
     private $professionRepository;
 
     /**
-     * Constructor
+     * SpecialityFixtures Constructor
      *
      * @param ProfessionRepository $professionRepository
      * 

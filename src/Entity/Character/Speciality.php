@@ -169,4 +169,6 @@ class Speciality extends EntityBase
 
         return $this;
     }
+    
+    /* ---------------------- Autres méthodes ---------------------- */
 }

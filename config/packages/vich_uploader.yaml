@@ -50,17 +50,17 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
 
-        medal_picture:
-            uri_prefix: /images/medals
-            upload_destination: '%kernel.project_dir%/public/images/medals'
+        character_medal_picture:
+            uri_prefix: /images/characters/medals
+            upload_destination: '%kernel.project_dir%/public/images/characters/medals'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
 
-        medal_ribbon_picture:
-            uri_prefix: /images/medals/ribbons
-            upload_destination: '%kernel.project_dir%/public/images/medals/ribbons'
+        character_medal_ribbon_picture:
+            uri_prefix: /images/characters/medals/ribbons
+            upload_destination: '%kernel.project_dir%/public/images/characters/medals/ribbons'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
             inject_on_load: false
             delete_on_update: true

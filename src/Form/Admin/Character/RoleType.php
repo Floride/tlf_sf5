@@ -1,8 +1,9 @@
 <?php
-// src\Form\Admin\Character\RankType.php
+// src\Form\Admin\Character\RoleType.php
 namespace App\Form\Admin\Character;
 
 use App\Entity\Character\Rank;
+use App\Entity\Character\Role;
 use App\Entity\Character\Accreditation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,19 +12,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
- * Class RankType
+ * Class RoleType
  *
+ * .
  * PHP version 7.2.5
  *
  * @package    App\Form
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
- * @version    1.1.0
+ * @version    1.0.0
  */
-class RankType extends AbstractType
+class RoleType extends AbstractType
 {
     /**
      * buildForm
@@ -50,19 +51,13 @@ class RankType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'label.type',
-                'choices' => array_flip(Rank::TYPE)
+                'choices' => array_flip(Role::TYPE),
+                'required' => true,
             ])
             ->add('category', ChoiceType::class, [
                 'label' => 'label.category',
-                'choices' => array_flip(Rank::CATEGORY)
-            ])
-            ->add('score', NumberType::class, [
-                'label' => 'label.score_rank_std',
-                'required' => false,
-            ])
-            ->add('scoreOL', NumberType::class, [
-                'label' => 'label.score_rank_ol',
-                'required' => false,
+                'choices' => array_flip(Role::CATEGORY),
+                'required' => true,
             ])
             ->add('picture', FileType::class, [
                 'label' => 'label.illustration',
@@ -79,6 +74,24 @@ class RankType extends AbstractType
                 'placeholder' => 'placeholder.accreditationMin',
                 'required' => false,
             ])
+            ->add('rankMin', EntityType::class, [
+                'class' => Rank::class,
+                'choice_label' => function ($rank) {
+                    return $rank->getName();
+                },
+                'label' => 'label.rank',
+                'placeholder' => 'placeholder.rank_min',
+                'required' => true,
+            ])
+            ->add('rankMax', EntityType::class, [
+                'class' => Rank::class,
+                'choice_label' => function ($rank) {
+                    return $rank->getName();
+                },
+                'label' => 'label.rank',
+                'placeholder' => 'placeholder.rank_max',
+                'required' => false,
+            ])
         ;
     }
 
@@ -91,7 +104,7 @@ class RankType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Rank::class,
+            'data_class' => Role::class,
             'translation_domain' => 'forms',
         ]);
     }

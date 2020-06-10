@@ -36,19 +36,19 @@ class SpecialityType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'name',
+                'label' => 'label.name',
                 'required' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'description',
+                'label' => 'label.description',
                 'required' => true,
             ])
             ->add('type', ChoiceType::class, [
-                'label' => 'type',
+                'label' => 'label.type',
                 'choices' => array_flip(Speciality::TYPE)
             ])
             ->add('picture', FileType::class, [
-                'label' => 'badge',
+                'label' => 'label.badge',
                 'required' => false,
             ])
             ->add('profession', EntityType::class, [
@@ -56,8 +56,8 @@ class SpecialityType extends AbstractType
                 'choice_label' => function ($profession) {
                     return $profession->getName();
                 },
-                'label' => 'profession',
-                'placeholder' => 'professionPlaceHolder',
+                'label' => 'label.profession',
+                'placeholder' => 'placeholder.profession',
                 'required' => false,
             ])
         ;

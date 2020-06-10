@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  *
  * @package    App\Form
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
- * @version    1.1.0
+ * @version    1.1.2
  */
 class SkillType extends AbstractType
 {
@@ -38,19 +38,19 @@ class SkillType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'name',
+                'label' => 'label.name',
                 'required' => true,
             ])
             ->add('abbreviation', TextType::class, [
-                'label' => 'abbreviation',
+                'label' => 'label.abbreviation',
                 'required' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'description',
+                'label' => 'label.description',
                 'required' => true,
             ])
             ->add('type', ChoiceType::class, [
-                'label' => 'type',
+                'label' => 'label.type',
                 'choices' => array_flip(Skill::TYPE)
             ])
             ->add('featurePrimae', EntityType::class, [
@@ -58,8 +58,8 @@ class SkillType extends AbstractType
                 'choice_label' => function ($feature) {
                     return $feature->getName() . ' [' . $feature->getAbbreviation() . ']';
                 },
-                'label' => 'featurePrimae',
-                'placeholder' => 'defaultFeaturePrimae',
+                'label' => 'label.featurePrimae',
+                'placeholder' => 'placeholder.featurePrimae',
                 'required' => false,
             ])
             ->add('featureSecundae', EntityType::class, [
@@ -67,8 +67,8 @@ class SkillType extends AbstractType
                 'choice_label' => function ($feature) {
                     return $feature->getName() . ' [' . $feature->getAbbreviation() . ']';
                 },
-                'label' => 'featureSecundae',
-                'placeholder' => 'defaultFeatureSecundae',
+                'label' => 'label.featureSecundae',
+                'placeholder' => 'placeholder.featureSecundae',
                 'required' => false,
             ])
             ->add('featureTertiae', EntityType::class, [
@@ -76,8 +76,8 @@ class SkillType extends AbstractType
                 'choice_label' => function ($feature) {
                     return $feature->getName() . ' [' . $feature->getAbbreviation() . ']';
                 },
-                'label' => 'featureTertiae',
-                'placeholder' => 'defaultFeatureTertiae',
+                'label' => 'label.featureTertiae',
+                'placeholder' => 'placeholder.featureTertiae',
                 'required' => false,
             ])
             ->add('featureQuartae', EntityType::class, [
@@ -85,16 +85,16 @@ class SkillType extends AbstractType
                 'choice_label' => function ($feature) {
                     return $feature->getName() . ' [' . $feature->getAbbreviation() . ']';
                 },
-                'label' => 'featureQuartae',
-                'placeholder' => 'defaultFeatureQuartae',
+                'label' => 'label.featureQuartae',
+                'placeholder' => 'placeholder.featureQuartae',
                 'required' => false,
             ])
             ->add('value', NumberType::class, [
-                'label' => 'valueFixe',
+                'label' => 'label.valueFixe',
                 'required' => false,
             ])
             ->add('picture', FileType::class, [
-                'label' => 'illustration',
+                'label' => 'label.illustration',
                 'required' => false,
             ])
         ;

@@ -1,22 +1,22 @@
 <?php
-// src\Controller\Backend\Character\SpecialityController.php
+// src\Controller\Backend\Character\RoleController.php
 namespace App\Controller\Backend\Character;
 
-use App\Entity\Character\Speciality;
+use App\Entity\Character\Role;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Controller\AbstractCrudController;
 use Knp\Component\Pager\PaginatorInterface;
-use App\Form\Admin\Character\SpecialityType;
+use App\Form\Admin\Character\RoleType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\Character\SpecialityRepository;
+use App\Repository\Character\RoleRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * Class SpecialityController
- * CRUD for Speciality class
+ * Class RoleController
+ * CRUD for Role class
  * 
  * PHP version 7.2.5
  *
@@ -26,36 +26,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  *
  * @IsGranted("ROLE_ADMIN")
  *
- * @Route("/admin/character/speciality",
- *      name="admin_character_speciality_"
+ * @Route("/admin/character/role",
+ *      name="admin_character_role_"
  * )
  */
-class SpecialityController extends AbstractCrudController
+class RoleController extends AbstractCrudController
 {
-    const RETURN_ROUTE = 'admin_character_speciality_list';
+    const RETURN_ROUTE = 'admin_character_role_list';
 
     /**
-     * @var SpecialityRepository
+     * @var RoleRepository
      */
-    private $specialityRepository;
+    private $roleRepository;
 
     /**
-     * SpecialityController Constructor
+     * RoleController Constructor
      *
-     * @param SpecialityRepository   $specialityRepository
+     * @param RoleRepository   $roleRepository
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(SpecialityRepository $specialityRepository, EntityManagerInterface $entityManager)
+    public function __construct(RoleRepository $roleRepository, EntityManagerInterface $entityManager)
     {
         parent::__construct($entityManager);
-        $this->specialityRepository = $specialityRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
      * Default
      *
-     * @param Request    $request
-     * @param Speciality $speciality
+     * @param Request $request
+     * @param Role    $role
      *
      * @return Response
      *
@@ -65,19 +65,10 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function default(Request $request, Speciality $speciality): Response
+    public function default(Request $request, Role $role): Response
     {
-        $specs = $this->specialityRepository->findBy(['profession' => $speciality->getProfession()]);
-        foreach ($specs as $spec) {
-            if ($spec != $speciality) {
-                $spec->setDefault(false);
-                $this->manager->persist($spec);
-            }
-        }
-        $this->manager->flush();
-
-        $speciality->setDefault(!$speciality->getDefault()); // Mise à jour statut is_default
-        $this->save($speciality);
+        $role->setDefault(!$role->getDefault()); // Mise à jour statut is_default
+        $this->save($role);
 
         return $this->redirectToRoute(self::RETURN_ROUTE);
     }
@@ -86,7 +77,7 @@ class SpecialityController extends AbstractCrudController
      * Delete
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Role $role
      *
      * @return Response
      *
@@ -96,11 +87,11 @@ class SpecialityController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Speciality $speciality): Response
+    public function delete(Request $request, Role $role): Response
     {
-        if ($this->isCsrfTokenValid('admin_character_speciality_delete_' . $speciality->getId(), $request->get('_token'))) {
-            $this->suppression($speciality);
-            $this->sendFlashMessage('delete_ok', 'speciality', false);
+        if ($this->isCsrfTokenValid('admin_character_role_delete_' . $role->getId(), $request->get('_token'))) {
+            $this->suppression($role);
+            $this->sendFlashMessage('delete_ok', 'fonction', false);
         } else {
             $this->sendFlashMessage('csrf_bad');
         }
@@ -113,7 +104,7 @@ class SpecialityController extends AbstractCrudController
      * Edit
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Role $role
      *
      * @return Response
      * 
@@ -123,20 +114,20 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Speciality $speciality): Response
+    public function edit(Request $request, Role $role): Response
     {
-        $form = $this->createForm(SpecialityType::class, $speciality);
+        $form = $this->createForm(RoleType::class, $role);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->save($speciality);
-            $this->sendFlashMessage('save_ok', 'speciality', false);
+            $this->save($role);
+            $this->sendFlashMessage('save_ok', 'fonction', false);
 
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
-        return $this->render('admin/character/speciality/edit.html.twig', [
-            'speciality' => $speciality,
+        return $this->render('admin/character/role/edit.html.twig', [
+            'role' => $role,
             'form' => $form->createView(),
         ]);
     }
@@ -157,15 +148,15 @@ class SpecialityController extends AbstractCrudController
     public function list(Request $request, PaginatorInterface $paginator): Response
     {
         $display = $request->get('display', 'list');
-        $specialities = $paginator->paginate(
-            $this->specialityRepository->findByNameQuery(),
+        $roles = $paginator->paginate(
+            $this->roleRepository->findByNameQuery(),
             $request->query->getInt('page', 1), // Numéro de page
             ($display == 'list') ? 25 : 12      // Limite par page
         );
 
-        return $this->render('admin/character/speciality/list.html.twig', [
+        return $this->render('admin/character/role/list.html.twig', [
             'display' => $display,
-            'specialities' => $specialities,
+            'roles' => $roles,
         ]);
     }
 
@@ -183,19 +174,19 @@ class SpecialityController extends AbstractCrudController
      */
     public function new(Request $request): Response
     {
-        $speciality = new Speciality();
-        $form = $this->createForm(SpecialityType::class, $speciality);
+        $role = new Role();
+        $form = $this->createForm(RoleType::class, $role);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->save($speciality);
-            $this->sendFlashMessage('save_ok', 'speciality', false);
+            $this->save($role);
+            $this->sendFlashMessage('save_ok', 'fonction', false);
             
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
-        return $this->render('admin/character/speciality/new.html.twig', [
-            'speciality' => $speciality,
+        return $this->render('admin/character/role/new.html.twig', [
+            'role' => $role,
             'form' => $form->createView(),
         ]);
     }
@@ -204,7 +195,7 @@ class SpecialityController extends AbstractCrudController
      * Playable
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Role $role
      *
      * @return Response
      *
@@ -214,10 +205,10 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function playable(Request $request, Speciality $speciality): Response
+    public function playable(Request $request, Role $role): Response
     {
-        $speciality->setPlayable(!$speciality->getPlayable()); // Mise à jour statut is_playable
-        $this->save($speciality);
+        $role->setPlayable(!$role->getPlayable()); // Mise à jour statut is_playable
+        $this->save($role);
 
         return $this->redirectToRoute(self::RETURN_ROUTE);
     
@@ -227,7 +218,7 @@ class SpecialityController extends AbstractCrudController
      * Obsolete
      *
      * @param Request    $request
-     * @param Speciality $speciality
+     * @param Role $role
      *
      * @return Response
      *
@@ -237,10 +228,10 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, Speciality $speciality): Response
+    public function obsolete(Request $request, Role $role): Response
     {
-        $speciality->setObsolete(!$speciality->getObsolete()); // Mise à jour statut is_obsolete
-        $this->save($speciality);
+        $role->setObsolete(!$role->getObsolete()); // Mise à jour statut is_obsolete
+        $this->save($role);
 
         return $this->redirectToRoute(self::RETURN_ROUTE);
     
