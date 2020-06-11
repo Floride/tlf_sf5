@@ -2,9 +2,10 @@
 
 namespace App\Repository\Character;
 
+use Doctrine\ORM\Query;
 use App\Entity\Character\Medal;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Medal|null find($id, $lockMode = null, $lockVersion = null)

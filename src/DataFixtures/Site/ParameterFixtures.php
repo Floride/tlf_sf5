@@ -67,7 +67,7 @@ Donec gravida nunc dui, non accumsan leo rhoncus et. Suspendisse pellentesque fe
             ['name' => 'site_title_abbr', 'value' => 'TLF'],
             ['name' => 'site_statut', 'value' => 'true'],
             ['name' => 'site_version', 'value' => '5.0'],
-            ['name' => 'site_release', 'value' => 'Alpha 1.0.6'],
+            ['name' => 'site_release', 'value' => 'Alpha 1.0.8'],
             ['name' => 'webmaster_nom', 'value' => 'Sylvain FLORIDE'],
             ['name' => 'webmaster_email', 'value' => 'sfloride@gmail.com'],
             ['name' => 'auteur_nom', 'value' => 'Sylvain FLORIDE'],

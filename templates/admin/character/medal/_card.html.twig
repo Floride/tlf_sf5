@@ -1,0 +1,30 @@
+{# templates\admin\character\medal\_card.html.twig #}
+<div class="card-deck">
+    {% for medal in medals %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/characters/medals/default.png') }}" 
+                alt="Compétence : {{ medal.name }} [{{ medal.abbreviation }}]"
+                data-toggle="modal" data-target="#medal{{ medal.id }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ medal.name }} [{{ medal.abbreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+                
+                {% include "admin/character/medal/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for medal in medals %}
+    
+    {% include "admin/character/medal/_modal.html.twig"  with {'title': 'medal' ~ medal.id } %}
+
+{% endfor %}

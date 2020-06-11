@@ -1,13 +1,16 @@
 # ------- A ------- #
+Achivment: Achèvement
 # ------- B ------- #
 # ------- C ------- #
 Civilian: Civil
 # ------- D ------- #
 # ------- E ------- #
 # ------- F ------- #
+Federal: Fédérale
 Female: Femme
 # ------- G ------- #
 # ------- H ------- #
+Honor: Honneur
 # ------- I ------- #
 Inknow: Inconnu
 # ------- J ------- #
@@ -22,6 +25,7 @@ label:
   biography: Biographie
   birthDate: Date de Naissance
   category: Catégorie
+  coeficientXp: Coéficient d'XP
   confirm_password: Confirmer le mot de passe
   description: Description
   email: E-Mail
@@ -44,6 +48,7 @@ label:
   rank: Grade
   record: Enregistrer
   response: Réponse
+  ribbon: Réduction
   role: Fonction
   sexe: Sexe
   score_rank_std: Point(s) de grade
@@ -59,11 +64,13 @@ label:
 # ------- M ------- #
 Male: Homme
 Mental: Mentale
+Mixte: Mixte
 # ------- N ------- #
 Not specified: Non précisée
 # ------- O ------- #
 Other: Autre
 # ------- P ------- #
+Personal: Individuel
 placeholder:
   accreditation: Accréditation
   accreditation_min: Accréditation Minimum
@@ -78,10 +85,13 @@ Physical: Physique
 Practice: Pratique
 # ------- Q ------- #
 # ------- R ------- #
+Regimental: Régimentaire
 # ------- S ------- #
 # ------- T ------- #
 # ------- U ------- #
+Unit: Unité
 # ------- V ------- #
+Valor: Bravoure
 # ------- W ------- #
 # ------- X ------- #
 # ------- Y ------- #

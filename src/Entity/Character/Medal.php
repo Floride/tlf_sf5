@@ -3,6 +3,7 @@
 namespace App\Entity\Character;
 
 use DateTimeImmutable;
+use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
 use App\Helper\ORM\CategoriableTrait;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Table(name="c_medal")
  * @Vich\Uploadable
  */
-class Medal
+class Medal extends EntityBase
 {
     use AbbreviationableTrait;
     use CategoriableTrait;
