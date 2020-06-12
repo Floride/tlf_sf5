@@ -54,11 +54,6 @@ class RoleType extends AbstractType
                 'choices' => array_flip(Role::TYPE),
                 'required' => true,
             ])
-            ->add('category', ChoiceType::class, [
-                'label' => 'label.category',
-                'choices' => array_flip(Role::CATEGORY),
-                'required' => true,
-            ])
             ->add('picture', FileType::class, [
                 'label' => 'label.illustration',
                 'required' => false,
@@ -71,7 +66,7 @@ class RoleType extends AbstractType
                     ;
                 },
                 'label' => 'label.accreditation_min',
-                'placeholder' => 'placeholder.accreditationMin',
+                'placeholder' => 'placeholder.accreditation_min',
                 'required' => false,
             ])
             ->add('rankMin', EntityType::class, [

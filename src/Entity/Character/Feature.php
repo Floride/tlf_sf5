@@ -445,25 +445,25 @@ class Feature extends EntityBase
     {
         $skillsAssociation = new ArrayCollection();
 
-        foreach($this->skillPrimae as $skill) {
+        foreach ($this->skillPrimae as $skill) {
             if (!$skillsAssociation->contains($skill)) {
                 $skillsAssociation[] = $skill;
             }
         }
 
-        foreach($this->skillSecundae as $skill) {
+        foreach ($this->skillSecundae as $skill) {
             if (!$skillsAssociation->contains($skill)) {
                 $skillsAssociation[] = $skill;
             }
         }
 
-        foreach($this->skillTertiae as $skill) {
+        foreach ($this->skillTertiae as $skill) {
             if (!$skillsAssociation->contains($skill)) {
                 $skillsAssociation[] = $skill;
             }
         }
 
-        foreach($this->skillQuartae as $skill) {
+        foreach ($this->skillQuartae as $skill) {
             if (!$skillsAssociation->contains($skill)) {
                 $skillsAssociation[] = $skill;
             }

@@ -185,10 +185,8 @@ class AccreditationController extends AbstractCrudController
     public function new(Request $request): Response
     {
         $accreditation = new Accreditation();
-        dump($accreditation);
         $form = $this->createForm(AccreditationType::class, $accreditation);
         $form->handleRequest($request);
-        dump($accreditation);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->save($accreditation);
             $this->sendFlashMessage('save_ok', 'accréditation', false);

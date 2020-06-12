@@ -41,7 +41,7 @@ class RankFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $listRanks = $this->getData();
 
-        foreach($listRanks as $r) {
+        foreach ($listRanks as $r) {
             $rank = (new Rank())
                 ->setName($r['name'])
                 ->setAbbreviation($r['abbreviation'])
@@ -82,25 +82,26 @@ class RankFixtures extends Fixture
          * @var Accreditation[]|null
          */
         $data = $this->accreditationRepository->findAll();
-        
-        foreach($data as $value) {
-            /* Accréditations : 
-                level 0 : Libre (AL)
-                level 1 : Restreint (AR)
-                level 2 : Confidentiel (AC), Confidentiel Défence (ACD), 
-                    Confidentiel Défence - Légion Fédérale (ACDL), 
-                    Confidentiel Défence - Infanterie Mobile (ACIM)
-                level 3 : Confidentiel Défence - Sous-Officier (ACSO)
-                level 4 : Confidentiel Défence - Officier (ACO), Régimentaire IV (AR-IV), 
-                    Confidentiel Médical III (M-III)
-                level 5 : Régimentaire III (AR-III), Confidentiel Médical II (M-II)
-                level 6 : Régimentaire II' (AR-II), Confidentiel Médical I (M-I)
-                level 7 : Régimentaire I (AR-I), Confidentiel Fédéral II (ACF-II)',
-                level 8 : Confidentiel Fédéral I (ACF-I)
-            */
+    
+        /* Accréditations : 
+            level 0 : Libre (AL)
+            level 1 : Restreint (AR)
+            level 2 : Confidentiel (AC), Confidentiel Défence (ACD), 
+                Confidentiel Défence - Légion Fédérale (ACDL), 
+                Confidentiel Défence - Infanterie Mobile (ACIM)
+            level 3 : Confidentiel Défence - Sous-Officier (ACSO)
+            level 4 : Confidentiel Défence - Officier (ACO), Régimentaire IV (AR-IV), 
+                Confidentiel Médical III (M-III)
+            level 5 : Régimentaire III (AR-III), Confidentiel Médical II (M-II)
+            level 6 : Régimentaire II' (AR-II), Confidentiel Médical I (M-I)
+            level 7 : Régimentaire I (AR-I), Confidentiel Fédéral II (ACF-II)',
+            level 8 : Confidentiel Fédéral I (ACF-I)
+        */
+        foreach ($data as $value) {
             $accreditations[$value->getAbbreviation()] = $value;
         }
         $ptsGrd = 10;
+
         return [
             [
                 'name' => 'SkyMarchal',

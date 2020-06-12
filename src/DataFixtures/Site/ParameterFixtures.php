@@ -57,7 +57,7 @@ class ParameterFixtures extends Fixture
     private function getData(): array
     {
         return [
-            ['name' => 'annee_debut', 'value' => '2440'],
+            ['name' => 'modificateur_annee', 'value' => '470'],
             ['name' => 'regiment_nom', 'value' => '228ème Régiment de la Légion Fédérale'],
             ['name' => 'regiment_abbr', 'value' => '228e R.L.F.'],
             ['name' => 'presentation', 'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -81,12 +81,8 @@ Donec gravida nunc dui, non accumsan leo rhoncus et. Suspendisse pellentesque fe
                 . 'Il s\'inspire librement d\'univers de livres, films, série TV, jeux de rôle ou vidéo '
                 . '(Troopers, Alien, Judge Dredd, COSMO 1999, Star Trek, X-COM, Shadowrun, etc...).'],
             ['name' => 'remerciements', 'value' => 'Chargé(s) de projet : Sylvain FLORIDE, Nicolas SEGUINEAU
-Developeur(s) Web (PHP) : Sylvain FLORIDE
-Developeur(s) Web (Symfony 5) : Sylvain FLORIDE
-Interface Graphique (CSS) : Sylvain FLORIDE
-Interface Graphique (JQuery) : Sylvain FLORIDE
-Interface Graphique (Image) : Sylvain FLORIDE
-Interface Graphique (Design) : Sylvain FLORIDE
+Developeur(s) Web (PHP, Symfony 5) : Sylvain FLORIDE
+Interface Graphique (CSS, JQuery, illustrations, design) : Sylvain FLORIDE
 Testeur(s) : Sylvain FLORIDE, Nicolas SEGUINEAU, Hélène BOUTELOUP
 Developpeur(s) Background : Sylvain FLORIDE, Nicolas SEGUINEAU, Hélène BOUTELOUP'
             ],

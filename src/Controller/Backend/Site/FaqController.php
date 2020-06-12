@@ -33,7 +33,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class FaqController extends AbstractCrudController
 {
-    const RETURN_ROUTE = 'admin_character_profession_list';
+    const RETURN_ROUTE = 'admin_site_faq_list';
 
     /**
      * @var FaqRepository
@@ -158,7 +158,6 @@ class FaqController extends AbstractCrudController
         
         $form = $this->createForm(FaqType::class, $faq);
         $form->handleRequest($request);
-        dump($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->save($faq);

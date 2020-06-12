@@ -23,7 +23,7 @@ class ProfessionFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $listProfession = $this->getData();
 
-        foreach($listProfession as $p) {
+        foreach ($listProfession as $p) {
             $profession = (new Profession())
                 ->setName($p['name'])
                 ->setDescription($faker->paragraph(5, true))

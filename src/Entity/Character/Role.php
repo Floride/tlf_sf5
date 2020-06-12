@@ -36,7 +36,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Role extends EntityBase
 {
     use AbbreviationableTrait;
-    use CategoriableTrait;
     use DescriptionableTrait;
     use IsDefaultableTrait;
     use IsObsoletableTrait;
@@ -50,16 +49,6 @@ class Role extends EntityBase
         2 => 'Civilian',
         3 => 'Mixte',
     ];
-    
-    const CATEGORY = [
-        0 => 'Not specified',
-        1 => 'Homme du Rang',
-        2 => 'Sous-officier',
-        3 => 'Officier',
-        4 => 'Officier Général',
-        5 => 'Elève',
-        6 => 'Other'
-    ];
 
     /**
      * @var int|null Table id
@@ -71,7 +60,7 @@ class Role extends EntityBase
 
     /**
      * @ORM\ManyToOne(targetEntity=Accreditation::class, inversedBy="rolesMin")
-     * @ORM\JoinColumn(name="lvl_accred_min", nullable=false)
+     * @ORM\JoinColumn(name="lvl_accred_min", onDelete="SET NULL")
      */
     private $accreditationMin;
 
@@ -90,12 +79,14 @@ class Role extends EntityBase
     /**
      * @var Rank|null
      * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMin")
+     * @ORM\joinColumn(name="rank_min", onDelete="SET NULL")
      */
     private $rankMin;
 
     /**
      * @var Rank|null
      * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMax")
+     * @ORM\joinColumn(name="rank_max", onDelete="SET NULL")
      */
     private $rankMax;
 

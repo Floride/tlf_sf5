@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class FeatureController
- * CRUD for Skill class
+ * CRUD for Feature class
  *
  * PHP version 7.2.5
  *

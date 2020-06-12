@@ -42,7 +42,7 @@ class SpecialityFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $listSpecialities = $this->getData();
 
-        foreach($listSpecialities as $s) {
+        foreach ($listSpecialities as $s) {
             $profession = (new Speciality())
                 ->setName($s['name'])
                 ->setDescription($faker->paragraph(5, true))
@@ -78,13 +78,14 @@ class SpecialityFixtures extends Fixture
          */
         $data = $this->professionRepository->findAll();
         
-        foreach($data as $value) {
+        foreach ($data as $value) {
             // Professions : 
             //      [x] Artilleur,  [x] Grenadier Voltigeur, [ ] Infirmier,  [x] Médecin,  
             //      [x] Technicien, [x] Tirailleur,          [x] Politicien, [x] Ingenieur, 
             //      [x] Rebelle
             $professions[$value->getName()] = $value;
         }
+        
         return [
             [
                 'name' => 'Terrorisme',

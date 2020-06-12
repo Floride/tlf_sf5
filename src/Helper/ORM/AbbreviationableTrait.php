@@ -18,7 +18,7 @@ trait AbbreviationableTrait
 {
     /**
      * @var string|null
-     * @ORM\Column(name="abbreviation", type="string", nullable=false, length=10, unique=true)
+     * @ORM\Column(name="abbreviation", type="string", nullable=false, length=20, unique=true)
      * @Assert\NotBlank
      */
     private $abbreviation;

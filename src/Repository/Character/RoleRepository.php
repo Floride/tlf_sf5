@@ -30,7 +30,6 @@ class RoleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->OrderBy('c.type', 'ASC')
-            ->addOrderBy('c.category', 'ASC')
             ->addOrderBy('c.name', $order)
             ->getQuery()
         ;

@@ -14,7 +14,7 @@ use Doctrine\ORM\Query;
  *
  * @package    App\Repository
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
- * @version    1.1.0
+ * @version    1.1.1
  *
  * @method Speciality|null find($id, $lockMode = null, $lockVersion = null)
  * @method Speciality|null findOneBy(array $criteria, array $orderBy = null)
@@ -24,7 +24,7 @@ use Doctrine\ORM\Query;
 class SpecialityRepository extends ServiceEntityRepository
 {
     /**
-     * Constructor
+     * SpecialityRepository Constructor
      *
      * @param ManagerRegistry $registry
      */

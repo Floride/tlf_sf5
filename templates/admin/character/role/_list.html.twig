@@ -11,8 +11,6 @@
                     
                     <th class="text-bold">Type</th>
 
-                    <th class="text-bold">Catégorie</th>
-
                     <th class="text-bold text-center">Action</th>
                 <tr>
             </thead>
@@ -28,24 +26,6 @@
                             Militaire
                         {% elseif role.type == 2 %}
                             Civil
-                        {% else %}
-                            Non précisée
-                        {% endif %}
-                    </td>
-
-                    <td>
-                        {% if role.category == 1 %}
-                            Homme du Rang
-                        {% elseif role.category == 2 %}
-                            Sous-officier
-                        {% elseif role.category == 3 %}
-                            Officier
-                        {% elseif role.category == 4 %}
-                            Officier Général
-                        {% elseif role.category == 5 %}
-                            Elève
-                        {% elseif role.category == 5 %}
-                            Autre
                         {% else %}
                             Non précisée
                         {% endif %}

@@ -153,10 +153,9 @@ class MedalController extends AbstractCrudController
     public function new(Request $request): Response
     {
         $medal = new Medal();
-        dump($medal);
         $form = $this->createForm(MedalType::class, $medal);
         $form->handleRequest($request);
-        dump($medal);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $this->save($medal);
             $this->sendFlashMessage('save_ok', 'accréditation', false);

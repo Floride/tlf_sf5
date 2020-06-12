@@ -57,7 +57,7 @@ class Skill extends EntityBase
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillPrimae")
-     * @ORM\JoinColumn(name="feature_1", nullable=false)
+     * @ORM\JoinColumn(name="feature_1", onDelete="SET NULL")
      * @Assert\NotBlank
      */
     private $featurePrimae;
@@ -65,21 +65,21 @@ class Skill extends EntityBase
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillSecundae")
-     * @ORM\JoinColumn(name="feature_2", nullable=true)
+     * @ORM\JoinColumn(name="feature_2", onDelete="SET NULL")
      */
     private $featureSecundae;
 
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillTertiae")
-     * @ORM\JoinColumn(name="feature_3", nullable=true)
+     * @ORM\JoinColumn(name="feature_3", onDelete="SET NULL")
      */
     private $featureTertiae;
 
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillQuartae")
-     * @ORM\JoinColumn(name="feature_4", nullable=true)
+     * @ORM\JoinColumn(name="feature_4", onDelete="SET NULL")
      */
     private $featureQuartae;
 

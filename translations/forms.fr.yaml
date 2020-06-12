@@ -18,9 +18,11 @@ Inknow: Inconnu
 Knowledge: Connaissance
 # ------- L ------- #
 label:
+  abbreviation: Abreviation
   accreditation: Accréditation
   accreditation_min: Accréditation Minimum
-  abbreviation: Abreviation
+  affectation: Affectation
+  affectation_parent: Sous l'autorité de 
   badge: Badge (illustration)
   biography: Biographie
   birthDate: Date de Naissance
@@ -48,7 +50,7 @@ label:
   rank: Grade
   record: Enregistrer
   response: Réponse
-  ribbon: Réduction
+  ribbon: Réduction (illustration)
   role: Fonction
   sexe: Sexe
   score_rank_std: Point(s) de grade
@@ -74,6 +76,8 @@ Personal: Individuel
 placeholder:
   accreditation: Accréditation
   accreditation_min: Accréditation Minimum
+  affectation: "- Choisissez une affectation -"
+  affectation_parent: "- Affectation de rattachement -"
   featurePrimae: "- Choisissez une caractéristique -"
   featureQuartae: "- Choisissez une caractéristique -"
   featureSecundae: "- Choisissez une caractéristique -"

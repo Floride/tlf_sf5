@@ -23,7 +23,7 @@ class MedalFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $listMedals = $this->getData();
 
-        foreach($listMedals as $m) {
+        foreach ($listMedals as $m) {
             $medal = (new Medal())
                 ->setName($m['name'])
                 ->setAbbreviation($m['abbreviation'])
@@ -178,7 +178,7 @@ class MedalFixtures extends Fixture
             ],
             [
                 'name' => 'Médaille de la Légion Fédérale',
-                'abbreviation' => 'FM',
+                'abbreviation' => 'FLM',
                 'type' => 3,
                 'category' => 5,
                 'value' => 800,
@@ -186,7 +186,7 @@ class MedalFixtures extends Fixture
             ],
             [
                 'name' => 'Médaille de l\'Infanterie Mobile',
-                'abbreviation' => 'FM',
+                'abbreviation' => 'MIM',
                 'type' => 3,
                 'category' => 5,
                 'value' => 800,

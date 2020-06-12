@@ -71,7 +71,7 @@ class Speciality extends EntityBase
     /**
      * @var Profession
      * @ORM\ManyToOne(targetEntity=Profession::class, inversedBy="specialities")
-     * @ORM\JoinColumn(name="profession", nullable=false)
+     * @ORM\JoinColumn(name="profession", onDelete="SET NULL")
      */
     private $profession;
 

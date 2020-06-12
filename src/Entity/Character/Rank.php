@@ -72,7 +72,7 @@ class Rank extends EntityBase
     /**
      * @var Accreditation|null
      * @ORM\ManyToOne(targetEntity=Accreditation::class, inversedBy="ranksMin")
-     * @ORM\JoinColumn(name="lvl_accred_min", nullable=false)
+     * @ORM\JoinColumn(name="lvl_accred_min", onDelete="SET NULL"))
      */
     private $accreditationMin;
 

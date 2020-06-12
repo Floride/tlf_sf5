@@ -23,7 +23,7 @@ class AccreditationFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $listAccreditations = $this->getData();
         
-        foreach($listAccreditations as $a) {
+        foreach ($listAccreditations as $a) {
             $accreditation = (new Accreditation())
                 ->setName($a['name'])
                 ->setAbbreviation($a['abbreviation'])

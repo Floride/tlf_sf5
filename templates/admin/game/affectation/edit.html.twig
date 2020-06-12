@@ -1,0 +1,21 @@
+{# templates\admin\game\affectation\edit.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+    
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Affectations',
+            'h_path_retour':'admin_game_affectation_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Modifier une affectation',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/game/affectation/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}
