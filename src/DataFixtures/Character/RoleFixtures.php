@@ -8,8 +8,10 @@ use App\Entity\Character\Role;
 use App\Entity\Character\Accreditation;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\Character\RankFixtures;
 use App\Repository\Character\RankRepository;
 use App\Repository\Character\AccreditationRepository;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class RoleFixtures
@@ -20,7 +22,7 @@ use App\Repository\Character\AccreditationRepository;
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
  */
-class RoleFixtures extends Fixture
+class RoleFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @var AccreditationRepository
@@ -71,12 +73,11 @@ class RoleFixtures extends Fixture
         $manager->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
+    public function getDependencies(): array
     {
-        return 1200;
+        return [
+            RankFixtures::class,
+        ];
     }
     
     /**

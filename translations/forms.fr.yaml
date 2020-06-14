@@ -85,6 +85,7 @@ placeholder:
   profession: "- Choississez une profession -"
   rank_min: Grade Minimum
   rank_max: Grade Maximum
+  type: "- Choississez un type -"
 Physical: Physique
 Practice: Pratique
 # ------- Q ------- #

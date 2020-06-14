@@ -1,0 +1,47 @@
+{# templates\admin\game\geo\place\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold w-25">Nom</th>
+                    
+                    <th class="text-bold">Type</th>
+                    
+                    <th class="text-bold text-center">Obsolète</th>
+
+                    <th class="text-bold text-center w-10">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for place in places %}
+                <tr>
+                    <td class="w-25">{{ place.name }}</td>
+                    
+                    <td>{{ place.type.name }}</td>
+
+                    <td class="text-center">
+                        <a href="{{ path('admin_game_geo_place_obsolete', {id: place.id}) }}">
+                            {% if place.obsolete %}
+                            <i class="far fa-check-square text-danger" title="Oui"></i>
+                            {% else %}
+                            <i class="far fa-square text-success" title="Non"></i>
+                            {% endif %}
+                        </a>
+                    </td>
+
+                    <td class="text-center w-10">
+
+                        {% include "admin/game/geo/place/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="7" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>

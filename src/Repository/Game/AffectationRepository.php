@@ -2,9 +2,10 @@
 
 namespace App\Repository\Game;
 // src\Repository\Game\AffectationRepository.php
+use Doctrine\ORM\Query;
 use App\Entity\Game\Affectation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * Class SpecialityRepository

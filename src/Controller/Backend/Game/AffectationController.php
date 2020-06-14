@@ -2,7 +2,6 @@
 // src\Controller\Backend\Game\AffectationController.php
 namespace App\Controller\Backend\Game;
 
-use DateTimeImmutable;
 use App\Entity\Game\Affectation;
 use App\Form\Admin\Game\AffectationType;
 use App\Repository\Game\AffectationRepository;
@@ -23,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  *
  * @package    App\Controller\Backend
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
- * @version    1.0.0
+ * @version    1.0.1
  *
  * @IsGranted("ROLE_ADMIN")
  *
@@ -89,8 +88,8 @@ class AffectationController extends AbstractCrudController
     /**
      * Delete
      *
-     * @param Affectation     $affectation
-     * @param Request $request
+     * @param Affectation $affectation
+     * @param Request     $request
      *
      * @return Response
      *
@@ -115,8 +114,8 @@ class AffectationController extends AbstractCrudController
     /**
      * Edit
      *
-     * @param Affectation     $affectation
-     * @param Request $request
+     * @param Affectation $affectation
+     * @param Request     $request
      *
      * @return Response
      * 
@@ -147,8 +146,7 @@ class AffectationController extends AbstractCrudController
     /**
      * List
      *
-     * @param PaginatorInterface $paginator
-     * @param Request            $request
+     * @param Request $request
      * 
      * @return Response
      * 
@@ -159,8 +157,7 @@ class AffectationController extends AbstractCrudController
      */
     public function list(Request $request): Response
     {
-        $affectations = $this->affectationRepository->findAll();
-        $affectations = $this->getStairDisplay($affectations);
+        $affectations = $this->getStairDisplay($this->affectationRepository->findAll());
 
         return $this->render('admin/game/affectation/list.html.twig', [
             'affectations' => $affectations,
@@ -170,8 +167,8 @@ class AffectationController extends AbstractCrudController
     /**
      * New
      *
-     * @param Affectation     $affectation
-     * @param Request $request
+     * @param Affectation $affectation
+     * @param Request     $request
      *
      * @return Response
      * 
@@ -203,7 +200,7 @@ class AffectationController extends AbstractCrudController
     /**
      * Obsolete
      *
-     * @param Request    $request
+     * @param Request     $request
      * @param Affectation $affectation
      *
      * @return Response

@@ -61,7 +61,7 @@ class Affectation extends EntityBase
     /**
      * @var Affectation|null
      * @ORM\ManyToOne(targetEntity=Affectation::class, inversedBy="childs")
-     * @ORM\joinColumn(name="parent", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="parent", onDelete="SET NULL")
      */
     private $parent;
 
@@ -91,9 +91,9 @@ class Affectation extends EntityBase
     /**
      * getChilds
      * 
-     * @return Collection|self[]
+     * @return Collection|Affectation[]|null
      */
-    public function getChilds(): Collection
+    public function getChilds(): ?Collection
     {
         return $this->childs;
     }

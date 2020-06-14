@@ -1,0 +1,21 @@
+{# templates\admin\game\geo\place\edit.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+    
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Jeu : Géographie (Lieux)',
+            'h_path_retour':'admin_game_geo_place_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Modifier un lieu',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/game/geo/place/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

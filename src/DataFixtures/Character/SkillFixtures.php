@@ -2,12 +2,13 @@
 // src\DataFixtures\Character\SkillFixtures.php
 namespace App\DataFixtures\Character;
 
+use Faker\Factory;
 use App\Entity\Character\Skill;
 use App\Entity\Character\Feature;
-use App\Repository\Character\FeatureRepository;
-use Faker\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Repository\Character\FeatureRepository;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class SkillFixtures
@@ -18,7 +19,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.1.0
  */
-class SkillFixtures extends Fixture
+class SkillFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @var FeatureRepository
@@ -74,13 +75,12 @@ class SkillFixtures extends Fixture
 
         $manager->flush();
     }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
+
+    public function getDependencies(): array
     {
-        return 1200;
+        return [
+            ProfessionFixtures::class,
+        ];
     }
 
     /**

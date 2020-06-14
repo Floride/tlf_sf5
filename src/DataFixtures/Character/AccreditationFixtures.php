@@ -40,14 +40,6 @@ class AccreditationFixtures extends Fixture
 
         $manager->flush();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
-    {
-        return 1000;
-    }
     
     /**
      * Get data

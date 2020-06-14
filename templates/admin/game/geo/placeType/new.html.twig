@@ -1,0 +1,21 @@
+{# templates\admin\game\geo\placeType\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Jeu : Géographie (Types de lieu)',
+            'h_path_retour':'admin_game_geo_placeType_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer un nouveau type de lieu',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/game/geo/placeType/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

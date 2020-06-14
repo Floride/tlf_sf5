@@ -42,14 +42,6 @@ class ParameterFixtures extends Fixture
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
-    {
-        return 1000;
-    }
-
-    /**
      * Get data
      *
      * @return array

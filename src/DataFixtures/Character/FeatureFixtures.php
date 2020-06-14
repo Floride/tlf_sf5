@@ -42,14 +42,6 @@ class FeatureFixtures extends Fixture
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
-    {
-        return 1100;
-    }
-
-    /**
      * Get data
      *
      * @return array

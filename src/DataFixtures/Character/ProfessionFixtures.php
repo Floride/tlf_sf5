@@ -37,14 +37,6 @@ class ProfessionFixtures extends Fixture
 
         $manager->flush();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
-    {
-        return 1100;
-    }
     
     /**
      * Get data

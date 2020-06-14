@@ -6,7 +6,9 @@ use Faker\Factory;
 use App\Entity\Character\Rank;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\Character\AccreditationFixtures;
 use App\Repository\Character\AccreditationRepository;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class RankFixtures
@@ -17,7 +19,7 @@ use App\Repository\Character\AccreditationRepository;
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
  */
-class RankFixtures extends Fixture
+class RankFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @var AccreditationRepository
@@ -62,13 +64,12 @@ class RankFixtures extends Fixture
 
         $manager->flush();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
+    
+    public function getDependencies(): array
     {
-        return 1100;
+        return [
+            AccreditationFixtures::class,
+        ];
     }
     
     /**

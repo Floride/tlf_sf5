@@ -148,9 +148,9 @@ class Profession extends EntityBase
     /**
      * Get specialities
      * 
-     * @return Collection|Speciality[]
+     * @return Collection|Speciality[]|null
      */
-    public function getSpecialities(): Collection
+    public function getSpecialities(): ?Collection
     {
         return $this->specialities;
     }

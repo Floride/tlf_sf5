@@ -240,9 +240,9 @@ class Rank extends EntityBase
     }
 
     /**
-     * @return Collection|Role[]
+     * @return Collection|Role[]|null
      */
-    public function getRolesMin(): Collection
+    public function getRolesMin(): ?Collection
     {
         return $this->rolesMin;
     }
@@ -271,9 +271,9 @@ class Rank extends EntityBase
     }
 
     /**
-     * @return Collection|Role[]
+     * @return Collection|Role[]|null
      */
-    public function getRolesMax(): Collection
+    public function getRolesMax(): ?Collection
     {
         return $this->rolesMax;
     }

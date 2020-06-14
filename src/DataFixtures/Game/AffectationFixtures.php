@@ -49,7 +49,7 @@ class AffectationFixtures extends Fixture
                 ->setAbbreviation($a['abbreviation'])
                 ->setDescription($faker->paragraph(5, true))
                 ->setObsolete(false)
-                ->setDefault((isset($r['default'])) ? true : false)
+                ->setDefault((isset($a['default'])) ? true : false)
                 ->setType($a['type'])
             ;
             
@@ -58,15 +58,7 @@ class AffectationFixtures extends Fixture
 
         $manager->flush();
 
-        $this->Updateparent($listAffectation, $manager);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
-    {
-        return 1100;
+        $this->updateParent($listAffectation, $manager);
     }
     
     /**
@@ -242,14 +234,14 @@ class AffectationFixtures extends Fixture
     }
 
     /**
-     * Updateparent
+     * updateParent
      *
      * @param array         $affectations
      * @param ObjectManager $manager
      * 
      * @return void
      */
-    private function Updateparent(array $listAffectations, ObjectManager $manager): void
+    private function updateParent(array $listAffectations, ObjectManager $manager): void
     {
         /**
          * @var Affectation[]|null

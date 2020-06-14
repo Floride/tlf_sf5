@@ -141,9 +141,9 @@ class Feature extends EntityBase
     /**
      * Get Compétences Primaires
      * 
-     * @return Collection|Skill[]
+     * @return Collection|Skill[]|null
      */
-    public function getSkillPrimae(): Collection
+    public function getSkillPrimae(): ?Collection
     {
         return $this->skillPrimae;
     }
@@ -187,9 +187,9 @@ class Feature extends EntityBase
     /**
      * Get Compétences Secondaires
      * 
-     * @return Collection|Skill[]
+     * @return Collection|Skill[]|null
      */
-    public function getSkillSecundae(): Collection
+    public function getSkillSecundae(): ?Collection
     {
         return $this->skillSecundae;
     }
@@ -233,9 +233,9 @@ class Feature extends EntityBase
     /**
      * Get Compétences Tertiaires
      * 
-     * @return Collection|Skill[]
+     * @return Collection|Skill[]|null
      */
-    public function getSkillTertiae(): Collection
+    public function getSkillTertiae(): ?Collection
     {
         return $this->skillTertiae;
     }
@@ -279,9 +279,9 @@ class Feature extends EntityBase
     /**
      * Get Compétences Quaternaires
      * 
-     * @return Collection|Skill[]
+     * @return Collection|Skill[]|null
      */
-    public function getSkillQuartae(): Collection
+    public function getSkillQuartae(): ?Collection
     {
         return $this->skillQuartae;
     }

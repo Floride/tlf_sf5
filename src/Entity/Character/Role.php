@@ -79,14 +79,14 @@ class Role extends EntityBase
     /**
      * @var Rank|null
      * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMin")
-     * @ORM\joinColumn(name="rank_min", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="rank_min", onDelete="SET NULL")
      */
     private $rankMin;
 
     /**
      * @var Rank|null
      * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMax")
-     * @ORM\joinColumn(name="rank_max", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="rank_max", onDelete="SET NULL")
      */
     private $rankMax;
 

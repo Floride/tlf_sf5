@@ -7,7 +7,9 @@ use App\Entity\Character\Profession;
 use App\Entity\Character\Speciality;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\Character\ProfessionFixtures;
 use App\Repository\Character\ProfessionRepository;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class SpecialityFixtures
@@ -18,7 +20,7 @@ use App\Repository\Character\ProfessionRepository;
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.1.0
  */
-class SpecialityFixtures extends Fixture
+class SpecialityFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @var ProfessionRepository
@@ -58,12 +60,11 @@ class SpecialityFixtures extends Fixture
         $manager->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder():int
+    public function getDependencies(): array
     {
-        return 1200;
+        return [
+            ProfessionFixtures::class,
+        ];
     }
     
     /**

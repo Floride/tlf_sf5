@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package    App\Entity
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
- * @version    1.0.0
+ * @version    1.0.1
  * 
  * @ORM\Entity(repositoryClass=SpecialityRepository::class)
  * @ORM\HasLifecycleCallbacks
@@ -69,14 +69,14 @@ class Speciality extends EntityBase
     private $pictureFile;
 
     /**
-     * @var Profession
+     * @var Profession|null
      * @ORM\ManyToOne(targetEntity=Profession::class, inversedBy="specialities")
      * @ORM\JoinColumn(name="profession", onDelete="SET NULL")
      */
     private $profession;
 
     /**
-     * Constructor
+     * Speciality Constructor
      */
     public function __construct()
     {
