@@ -2,6 +2,7 @@
 // src\Entity\Character\Rank.php
 namespace App\Entity\Character;
 
+use DateTimeImmutable;
 use App\Mapping\EntityBase;
 use App\Entity\Character\Role;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +20,6 @@ use App\Repository\Character\RankRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Rank

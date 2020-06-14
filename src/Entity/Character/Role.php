@@ -2,11 +2,11 @@
 // src\Entity\Character\Role.php
 namespace App\Entity\Character;
 
+use DateTimeImmutable;
 use App\Mapping\EntityBase;
 use App\Entity\Character\Rank;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
-use App\Helper\ORM\CategoriableTrait;
 use App\Helper\ORM\IsDefaultableTrait;
 use App\Helper\ORM\IsObsoletableTrait;
 use App\Helper\ORM\IsPlayablableTrait;
@@ -15,9 +15,7 @@ use App\Helper\ORM\DescriptionableTrait;
 use App\Helper\ORM\AbbreviationableTrait;
 use App\Repository\Character\RoleRepository;
 use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Role

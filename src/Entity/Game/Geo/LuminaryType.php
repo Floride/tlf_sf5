@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\Game\Geo\LuminaryTypeRepository;
 
+
 /**
  * Class LuminaryType
  *

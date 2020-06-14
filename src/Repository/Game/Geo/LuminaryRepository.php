@@ -34,8 +34,8 @@ class LuminaryRepository extends ServiceEntityRepository
     public function findByNameQuery(?string $order = 'ASC'): Query 
     {
         return $this->createQueryBuilder('a')
-            //->leftJoin(LuminaryType::class, 't')
-            //->orderBy('t.name', $order)
+            ->leftJoin('a.type', 't')
+            ->orderBy('t.name', $order)
             ->addOrderBy('a.name', $order)
             ->getQuery()
         ;

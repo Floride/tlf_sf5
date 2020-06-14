@@ -33,7 +33,7 @@ class User extends EntityBase implements UserInterface
     use IsEnablableTrait;
     
     const SEXE = [
-        0 => 'Inconnu',
+        0 => 'Unknown',
         1 => 'Male',
         2 => 'Female'
     ];

@@ -12,7 +12,6 @@ use App\Helper\ORM\AbbreviationableTrait;
 use Doctrine\Common\Collections\Collection;
 use App\Helper\ORM\NeededDescriptionableTrait;
 use App\Repository\Game\AffectationRepository;
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

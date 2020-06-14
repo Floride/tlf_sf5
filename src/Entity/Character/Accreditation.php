@@ -3,8 +3,6 @@
 namespace App\Entity\Character;
 
 use App\Mapping\EntityBase;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
 use App\Helper\ORM\CategoriableTrait;
@@ -13,6 +11,8 @@ use App\Helper\ORM\IsPlayablableTrait;
 use App\Helper\ORM\UniqueNameableTrait;
 use App\Helper\ORM\DescriptionableTrait;
 use App\Helper\ORM\AbbreviationableTrait;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\Character\AccreditationRepository;
 
 /**

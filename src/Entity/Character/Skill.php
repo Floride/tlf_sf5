@@ -4,7 +4,6 @@ namespace App\Entity\Character;
 
 use DateTimeImmutable;
 use App\Mapping\EntityBase;
-use App\Entity\Character\Skill;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Character\Feature;
 use App\Helper\ORM\TypeableTrait;

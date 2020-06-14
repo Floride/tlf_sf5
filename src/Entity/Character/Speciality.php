@@ -5,17 +5,16 @@ namespace App\Entity\Character;
 use DateTimeImmutable;
 use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
+use App\Helper\ORM\NameableTrait;
 use App\Helper\ORM\TypeableTrait;
 use App\Entity\Character\Profession;
 use App\Helper\ORM\IsDefaultableTrait;
 use App\Helper\ORM\IsObsoletableTrait;
 use App\Helper\ORM\IsPlayablableTrait;
-use App\Helper\ORM\NameableTrait;
 use App\Helper\ORM\NeededDescriptionableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Repository\Character\SpecialityRepository;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Speciality

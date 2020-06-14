@@ -2,6 +2,7 @@
 // src\Entity\Character\Profession.php
 namespace App\Entity\Character;
 
+use DateTimeImmutable;
 use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
@@ -15,7 +16,6 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\Character\ProfessionRepository;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Profession

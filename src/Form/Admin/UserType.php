@@ -35,36 +35,36 @@ class UserType extends AbstractType
     {
         $builder
             ->add('lastname', TextType::class, [
-                'label' => 'lastname',
+                'label' => 'label.lastname',
                 'required' => false,
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'firstname',
+                'label' => 'label.firstname',
                 'required' => false,
             ])
             ->add('email', EmailType::class, [
-                'label' => 'email',
+                'label' => 'label.email',
                 'required' => true
             ])
             ->add('username', TextType::class, [
-                'label' => 'username',
+                'label' => 'label.username',
                 'required' => false,
             ])
             ->add('sexe', ChoiceType::class, [
-                'label' => 'sexe',
+                'label' => 'label.sexe',
                 'choices' => array_flip(User::SEXE)
             ])
             ->add('birthDate', DateType::class, [
-                'label' => 'birthDate',
+                'label' => 'label.birthDate',
                 'widget' => 'single_text',
                 'required' => false,
             ])
             ->add('biography', TextareaType::class, [
-                'label' => 'biography',
+                'label' => 'label.biography',
                 'required' => false,
             ])
             ->add('picture', FileType::class, [
-                'label' => 'photo',
+                'label' => 'label.photo',
                 'required' => false,
             ])
         ;
