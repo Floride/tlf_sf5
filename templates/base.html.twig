@@ -5,7 +5,16 @@
         <!-- Required meta tags -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>{% block title %}Troopers, la Légion Fédérale - V5 Alpha 1.0.6{% endblock %}</title>
+        {% block meta %}
+            <meta name="description" content="{{ siteParams('meta_description') }}">
+            <meta name="keywords" content="{{ siteParams('meta_keywords') }}">
+            <meta name="author" content="{{ siteParams('auteur_nom') }}">
+        {% endblock %}
+        <title>
+        {% block title %}
+            {{ siteParams('site_title') }} - V{{ siteParams('site_version')|number_format(0) }} {{ siteParams('site_release') }}
+        {% endblock %}
+        </title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
@@ -20,7 +29,21 @@
     <body>
     
         {% block nav %}{% endblock %}
+
         {% block body %}{% endblock %}
+        
+        {% block footer %}
+            <footer class="mb-4 mt-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-small text-center">
+                            &copy; {{ siteParams('site_title') }} - 2003 - {{ 'now'|date('Y') }}
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
@@ -32,6 +55,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
             crossorigin="anonymous"></script>
+
         {% block javascripts %}{% endblock %}
+
     </body>
 </html>

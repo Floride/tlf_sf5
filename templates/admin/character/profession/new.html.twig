@@ -1,0 +1,21 @@
+{# templates\admin\character\profession\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Professions',
+            'h_path_retour':'admin_character_profession_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer une nouvelle Profession',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/character/profession/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

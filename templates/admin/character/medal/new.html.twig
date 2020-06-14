@@ -1,0 +1,21 @@
+{# templates\admin\character\feature\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Récompences (Médailles)',
+            'h_path_retour':'admin_character_medal_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer une nouvelle récompence (Médaille)',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/character/medal/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

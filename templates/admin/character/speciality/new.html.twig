@@ -1,0 +1,21 @@
+{# templates\admin\character\speciality\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnages: Professions (Spécialités)',
+            'h_path_retour':'admin_character_speciality_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer une nouvelle specialité',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/character/speciality/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

@@ -1,65 +1,102 @@
 # ------- A ------- #
-abreviation: Abreviation
+Achivment: Achèvement
 # ------- B ------- #
-bio: Biographie
 # ------- C ------- #
-caracPrimae: Caractéristique associée 1
-caracQuartae: Caractéristique associée 4
-caracSecundae: Caractéristique associée 2
-caracTertiae: Caractéristique associée 3
-compsRemplacerPar: Compétence remplacée par
-confirm_password: Confirmer le mot de passe
-Connaissance: Connaissance
+Civilian: Civil
 # ------- D ------- #
-defaultCaracPrimae: "- Choisissez la Caractéristique -"
-defaultCaracQuartae: "- Choisissez la Caractéristique -"
-defaultCaracSecundae: "- Choisissez la Caractéristique -"
-defaultCaracTertiae: "- Choisissez la Caractéristique -"
-description: Description
-dtn: Date de Naissance
 # ------- E ------- #
-email: E-Mail
-Enregistrer: Enregistrer
 # ------- F ------- #
-Femme: Femme
+Federal: Fédérale
+Female: Femme
 # ------- G ------- #
 # ------- H ------- #
-Homme: Homme
+Honor: Honneur
 # ------- I ------- #
-illustration: Illustration
-Inconnu: Inconnu
+Inknow: Inconnu
 # ------- J ------- #
 # ------- K ------- #
+Knowledge: Connaissance
 # ------- L ------- #
+label:
+  abbreviation: Abreviation
+  accreditation: Accréditation
+  accreditation_min: Accréditation Minimum
+  affectation: Affectation
+  affectation_parent: Sous l'autorité de 
+  badge: Badge (illustration)
+  biography: Biographie
+  birthDate: Date de Naissance
+  category: Catégorie
+  coeficientXp: Coéficient d'XP
+  confirm_password: Confirmer le mot de passe
+  description: Description
+  email: E-Mail
+  featurePrimae: Caractéristique associée 1
+  featureQuartae: Caractéristique associée 4
+  featureSecundae: Caractéristique associée 2
+  featureTertiae: Caractéristique associée 3
+  firstname: Prénom
+  illustration: Illustration
+  lastname: Nom
+  level: Niveau
+  name: Nom
+  new_password: Nouveau mot de passe
+  obsolete: Obsolète
+  photo: Photo
+  profession: Profession
+  pseudo: Pseudo
+  pseudonyme: Pseudonyme
+  question: Question
+  rank: Grade
+  record: Enregistrer
+  response: Réponse
+  ribbon: Réduction (illustration)
+  role: Fonction
+  sexe: Sexe
+  score_rank_std: Point(s) de grade
+  score_rank_ol: Point(s) de grade (Off. Liaison)
+  skillReplaceBy: Compétence remplacée par
+  type: Type
+  username: Nom d'Utilisateur
+  value: Valeur
+  valueFixe: Valeur Fixe
+  valueMax: Valeur Maximum
+  valueMin: Valeur Minimum
+  valueAverage: Valeur Moyenne
 # ------- M ------- #
-Mentale: Mentale
+Male: Homme
+Mental: Mentale
+Mixte: Mixte
 # ------- N ------- #
-new_password: Nouveau mot de passe
-nom: Nom
-Non précisée: Non précisée
+Not specified: Non précisée
 # ------- O ------- #
-obsolete: Obsolète
+Other: Autre
 # ------- P ------- #
-photo: Photo
-prenom: Prénom
-Physique: Physique
-Pratique: Pratique
+Personal: Individuel
+placeholder:
+  accreditation: Accréditation
+  accreditation_min: Accréditation Minimum
+  affectation: "- Choisissez une affectation -"
+  affectation_parent: "- Affectation de rattachement -"
+  featurePrimae: "- Choisissez une caractéristique -"
+  featureQuartae: "- Choisissez une caractéristique -"
+  featureSecundae: "- Choisissez une caractéristique -"
+  featureTertiae: "- Choisissez une caractéristique -"
+  profession: "- Choississez une profession -"
+  rank_min: Grade Minimum
+  rank_max: Grade Maximum
+  type: "- Choississez un type -"
+Physical: Physique
+Practice: Pratique
 # ------- Q ------- #
-question: Question
 # ------- R ------- #
-reponse: Réponse
+Regimental: Régimentaire
 # ------- S ------- #
-sexe: Sexe
 # ------- T ------- #
-type: Type
 # ------- U ------- #
-username: Nom d'Utilisateur
+Unit: Unité
 # ------- V ------- #
-valeur: Valeur
-valeurFixe: Valeur Fixe
-valeurMax: Valeur Maximum
-valeurMin: Valeur Minimum
-valeurMoyenne: Valeur Moyenne
+Valor: Bravoure
 # ------- W ------- #
 # ------- X ------- #
 # ------- Y ------- #

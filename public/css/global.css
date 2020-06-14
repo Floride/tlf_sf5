@@ -1,6 +1,6 @@
 /* public\css\global.css */
 
-a.delete_picture_user {
+a.admin_delete_user_picture {
     display: inline-block;
     height: 300px;
     position: relative;
@@ -8,24 +8,24 @@ a.delete_picture_user {
     width: 225px; 
 }
 
-a.delete_picture_user img {
+a.admin_delete_user_picture img {
     border: 1px solid black;
     height: 300px;
     width: 225px; 
 }
 
-a.delete_picture_user span {
+a.admin_delete_user_picture span {
     display: none;
     left: 25px;
     position: absolute;
     top: 25px;
 }
 
-a.delete_picture_user:hover span {
+a.admin_delete_user_picture:hover span {
     display: block;
 }
 
-a.delete_picture_user span.titre {
+a.admin_delete_user_picture span.title {
     color: #111;
     font-weight: bold;
     font-size: 1.2em;
@@ -34,7 +34,7 @@ a.delete_picture_user span.titre {
     z-index: 100;
 }
 
-a.delete_picture_user span.description {
+a.admin_delete_user_picture span.description {
     color: #222;
     font-size: 0.7em;
     text-align: center;
@@ -42,19 +42,180 @@ a.delete_picture_user span.description {
     z-index: 100;
 }
 
-a.delete_picture_user span.bg {
+a.admin_delete_user_picture span.bg {
     background-color: rgba(255, 255, 255, 0.95);
     border: 1px solid black;
     height: 300px;
     left: 0;
-    border-radius: 10px;
+    border-radius: 5px;
     top: 0;
     width: 225px; 
     z-index: 10;
 }
 
+div.affectation_lvl0 {
+    margin-left: 0;
+}
+
+div.affectation_lvl1 {
+    margin-left: 15px;
+}
+
+div.affectation_lvl2 {
+    margin-left: 30px;
+}
+
+div.affectation_lvl3 {
+    margin-left: 45px;
+}
+
+div.affectation_lvl4 {
+    margin-left: 60px;
+}
+
+div.affectation_lvl5 {
+    margin-left: 75px;
+}
+
+div.affectation_lvl6 {
+    margin-left: 90px;
+}
+
+div.affectation_lvl7 {
+    margin-left: 105px;
+}
+
+div.affectation_lvl8 {
+    margin-left: 120px;
+}
+
+div.affectation_lvl9 {
+    margin-left: 135px;
+}
+
+div.affectation_lvl10 {
+    margin-left: 150px;
+}
+
+div.affectation_lvl11 {
+    margin-left: 165px;
+}
+
+div.affectation_lvl12 {
+    margin-left: 180px;
+}
+
+div.affectation_lvl13 {
+    margin-left: 195px;
+}
+
+div.affectation_lvl14 {
+    margin-left: 210px;
+}
+
+div.notifications {
+    background-color:#dddddd;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-height: 200px;
+    min-width: 150px; 
+    box-shadow: -1px 5px 5px 1px rgba(0, 0, 0, 0.7); 
+}
+
+div.notifications h1,
+div.notifications h2,
+div.notifications h3,
+div.notifications h4,
+div.notifications h5 {
+    background-color: rgba(128, 128, 128, 0.8);
+    color: whitesmoke;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+}
+
+div.notifications div.content {
+    background-color: rgba(250, 250, 250, 0.5);
+    padding: 5px 5px;
+}
+
+ul.adminMenu {
+    background-color:#dddddd;
+    border: 1px solid black;
+    color: black;
+    padding: 10px;
+    min-height: 200px;
+    min-width: 150px; 
+    list-style-type: none;
+    box-shadow: -1px 5px 5px 1px rgba(0, 0, 0, 0.7); 
+}
+
+ul.adminMenu ul, 
+ul.adminMenu li { 
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+}
+
+ul.adminMenu li a {
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+ul.adminMenu li a:hover {
+    background-color: rgba(250, 250, 250, 0.8);
+    color: rgb(182, 21, 197);
+    text-decoration: none;
+}
+
+ul.adminMenu li div{
+    background-color:#c1c1c1;
+    border: 1px solid black;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: -1px 5px 5px 1px rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    margin: 10px;
+}
+ul.adminMenu h1,
+ul.adminMenu h2,
+ul.adminMenu h3,
+ul.adminMenu h4,
+ul.adminMenu h5 {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 10px;
+}
+ul.adminMenu h1,
+ul.adminMenu h2 {
+    background-color: rgba(128, 128, 128, 0.8);
+    color: whitesmoke;
+} 
+
+ul.adminMenu h3 {
+    background-color: rgba(180, 180, 180, 0.8);
+    color: black;
+}
+
+ul.adminMenu h4,
+ul.adminMenu h5 {
+    background-color: rgba(200, 200, 200, 0.8);
+    color: black;
+} 
+
 .form_delete {
     display: inline-block;
+}
+
+.main-container {
+    min-height: 650px;
 }
 
 .picture {
@@ -70,4 +231,5 @@ a.delete_picture_user span.bg {
     height: 300px;
     width: 225px; 
 }
+
 .w-10 { width: 10% !important; }

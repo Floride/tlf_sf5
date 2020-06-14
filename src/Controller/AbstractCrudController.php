@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Abstract Class AbstractCrudController
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Controller
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
@@ -22,7 +23,7 @@ abstract class AbstractCrudController extends AbstractController
     protected $manager;
 
     /**
-     * Constructor
+     * AbstractCrudController Constructor
      *
      * @param EntityManagerInterface $objectManager
      * 
@@ -36,32 +37,59 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * Créé un message flash
      *
-     * @param string      $categorie
+     * @param string      $category
      * @param string|null $element
-     * @param string|null $masculin
+     * @param bool|null   $male
      *
      * @return void
      */
-    protected function messageFlash(string $categorie, ?string $element = 'enregistrement', ?bool $masculin = true): void
+    protected function sendFlashMessage(string $category, ?string $element = 'enregistrement', ?bool $male = true): void
     {
         $type = 'success';
-        $element = $this->elide($element, $masculin);
+        $element = $this->elide($element, $male);
 
-        switch ($categorie) {
-            case 'delete_ok': // supression OK
-                $message = sprintf('%s a bien été supprimé.', $element);
-
-            break;
-            case 'save_ok': // enregistrement OK
-                $message = sprintf('%s a bien été sauvegardé.', $element);
-            break;
-            case 'status_bad': // mauvais status
+        switch ($category) {
+            case 'active_bad': // mauvais status
                 $type = 'danger';
-                $message = sprintf('%s ne peut pas être supprimé à cause de son statut (Actif).', $element);
+                $message = sprintf(
+                    '%s ne peut pas être supprimé%s à cause de son statut (Actif).', 
+                    $element, 
+                    ($male)?'':'e'
+                );
+            break;
+            case 'ban_bad': // mauvais status
+                $type = 'danger';
+                $message = sprintf(
+                    '%s ne peut pas être supprimé%s à cause de son statut (Banni).', 
+                    $element, 
+                    ($male)?'':'e'
+                );
             break;
             case 'csrf_bad': // Token CSRF invalide
                 $type = 'danger';
                 $message = 'Impossible de valider le formulaire (Token CSRF).';
+            break;
+            case 'delete_ok': // supression OK
+                $message = sprintf(
+                    '%s a bien été supprimé%s.', 
+                    $element, 
+                    ($male)?'':'e'
+                );
+            break;
+            case 'obsolete_bad': // mauvais status
+                $type = 'danger';
+                $message = sprintf(
+                    '%s ne peut pas être supprimé%s à cause de son statut (Obsolete).', 
+                    $element, 
+                    ($male)?'':'e'
+                );
+            break;
+            case 'save_ok': // enregistrement OK
+                $message = sprintf(
+                    '%s a bien été sauvegardé%s.', 
+                    $element, 
+                    ($male)?'':'e'
+                );
             break;
         }
 
@@ -71,13 +99,13 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
-     * sauvegarde
+     * save
      *
      * @param object $object
      * 
      * @return void
      */
-    protected function sauvegarde(object $object): void
+    protected function save(object $object): void
     {
         $this->manager->persist($object); // On persiste l'objet
         $this->manager->flush(); // On enregistre en BDD
@@ -103,42 +131,41 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * elide
      * 
-     * @param string|null $chaine
-     * @param bool|null $masculin
+     * @param string|null $string
+     * @param bool|null   $male
      * 
      * @return string
      */
-    private function elide(?string $chaine = 'enregistrement', ?bool $masculin = true): string
+    private function elide(?string $string = 'enregistrement', ?bool $male = true): string
     {
-        $elides = ['a', 'o', 'e', 'i', 'u', 'y', 'h'];
-        $type = 'success';
+        $elids = ['a', 'o', 'e', 'i', 'u', 'y', 'h'];
 
-        $firstletter = $this->enleveaccents(substr($chaine, 0, 1));
+        $firstLetter = $this->removeAccents(substr($string, 0, 1));
         
-        if (in_array($firstletter, $elides)) {
-            $chaine = 'L\'' . $chaine; // Elidé
+        if (in_array($firstLetter, $elids)) {
+            $string = 'L\'' . $string; // Elidé
         } else {
-            $chaine =  ($masculin) ? 'Le ' . $chaine : 'La ' . $chaine;
+            $string =  ($male) ? 'Le ' . $string : 'La ' . $string;
         }
 
-        return (string) $chaine;
+        return (string) $string;
     }
 
     /**
-     * enleveaccents
+     * removeAccents
      *
-     * @param string $chaine
+     * @param string $string
      * 
      * @return string
      */
-    private function enleveaccents(string $chaine): string
+    private function removeAccents(string $string): string
     {
-        $chaine = strtr(
-             $chaine,
+        $string = strtr(
+             $string,
              "ÀÁÂàÄÅàáâàäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ",
              "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn"
          );
 
-        return (string) $chaine;
+        return (string) $string;
     }
 }

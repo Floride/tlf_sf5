@@ -1,0 +1,80 @@
+{# templates\admin\character\skill\_form.html.twig #}
+{{ form_start(form) }}
+    <div class="row">
+
+        <div class="col-8">
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.abbreviation) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.type) }}
+                </div>
+            </div>
+            
+            <div class="row">
+            
+                <div class="col-12">
+                    {{ form_row(form.description) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-6">
+                    {{ form_row(form.featurePrimae) }}
+                </div>
+            
+                <div class="col-6">
+                    {{ form_row(form.featureSecundae) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-6">
+                    {{ form_row(form.featureTertiae) }}
+                </div>
+            
+                <div class="col-6">
+                    {{ form_row(form.featureQuartae) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-3   ">
+                    {{ form_row(form.value) }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-4">
+            {{ form_row(form.picture) }}
+            {% if not skill.picture or skill.picture == '' %}
+                <img src="{{ asset('images/characters/skills/default.png') }}" alt="image par defaut - Compétence" />
+            {% else %}
+                {% set iden = skill.name ~ ' [' ~ skill.abbreviation ~ ']' %}
+                <a href="" />
+                    <img src="{{ vich_uploader_asset(skill) }}" alt="{{ iden }}" />
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">{{ button }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

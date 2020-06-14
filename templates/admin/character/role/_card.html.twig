@@ -1,0 +1,30 @@
+{# templates\admin\character\role\_card.html.twig #}
+<div class="card-deck">
+    {% for role in roles %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/characters/badges/roles/default.png') }}" 
+                alt="Compétence : {{ role.name }} [{{ role.abbreviation }}]"
+                data-toggle="modal" data-target="#role{{ role.id }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ role.name }} [{{ role.abbreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+                
+                {% include "admin/character/role/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for role in roles %}
+    
+    {% include "admin/character/role/_modal.html.twig"  with {'title': 'role' ~ role.id } %}
+
+{% endfor %}

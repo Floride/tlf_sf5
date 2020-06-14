@@ -2,21 +2,22 @@
 // src\Entity\User.php
 namespace App\Entity;
 
-use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use App\Mapping\EntityBase;
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use App\Helper\ORM\IsEnablableTrait;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class User
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Entity
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
@@ -24,19 +25,21 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="user")
+ * @ORM\Table(name="u_user")
  * @Vich\Uploadable
  */
 class User extends EntityBase implements UserInterface
 {
+    use IsEnablableTrait;
+    
     const SEXE = [
         0 => 'Inconnu',
-        1 => 'Homme',
-        2 => 'Femme'
+        1 => 'Male',
+        2 => 'Female'
     ];
 
     /**
-     * @var int Table id
+     * @var int|null Table id
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(name="id", type="integer")
@@ -44,23 +47,22 @@ class User extends EntityBase implements UserInterface
     private $id;
 
     /**
-     * @var bool
-     * @ORM\Column(name="is_banned", type="boolean", options={"default" : false})
-     * @Assert\NotBlank
+     * @var bool|null Banni ?
+     * @ORM\Column(name="is_ban", type="boolean", options={"default" : false})
      */
-    private $banned;
+    private $ban;
     
     /**
-     * @var string|null Biographie
-     * @ORM\Column(name="biographie", type="text", nullable=true)
+     * @var string|null Biography
+     * @ORM\Column(name="biography", type="text", nullable=true)
      */
-    private $biographie;
+    private $biography;
     
     /**
-     * @var DateTime|null Date of Birth
-     * @ORM\Column(name="birthdate",type="datetime", nullable=true)
+     * @var DateTimeImmutable|null Date of Birth
+     * @ORM\Column(name="birth_date",type="datetime_immutable", nullable=true)
      */
-    private $dateNaissance;
+    private $birthDate;
 
     /**
      * @var string Email
@@ -73,22 +75,22 @@ class User extends EntityBase implements UserInterface
     private $email;
 
     /**
-     * @var bool Actif?
-     * @ORM\Column(name="is_enable", type="boolean", options={"default" : true})
+     * @var string|null Firstname
+     * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
      */
-    private $enabled;
+    private $firstname;
     
     /**
-     * @var DateTime|null Date of Last connexion
-     * @ORM\Column(name="Last_connexion",type="datetime", nullable=true)
+     * @var DateTimeImmutable|null Date of Last connexion
+     * @ORM\Column(name="last_connexion",type="datetime_immutable", nullable=true)
      */
     private $lastConnexion;
 
     /**
-     * @var string|null Last name
+     * @var string|null Lastname
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      */
-    private $nom;
+    private $lastname;
 
     /**
      * @var string The hashed password
@@ -104,15 +106,9 @@ class User extends EntityBase implements UserInterface
 
     /**
      * @var File|null
-     * @Vich\UploadableField(mapping="users_pictures", fileNameProperty="picture")
+     * @Vich\UploadableField(mapping="user_picture", fileNameProperty="picture")
      */
     private $pictureFile;
-
-    /**
-     * @var string|null First name
-     * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
-     */
-    private $prenom;
 
     /**
      * @var string[] Array of roles
@@ -127,7 +123,7 @@ class User extends EntityBase implements UserInterface
     private $sexe;
 
     /**
-     * @var string|null
+     * @var string|null Token
      * @ORM\Column(name="token", type="string", length=32, nullable=true)
      */
     private $token;
@@ -139,11 +135,10 @@ class User extends EntityBase implements UserInterface
     private $username;
 
     /**
-     * @var bool
+     * @var bool|null Valid ?
      * @ORM\Column(name="is_valid", type="boolean", options={"default" : false})
-     * @Assert\NotBlank
      */
-    private $valided;
+    private $valid;
 
     /**
      * Constructor
@@ -167,54 +162,60 @@ class User extends EntityBase implements UserInterface
     }
 
     /**
-     * Get banned
+     * Get ban
      *
-     * @return boolean|null
+     * @return bool|null
      */
-    public function getBanned(): ?bool
+    public function getBan(): ?bool
     {
-        return $this->banned;
+        return $this->ban;
     }
 
     /**
-     * Set banned
+     * Set ban
      *
-     * @param boolean $banned
+     * @param bool|null $ban
      * @return self
      */
-    public function setBanned(bool $banned = false): self
+    public function setBan(?bool $ban = false): self
     {
-        $this->banned = $banned;
+        $this->ban = $ban;
 
-        if ($banned) { // anonymisation du compte
-            $this->setNom(null);
-            $this->setPrenom(null);
-            $this->setPassword(md5(uniqid()));
-            $this->setEnabled(false);
+        if ($ban) { // anonymisation du compte
+            $this->setBiography(null)
+                ->setBirthDate(null)
+                ->setEnable(false)
+                ->setLastname(null)
+                ->setPicture(null)
+                ->setFirstname(null)
+                ->setPassword(md5(uniqid()))
+                ->setRoles([])
+                ->setUsername(null)
+            ;
         }
 
         return $this;
     }
     
     /**
-     * Get biographie
+     * Get biography
      *
      * @return string|null
      */
-    public function getBiographie(): ?string
+    public function getBiography(): ?string
     {
-        return $this->biographie;
+        return $this->biography;
     }
 
     /**
-     * Set biographie
+     * Set biography
      *
-     * @param string|null $biographie
+     * @param string|null $biography
      * @return self
      */
-    public function setBiographie(?string $biographie = null): self
+    public function setBiography(?string $biography = null): self
     {
-        $this->biographie = $biographie;
+        $this->biography = $biography;
 
         return $this;
     }
@@ -224,20 +225,20 @@ class User extends EntityBase implements UserInterface
      *
      * @return DateTimeInterface|null
      */
-    public function getDateNaissance(): ?DateTimeInterface
+    public function getBirthDate(): ?DateTimeInterface
     {
-        return $this->dateNaissance;
+        return $this->birthDate;
     }
 
     /**
      * Set Date of Birth
      *
-     * @param DateTimeInterface|null $dateNaissance
+     * @param DateTimeInterface|null $birthDate
      * @return self
      */
-    public function setDateNaissance(?DateTimeInterface $date = null): self
+    public function setBirthDate(?DateTimeInterface $date = null): self
     {
-        $this->dateNaissance = $date;
+        $this->birthDate = $date;
 
         return $this;
     }
@@ -266,28 +267,6 @@ class User extends EntityBase implements UserInterface
     }
 
     /**
-     * Get enabled
-     *
-     * @return boolean|null
-     */
-    public function getEnabled(): ?bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Set enabled
-     *
-     * @param boolean $enabled
-     * @return self
-     */
-    public function setEnabled(bool $enabled = true): self
-    {
-        $this->enabled = $enabled;
-
-        return $this;
-    }
-    /**
      * Get Date of last connexion
      *
      * @return DateTimeInterface|null
@@ -311,24 +290,24 @@ class User extends EntityBase implements UserInterface
     }
 
     /**
-     * Get nom
+     * Get lastname
      *
      * @return  null|string
      */
-    public function getNom(): ?string
+    public function getLastname(): ?string
     {
-        return $this->nom;
+        return $this->lastname;
     }
 
     /**
-     * Set nom
+     * Set lastname
      *
-     * @param string|null $nom
+     * @param string|null $lastname
      * @return self
      */
-    public function setNom(?string $nom = null): self
+    public function setLastname(?string $lastname = null): self
     {
-        $this->nom = $nom;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -352,7 +331,7 @@ class User extends EntityBase implements UserInterface
     }
 
     /**
-     * Get picture name
+     * Get picture
      *
      * @return string|null
      */
@@ -362,14 +341,14 @@ class User extends EntityBase implements UserInterface
     }
 
     /**
-     * Set picture name
+     * Set picture
      *
-     * @param string|null $pictureName
+     * @param string|null $picture
      * @return self
      */
-    public function setPicture(?string $pictureName = null): self
+    public function setPicture(?string $picture = null): self
     {
-        $this->picture = $pictureName;
+        $this->picture = $picture;
         return $this;
     }
     
@@ -393,31 +372,31 @@ class User extends EntityBase implements UserInterface
     {
         $this->pictureFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTime('now'));
+            $this->setUpdatedAt(new DateTimeImmutable('now'));
         }
 
         return $this;
     }
 
     /**
-     * Get prenom
+     * Get firstName
      *
      * @return string|null
      */
-    public function getPrenom(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->prenom;
+        return $this->firstname;
     }
 
     /**
-     * Set prenom
+     * Set firstname
      *
-     * @param string|null $prenom
+     * @param string|null $firstname
      * @return self
      */
-    public function setPrenom(?string $prenom = null): self
+    public function setFirstname(?string $firstname = null): self
     {
-        $this->prenom = $prenom;
+        $this->firstname = $firstname;
 
         return $this;
     }
@@ -520,26 +499,26 @@ class User extends EntityBase implements UserInterface
     }
 
     /**
-     * Get valided
+     * Get valid
      *
-     * @return boolean|null
+     * @return bool|null
      */
-    public function getValided(): ?bool
+    public function getValid(): ?bool
     {
-        return $this->valided;
+        return $this->valid;
     }
 
     /**
-     * Set valided
+     * Set valid
      *
-     * @param boolean $valided
+     * @param bool|null $valid
      * @return self
      */
-    public function setValided(bool $valided = false): self
+    public function setValid(?bool $valid = false): self
     {
-        $this->valided = $valided;
+        $this->valid = $valid;
 
-        if (!$this->valided) {
+        if (!$this->valid) {
             $this->setToken($this->generateToken());
         } else {
             $this->setToken(null);

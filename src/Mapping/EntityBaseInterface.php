@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * interface EntityBaseInterface
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Mapping
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
@@ -32,10 +32,10 @@ interface EntityBaseInterface
     /**
      * Set createdAt
      *
-     * @param DateTimeInterface $createdAt
+     * @param null|DateTimeInterface $createdAt
      * @return self
      */
-    public function setCreatedAt(DateTimeInterface $createdAt);
+    public function setCreatedAt(?DateTimeInterface $createdAt = null);
         
     /**
      * Get updatedAt
@@ -47,8 +47,8 @@ interface EntityBaseInterface
     /**
      * Set updatedAt
      *
-     * @param DateTime $updatedAt
+     * @param null|DateTimeInterface $updatedAt
      * @return self
      */
-    public function setUpdatedAt(DateTimeInterface $updatedAt);
+    public function setUpdatedAt(?DateTimeInterface $updatedAt = null);
 }

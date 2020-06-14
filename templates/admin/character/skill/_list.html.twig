@@ -1,0 +1,52 @@
+{# templates\admin\character\skill\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom</th>
+
+                    <th class="text-bold">Abréviation</th>
+                    
+                    <th class="text-bold">Type</th>
+
+                    <th class="text-bold text-center">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for skill in skills %}
+                <tr>
+                    <td>{{ skill.name }}</td>
+
+                    <td>{{ skill.abbreviation }}</td>
+                    
+                    <td>{% if skill.type == 1 %}
+                            Connaissance
+                        {% elseif skill.type == 2 %}
+                            Pratique
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td class="text-center">
+
+                        {% include "admin/character/skill/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colsan="4" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% for skill in skills %}
+    
+    {% include "admin/character/skill/_modal.html.twig"  with {'title': 'skill' ~ skill.id } %}
+
+{% endfor %}

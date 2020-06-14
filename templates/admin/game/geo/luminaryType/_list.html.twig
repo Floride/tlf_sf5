@@ -1,0 +1,43 @@
+{# templates\admin\game\geo\luminaryType\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold w-25">Nom</th>
+                    
+                    <th class="text-bold text-center">Obsolète</th>
+
+                    <th class="text-bold text-center w-10">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for luminaryType in luminaries %}
+                <tr>
+                    <td class="w-25">{{ luminaryType.name }}</td>
+
+                    <td class="text-center">
+                        <a href="{{ path('admin_game_geo_luminaryType_obsolete', {id: luminaryType.id}) }}">
+                            {% if luminaryType.obsolete %}
+                            <i class="far fa-check-square text-danger" title="Oui"></i>
+                            {% else %}
+                            <i class="far fa-square text-success" title="Non"></i>
+                            {% endif %}
+                        </a>
+                    </td>
+
+                    <td class="text-center w-10">
+
+                        {% include "admin/game/geo/luminaryType/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="7" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>

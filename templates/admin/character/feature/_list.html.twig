@@ -1,0 +1,52 @@
+{# templates\admin\character\feature\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom</th>
+
+                    <th class="text-bold">Abréviation</th>
+                    
+                    <th class="text-bold">Type</th>
+
+                    <th class="text-bold text-center">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for feature in features %}
+                <tr>
+                    <td>{{ feature.name }}</td>
+
+                    <td>{{ feature.abbreviation }}</td>
+                    
+                    <td>{% if feature.type == 1 %}
+                            Physique
+                        {% elseif feature.type == 2 %}
+                            Mentale
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td class="text-center">
+
+                        {% include "admin/character/feature/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="4" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% for feature in features %}
+    
+    {% include "admin/character/feature/_modal.html.twig"  with {'title': 'feature' ~ feature.id } %}
+
+{% endfor %}

@@ -1,0 +1,40 @@
+{# templates\admin\game\affectation\_list.html.twig #}
+
+{% include "admin/game/affectation/_list_menu.html.twig" %}
+
+{% for affectation in affectations %}
+
+{% if (loop.index % 20) == 0 %}
+    
+{% include "admin/game/affectation/_list_menu.html.twig" %}
+
+{% endif %}
+
+<div class="row">
+    <div class="col-6">
+        <div class="affectation_lvl{{ affectation.lvl }}">{{ affectation.data.name }}</div>
+    </div>
+    <div class="col-2 text-center">
+    <a href="{{ path('admin_game_affectation_default', {id: affectation.data.id}) }}">
+            {% if affectation.data.default %}
+            <i class="far fa-check-square text-success" title="Oui"></i>
+            {% else %}
+            <i class="far fa-square text-info" title="Non"></i>
+            {% endif %}
+        </a>
+    </div>
+    <div class="col-2 text-center">
+        <a href="{{ path('admin_game_affectation_obsolete', {id: affectation.data.id}) }}">
+            {% if affectation.data.obsolete %}
+            <i class="far fa-check-square text-success" title="Oui"></i>
+            {% else %}
+            <i class="far fa-square text-warning" title="Non"></i>
+            {% endif %}
+        </a>
+    </div>
+    <div class="col-2 text-center">
+        {% include "admin/game/affectation/_action.html.twig" %}
+    </div>
+</div>
+
+{% endfor %}

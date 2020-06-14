@@ -1,0 +1,30 @@
+{# templates\admin\character\rank\_card.html.twig #}
+<div class="card-deck">
+    {% for rank in ranks %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <img class="card-img-top" 
+                src="{{ asset('images/characters/badges/ranks/default.png') }}" 
+                alt="Compétence : {{ rank.name }} [{{ rank.abbreviation }}]"
+                data-toggle="modal" data-target="#rank{{ rank.id }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ rank.name }} [{{ rank.abbreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+                
+                {% include "admin/character/rank/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for rank in ranks %}
+    
+    {% include "admin/character/rank/_modal.html.twig"  with {'title': 'rank' ~ rank.id } %}
+
+{% endfor %}

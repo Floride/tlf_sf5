@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class UserController
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Controller\Frontend
  * @author     Sylvain FLORIDE <sfloride@gmail.com>

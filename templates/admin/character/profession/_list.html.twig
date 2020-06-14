@@ -1,0 +1,74 @@
+{# templates\admin\character\profession\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom</th>
+
+                    <th class="text-bold">Description</th>
+                    
+                    <th class="text-bold">Type</th>
+                    
+                    <th class="text-bold text-center">Jouable</th>
+                    
+                    <th class="text-bold text-center">Obsolète</th>
+
+                    <th class="text-bold text-center w-10">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for profession in professions %}
+                <tr>
+                    <td>{{ profession.name }}</td>
+
+                    <td>{{ profession.description|nl2br }}</td>
+                    
+                    <td>{% if profession.type == 1 %}
+                            Militaire
+                        {% elseif profession.type == 2 %}
+                            Civile
+                        {% elseif profession.type == 3 %}
+                            Mixte
+                        {% elseif profession.type == 3 %}
+                            Autre
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td class="text-center">
+                        <a href="{{ path('admin_character_profession_playable', {id: profession.id}) }}">
+                            {% if profession.playable %}
+                            <i class="far fa-check-square text-success" title="Oui"></i>
+                            {% else %}
+                            <i class="far fa-square text-warning" title="Non"></i>
+                            {% endif %}
+                        </a>
+                    </td>
+
+                    <td class="text-center">
+                        <a href="{{ path('admin_character_profession_obsolete', {id: profession.id}) }}">
+                            {% if profession.obsolete %}
+                            <i class="far fa-check-square text-warning" title="Oui"></i>
+                            {% else %}
+                            <i class="far fa-square text-success" title="Non"></i>
+                            {% endif %}
+                        </a>
+                    </td>
+
+                    <td class="text-center w-10">
+
+                        {% include "admin/character/profession/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="6" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>

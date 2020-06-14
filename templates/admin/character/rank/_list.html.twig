@@ -1,0 +1,71 @@
+{# templates\admin\character\rank\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom</th>
+
+                    <th class="text-bold">Abréviation</th>
+                    
+                    <th class="text-bold">Type</th>
+
+                    <th class="text-bold">Catégorie</th>
+
+                    <th class="text-bold text-center">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for rank in ranks %}
+                <tr>
+                    <td>{{ rank.name }}</td>
+
+                    <td>{{ rank.abbreviation }}</td>
+                    
+                    <td>
+                        {% if rank.type == 1 %}
+                            Militaire
+                        {% elseif rank.type == 2 %}
+                            Civil
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if rank.category == 1 %}
+                            Homme du Rang
+                        {% elseif rank.category == 2 %}
+                            Sous-officier
+                        {% elseif rank.category == 3 %}
+                            Officier
+                        {% elseif rank.category == 4 %}
+                            Officier Général
+                        {% elseif rank.category == 5 %}
+                            Elève
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td class="text-center">
+
+                        {% include "admin/character/rank/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="4" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% for rank in ranks %}
+    
+    {% include "admin/character/rank/_modal.html.twig"  with {'title': 'rank' ~ rank.id } %}
+
+{% endfor %}

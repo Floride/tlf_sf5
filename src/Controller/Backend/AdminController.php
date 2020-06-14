@@ -9,8 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class AdminController
+ * Admin's actions
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Controller\Backend
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
@@ -18,21 +19,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  *
  * @IsGranted("ROLE_ADMIN")
  *
- * @Route("/admin")
+ * @Route("/admin",
+ *      name="admin_"
+ * )
  */
 class AdminController extends AbstractController
 {
     /**
-     * List of all admin actions
+     * Welcome admin page
      *
      * @return Response
      *
-     * @Route("", name="admin_index", methods={"GET"})
+     * @Route("",
+     *      name="index", 
+     *      methods={"GET"}
+     * )
      */
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
+        return $this->render('admin/index.html.twig');
+    }
+    
+    /**
+     * List of all admin's actions
+     *
+     * @return Response
+     *
+     * @Route("/list",
+     *      name="list", 
+     *      methods={"GET"}
+     * )
+     */
+    public function list(): Response
+    {
+        return $this->render('admin/list.html.twig');
     }
 }

@@ -9,11 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * Class HomeController
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Controller\Frontend
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
+ * 
+ * @Route("",
+ *      name="home_"
+ * )
  */
 class HomeController extends AbstractController
 {
@@ -22,7 +26,11 @@ class HomeController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/", name="root", methods={"GET"})
+     * @Route("")
+     * @Route("/",
+     *      name="root",
+     *      methods={"GET"}
+     * )
      */
     public function index(): Response
     {
@@ -36,11 +44,14 @@ class HomeController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/accueil", name="accueil", methods={"GET"})
+     * @Route("/welcome",
+     *      name="welcome", 
+     *      methods={"GET"}
+     * )
      */
-    public function accueil(): Response
+    public function welcome(): Response
     {
-        return $this->render('home/accueil.html.twig', [
+        return $this->render('home/welcome.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }

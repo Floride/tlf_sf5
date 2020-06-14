@@ -1,0 +1,46 @@
+{# templates\admin\character\rank\_modal.html.twig #}
+<!-- Modal {{ title }} -->
+<div class="modal fade" id="{{ title }}" tabindex="-1" role="dialog" aria-labelledby="{{ title }}Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ title }}Label">{{ rank.name }} [{{ rank.abbreviation }}]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-4">
+
+                    <div class="col-12 small text-justify">
+                    [ 
+                        {% if rank.type == 1 %}
+                            Militaire
+                        {% elseif rank.type == 2 %}
+                            Civil
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    ]<br />
+                    {{ rank.description|nl2br }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <small>Point(s) de grade minimum pour une promotion : {{ rank.score }}</small></br />
+                <small>Point(s) de grade minimum pour une promotion (Off. Liaison): 
+                    {% if (rank.scoreOL) %}
+                        {{ rank.scoreOL }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </small>
+            </div>
+
+        </div>
+    </div>
+</div>

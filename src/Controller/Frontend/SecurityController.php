@@ -10,11 +10,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 /**
  * Class SecurityController
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Controller\Frontend
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
  * @version    1.0.0
+ * 
+ * @Route("", 
+ *      name="security_"
+ * )
  */
 class SecurityController extends AbstractController
 {
@@ -23,12 +27,13 @@ class SecurityController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/login", name="security_login", methods={"GET", "POST"})
+     * @Route("/login", 
+     *      name="login", methods={"GET", "POST"})
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('accueil');
+            return $this->redirectToRoute('home_welcome');
         }
 
         // get the login error if there is one
@@ -50,7 +55,10 @@ class SecurityController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/logout", name="security_logout", methods={"GET"})
+     * @Route("/logout",
+     *      name="logout",
+     *      methods={"GET"}
+     * )
      */
     public function logout()
     {

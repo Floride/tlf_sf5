@@ -1,0 +1,16 @@
+{# templates\admin\character\profession\_action.html.twig #}
+<a href="{{ path('admin_character_profession_edit', {id: profession.id}) }}" class="btn btn-sm btn-primary">
+    <i class="far fa-edit" title="Editer"></i>
+</a>
+
+<form action="{{ path('admin_character_profession_delete', {id: profession.id}) }}" 
+    method="POST" id="delete_form_{{ profession.id }}" class="form_delete"
+    onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cette profession ?')"
+/>
+
+    <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ profession.id }}">
+        <i class="far fa-trash-alt" title="Supprimer"></i>
+    </button>
+    <input type="hidden" id="method_{{ profession.id }}" name="_method" value="DELETE" />
+    <input type="hidden" id="token_{{ profession.id }}" name="_token" value="{{ csrf_token('admin_character_profession_delete_' ~ profession.id) }}" />
+</form>

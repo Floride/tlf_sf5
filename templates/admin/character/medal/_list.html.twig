@@ -1,0 +1,75 @@
+{# templates\admin\character\medal\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom (Abréviation)</th>
+
+                    <th class="text-bold">Valeur (Coef. XP)</th>
+                    
+                    <th class="text-bold">Type</th>
+
+                    <th class="text-bold">Catégorie</th>
+
+                    <th class="text-bold text-center">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for medal in medals %}
+                <tr>
+                    <td>{{ medal.name }} ({{ medal.abbreviation }})</td>
+
+                    <td>{{ medal.value }} ({{ medal.coeficientXp }})</td>
+                    
+                    <td>
+                        {% if medal.type == 1 %}
+                            Personnel
+                        {% elseif medal.type == 2 %}
+                            Unité
+                        {% elseif medal.type == 3 %}
+                            Mixte
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if medal.category == 1 %}
+                            Achèvement
+                        {% elseif medal.category == 2 %}
+                            Honneur
+                        {% elseif medal.category == 3 %}
+                            Bravoure
+                        {% elseif medal.category == 4 %}
+                            Régimentaire
+                        {% elseif medal.category == 5 %}
+                            Fédérale
+                        {% elseif medal.category == 6 %}
+                            Autre
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td class="text-center">
+
+                        {% include "admin/character/medal/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colsan="4" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% for medal in medals %}
+    
+    {% include "admin/character/medal/_modal.html.twig"  with {'title': 'medal' ~ medal.id } %}
+
+{% endfor %}

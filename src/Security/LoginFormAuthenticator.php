@@ -23,7 +23,7 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 /**
  * Class LoginFormAuthenticator
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Security
  * @author     Sylvain FLORIDE <sfloride@gmail.com>

@@ -8,56 +8,43 @@
             <h1>Tableau de Bord</h1>
         </div>
         <div class="col-4 text-right align-self-center">
-            <a href="{{ path('accueil') }}">Retour au site</a>
+            <a href="{{ path('home_welcome') }}">Retour au site</a>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <ul>
-                <li>Site - Historique</li>
-                <li><a href="{{ path('site_params_list') }}">Site - Paramètres</a></li>
-                <li><a href="{{ path('site_faqs_list') }}">Site - F.A.Q's</a></li>
+    <div class="card-deck mt-4">
+        <div class="col-3">
+            <div class="card mb-4">
+                <img class="card-img-top" 
+                    src="{{ asset('images/admin/default.png') }}" 
+                    alt="Actions"
+                />
+                <div class="card-body">
+                    <h5 class="card-title text-bold text-center">Actions standards</h5>
+                </div>
+                <div class="card-footer text-center">
+                    
+                    <a href="{{ path('admin_list') }}">Ouvrir</a>
 
-                <li><a href="{{ path('users_list') }}">Joueur - Joueurs</a></li>
-                <li>Joueur - Groupes</li>
-                
-                <li>Personnages</li>
-                <li><a href="{{ path('perso_caracs_list') }}">Personnage - Caractéristiques</a></li>
-                <li><a href="{{ path('perso_comps_list') }}">Personnage - Compétences</a></li>
-                <li>Personnage - Professions</li>
-                <li>Personnage - Spécialités</li>
-                <li>Personnage - Promotions</li>
-                <li>Personnage - Sanctions</li>
-                
-                <li>Géographie - Astres - Lieux</li>
-                <li>Géographie - Astres - Types</li>
-                <li>Géographie - Cités - Lieux</li>
-                <li>Géographie - Cités - Types</li>
+                </div>
+            </div>
+        </div>
 
-                <li>Jeu - Affectations</li>
-                <li>Jeu - Accréditations</li>
-                <li>Jeu - Equipements</li>
-                <li>Jeu - FanFics</li>
-                <li>Jeu - Hiérarchie - Fonctions</li>
-                <li>Jeu - Hiérarchie - Grades</li>
-                <li>Jeu - Récompences - Médailles</li>
-                <li>Jeu - Métiers</li>
-                <li>Jeu - Missions</li>
-                <li>Jeu - Missions - Campagnes</li>
-                <li>Jeu - Missions - Objectifs</li>
-                <li>Jeu - Missions - Scénario</li>
-                <li>Jeu - Règles</li>
-                <li>Jeu - Sanctions</li>
-                <li>Jeu - Troopédia - Chronologie Archives Fédérales</li>
-                <li>Jeu - Troopédia - Chronologie selon le Pr. G. H. Jurgen</li>
-                <li>Jeu - Troopédia - Chronologie selon le Dr. A. Rimenez</li>
-                <li>Jeu - Troopédia - Extraits de discours célèbres</li>
-                <li>Jeu - Troopédia - Extraits de Loi</li>
-                <li>Jeu - Troopédia - Lexique</li>
-                
+        <div class="col-3">
+            <div class="card mb-4">
+                <img class="card-img-top" 
+                    src="{{ asset('images/admin/default.png') }}" 
+                    alt="Actions"
+                />
+                <div class="card-body">
+                    <h5 class="card-title text-bold text-center">Manus Dei</h5>
+                </div>
+                <div class="card-footer text-center">
+                    
+                    <a href="{{ path('admin_list') }}">Ouvrir</a>
 
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

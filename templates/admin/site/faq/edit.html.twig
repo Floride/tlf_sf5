@@ -1,0 +1,21 @@
+{# templates\admin\site\faqs\edit.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'F.A.Q\'s',
+            'h_path_retour':'admin_site_faq_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Modifier un paramètre',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/site/faq/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

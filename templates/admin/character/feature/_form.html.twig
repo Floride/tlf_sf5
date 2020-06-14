@@ -1,0 +1,77 @@
+{# templates\admin\character\feature\_form.html.twig #}
+{{ form_start(form) }}
+
+    <div class="row">
+            
+        <div class="col-9">
+
+            <div class="row">
+                    
+                <div class="col-6">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.abbreviation) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.type) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+                    
+                <div class="col-12">
+                    {{ form_row(form.description) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+                    
+                <div class="col-4">
+                    {{ form_row(form.valueMin) }}
+                </div>
+                <div class="col-4">
+                    {{ form_row(form.valueAverage) }}
+                </div>
+                <div class="col-4">
+                    {{ form_row(form.valueMax) }}
+                </div>
+
+            </div>
+
+        </div>
+        
+        <div class="col-3">
+
+            <div class="row">
+
+                <div class="col-12">
+                    {{ form_row(form.picture) }}
+                    {% if not feature.picture or feature.picture == '' %}
+                        <img src="{{ asset('images/characters/features/default.png') }}" alt="image par defaut - Caractéristique" />
+                    {% else %}
+                        {% set alt = feature.name ~ ' [' ~ feature.abbreviation ~ ']' %}
+                        <a href="" />
+                            <img src="{{ vich_uploader_asset(feature) }}" alt="{{ alt }}" title="{{ alt }}" />
+                        </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+    
+    </div>
+
+    <div class="row">
+
+        <div class="col-12">
+            <button class="btn btn-primary">{{ button }}</button>
+        </div>
+        
+    </div>
+
+{{ form_end(form) }}

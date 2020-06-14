@@ -1,0 +1,60 @@
+{# templates\admin\character\feature\_modal.html.twig #}
+<!-- Modal {{ title }} -->
+<div class="modal fade" id="{{ title }}" tabindex="-1" role="dialog" aria-labelledby="{{ title }}Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ title }}Label">{{ feature.name }} [{{ feature.abbreviation }}]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-4">
+
+                    <div class="col-12 small text-justify">
+                    [ Caractéristique 
+                    {% if feature.type == 1 %}
+                        Physique
+                    {% elseif feature.type == 2 %}
+                        Mentale
+                    {% else %}
+                        Non précisée
+                    {% endif %}
+                    ]<br />
+                    {{ feature.description|nl2br }}
+                    </div>
+
+                </div>
+                
+                <div class="row">
+
+                    <div class="col-4">Minimum : <strong>{{ feature.valueMin }}</strong></div>
+                    
+                    <div class="col-4">Moyenne : <strong>{{ feature.valueAverage }}</strong></div>
+                    
+                    <div class="col-4">Maximum : <strong>{{ feature.valueMax }}</strong></div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-12">
+                        <small>
+                            Compétence(s) associée(s): <br />
+                            {% for skill in feature.getSkillsAssociation() %}
+                                <a href="{{ path('admin_character_skill_edit', {id: skill.id}) }}">{{ skill.name }}</a>,
+                            {% else %}
+                                <em>aucune</em>
+                            {% endfor %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

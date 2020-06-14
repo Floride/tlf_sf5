@@ -1,0 +1,38 @@
+{# templates\admin\character\profession\list.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Professions',
+            'h_path_retour':'admin_list'
+        }
+    %}
+
+    {% include "admin/elements/_alert.html.twig" %}
+ 
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'',
+            'sh_lien':'admin_character_profession_new',
+            'sh_btn_txt':'Nouvelle Profession'
+        }
+    %}
+    
+    {% include "admin/elements/_display.html.twig" with {'route': 'admin_character_profession_list'} %}
+
+    {% if display == 'card' %}
+    
+        {% include "admin/character/profession/_card.html.twig" %}
+
+    {% else %}
+    
+        {% include "admin/character/profession/_list.html.twig" %}
+
+    {% endif %}
+
+    {# display navigation #}
+    <div class="navigation text-center">
+        {{ knp_pagination_render(professions) }}
+    </div>
+
+{% endblock %}

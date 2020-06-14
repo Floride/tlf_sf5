@@ -1,0 +1,15 @@
+{# templates\admin\game\geo\placeType\_action.html.twig #}
+<a href="{{ path('admin_game_geo_placeType_edit', {id: placeType.id}) }}" class="btn btn-sm btn-primary">
+    <i class="far fa-edit" title="Editer"></i>
+</a>
+
+<form action="{{ path('admin_game_geo_placeType_delete', {id: placeType.id}) }}" 
+    method="POST" id="delete_form_{{ placeType.id }}" class="form_delete"
+    onSubmit="return confirm('Êtes-vous sur de vouloir supprimer ce lieu ?')"
+/>
+    <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ placeType.id }}">
+        <i class="far fa-trash-alt" title="Supprimer"></i>
+    </button>
+    <input type="hidden" id="method_{{ placeType.id }}" name="_method" value="DELETE" />
+    <input type="hidden" id="token_{{ placeType.id }}" name="_token" value="{{ csrf_token('admin_game_geo_placeType_delete_' ~ placeType.id) }}" />
+</form>

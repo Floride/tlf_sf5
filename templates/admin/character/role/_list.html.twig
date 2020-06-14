@@ -1,0 +1,53 @@
+{# templates\admin\character\role\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom</th>
+
+                    <th class="text-bold">Abréviation</th>
+                    
+                    <th class="text-bold">Type</th>
+
+                    <th class="text-bold text-center">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for role in roles %}
+                <tr>
+                    <td>{{ role.name }}</td>
+
+                    <td>{{ role.abbreviation }}</td>
+                    
+                    <td>
+                        {% if role.type == 1 %}
+                            Militaire
+                        {% elseif role.type == 2 %}
+                            Civil
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td class="text-center">
+
+                        {% include "admin/character/role/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="4" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% for role in roles %}
+    
+    {% include "admin/character/role/_modal.html.twig"  with {'title': 'role' ~ role.id } %}
+
+{% endfor %}

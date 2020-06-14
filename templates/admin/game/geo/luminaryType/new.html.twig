@@ -1,0 +1,21 @@
+{# templates\admin\game\geo\luminaryType\new.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Jeu : Géographie (Types d\'astre)',
+            'h_path_retour':'admin_game_geo_luminaryType_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Créer un nouveau type d\'astre',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/game/geo/luminaryType/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{# templates\admin\character\accreditation\_list.html.twig #}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom</th>
+
+                    <th class="text-bold">Abréviation</th>
+                    
+                    <th class="text-bold">Type</th>
+
+                    <th class="text-bold">Catégorie</th>
+
+                    <th class="text-bold text-center">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for accreditation in accreditations %}
+                <tr>
+                    <td>{{ accreditation.name }}</td>
+
+                    <td>{{ accreditation.abbreviation }}</td>
+                    
+                    <td>
+                        {% if accreditation.type == 1 %}
+                            Militaire
+                        {% elseif accreditation.type == 2 %}
+                            Civile
+                        {% elseif accreditation.type == 3 %}
+                            Mixte
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if accreditation.category == 1 %}
+                            Régimentaire
+                        {% elseif accreditation.category == 2 %}
+                            Commissariale
+                        {% elseif accreditation.category == 3 %}
+                            Autre
+                        {% else %}
+                            Non précisée
+                        {% endif %}
+                    </td>
+
+                    <td class="text-center">
+
+                        {% include "admin/character/accreditation/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="4" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% for accreditation in accreditations %}
+    
+    {% include "admin/character/accreditation/_modal.html.twig"  with {'title': 'accreditation' ~ accreditation.id } %}
+
+{% endfor %}

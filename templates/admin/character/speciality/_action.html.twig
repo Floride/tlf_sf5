@@ -1,0 +1,16 @@
+{# templates\admin\character\speciality\_action.html.twig #}
+<a href="{{ path('admin_character_speciality_edit', {id: speciality.id}) }}" class="btn btn-sm btn-primary">
+    <i class="far fa-edit" title="Editer"></i>
+</a>
+
+<form action="{{ path('admin_character_speciality_delete', {id: speciality.id}) }}" 
+    method="POST" id="delete_form_{{ speciality.id }}" class="form_delete"
+    onSubmit="return confirm('Êtes-vous sur de vouloir supprimer cette speciality ?')"
+/>
+
+    <button type="submit" class="btn btn-sm btn-danger" id="submit_btn_{{ speciality.id }}">
+        <i class="far fa-trash-alt" title="Supprimer"></i>
+    </button>
+    <input type="hidden" id="method_{{ speciality.id }}" name="_method" value="DELETE" />
+    <input type="hidden" id="token_{{ speciality.id }}" name="_token" value="{{ csrf_token('admin_character_speciality_delete_' ~ speciality.id) }}" />
+</form>

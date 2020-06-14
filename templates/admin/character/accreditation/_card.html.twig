@@ -1,0 +1,25 @@
+{# templates\admin\character\accreditation\_card.html.twig #}
+<div class="card-deck">
+    {% for accreditation in accreditations %}
+    <div class="col-3">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ accreditation.name }} [{{ accreditation.abbreviation }}]</h5>
+            </div>
+            <div class="card-footer text-center">
+                
+                {% include "admin/character/accreditation/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for accreditation in accreditations %}
+    
+    {% include "admin/character/accreditation/_modal.html.twig"  with {'title': 'accreditation' ~ accreditation.id } %}
+
+{% endfor %}

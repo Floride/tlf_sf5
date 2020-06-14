@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class UserRepository
  *
- * PHP version 7.2
+ * PHP version 7.2.5
  *
  * @package    App\Repository
  * @author     Sylvain FLORIDE <sfloride@gmail.com>
@@ -33,6 +34,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    /**
+     * findByNameQuery
+     *
+     * @param string|null $order
+     * @return Query
+     */
+    public function findByEmailQuery(?string $order = 'ASC'): Query 
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.email', $order)
+            ->getQuery()
+        ;
     }
 
     /**

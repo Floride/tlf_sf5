@@ -1,18 +1,18 @@
 {# templates\admin\layout.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title 'TLF Admin - V5 Alpha 1.0.5' %}
+{% block title %}
+    {{ siteParams('site_title_abbr') }} - {{ 'Tableau de bord' }} - V{{ siteParams('site_version')|number_format(0) }} {{ siteParams('site_release') }}
+{% endblock %}
 
 {% block nav %}
 
-    {{ 
-        render(controller('App\\Controller\\Backend\\AdminNavController::index')) 
-    }}
+    {% include "admin/elements/_nav.html.twig" %}
 
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container main-container">
         {% block body_content %}{% endblock %}
     </div>
 {% endblock %}
