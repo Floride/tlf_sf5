@@ -61,6 +61,12 @@ class Accreditation extends EntityBase
     private $id;
 
     /**
+     * @var Collection|Character[]|null
+     * @ORM\ManyToMany(targetEntity=Character::class, mappedBy="accreditations")
+     */
+    private $characters;
+
+    /**
      * @var int|null
      * @ORM\Column(name="level", type="smallint", options={"default" : 0})
      */
@@ -87,6 +93,7 @@ class Accreditation extends EntityBase
         $this->setType();
         $this->setDefault();
         $this->setPlayable();
+        $this->characters = new ArrayCollection();
         $this->rolesMin = new ArrayCollection();
         $this->ranksMin = new ArrayCollection();
     }
@@ -101,6 +108,48 @@ class Accreditation extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|Character[]|null
+     */
+    public function getCharacters(): ?Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->addAccreditation($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            $character->removeAccreditation($this);
+        }
+
+        return $this;
     }
 
     /**
@@ -139,10 +188,10 @@ class Accreditation extends EntityBase
     /**
      * addRanksMin
      *
-     * @param Rank|null $ranksMin
+     * @param Rank $ranksMin
      * @return self
      */
-    public function addRanksMin(?Rank $ranksMin = null): self
+    public function addRanksMin(Rank $ranksMin): self
     {
         if (!$this->ranksMin->contains($ranksMin)) {
             $this->ranksMin[] = $ranksMin;
@@ -155,10 +204,10 @@ class Accreditation extends EntityBase
     /**
      * removeRanksMin
      *
-     * @param Rank|null $ranksMin
+     * @param Rank $ranksMin
      * @return self
      */
-    public function removeRanksMin(?Rank $ranksMin = null): self
+    public function removeRanksMin(Rank $ranksMin): self
     {
         if ($this->ranksMin->contains($ranksMin)) {
             $this->ranksMin->removeElement($ranksMin);
@@ -184,10 +233,10 @@ class Accreditation extends EntityBase
     /**
      * addRolesMin
      *
-     * @param Role|null $rolesMin
+     * @param Role $rolesMin
      * @return self
      */
-    public function addRolesMin(?Role $rolesMin = null): self
+    public function addRolesMin(Role $rolesMin): self
     {
         if (!$this->rolesMin->contains($rolesMin)) {
             $this->rolesMin[] = $rolesMin;
@@ -200,10 +249,10 @@ class Accreditation extends EntityBase
     /**
      * removeRolesMin
      *
-     * @param Role|null $rolesMin
+     * @param Role $rolesMin
      * @return self
      */
-    public function removeRolesMin(?Role $rolesMin = null): self
+    public function removeRolesMin(Role $rolesMin): self
     {
         if ($this->rolesMin->contains($rolesMin)) {
             $this->rolesMin->removeElement($rolesMin);

@@ -4,6 +4,8 @@ namespace App\Entity\Character;
 
 use DateTimeImmutable;
 use App\Mapping\EntityBase;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
 use App\Helper\ORM\CategoriableTrait;
@@ -58,6 +60,12 @@ class Medal extends EntityBase
     private $id;
 
     /**
+     * @var Collection|CharacterMedal[]|null
+     * @ORM\OneToMany(targetEntity=CharacterMedal::class, mappedBy="medal", orphanRemoval=true)
+     */
+    private $characters;
+
+    /**
      * @var float|null
      * @ORM\Column(name="coef_xp", type="float", options={"default" : 0})
      */
@@ -103,6 +111,7 @@ class Medal extends EntityBase
         $this->setObsolete();
         $this->setType();
         $this->setValue();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -115,6 +124,51 @@ class Medal extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|CharacterMedal[]|null
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param CharacterMedal $characters
+     * @return self
+     */
+    public function addCharacter(CharacterMedal $characters): self
+    {
+        if (!$this->characters->contains($characters)) {
+            $this->characters[] = $characters;
+            $characters->setMedal($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param CharacterMedal $characters
+     * @return self
+     */
+    public function removeCharacter(CharacterMedal $characters): self
+    {
+        if ($this->characters->contains($characters)) {
+            $this->characters->removeElement($characters);
+            // set the owning side to null (unless already changed)
+            if ($characters->getMedal() === $this) {
+                $characters->setMedal(null);
+            }
+        }
+
+        return $this;
     }
 
     /**

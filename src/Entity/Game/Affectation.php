@@ -2,6 +2,8 @@
 // src\Entity\Game\Affectation.php
 namespace App\Entity\Game;
 
+use App\Entity\Character\Character;
+use App\Entity\Character\CharacterAffectation;
 use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\NameableTrait;
@@ -52,6 +54,12 @@ class Affectation extends EntityBase
     private $id;
 
     /**
+     * @var Collection|CharacterAffectation[]|null
+     * @ORM\OneToMany(targetEntity=CharacterAffectation::class, mappedBy="affectation", orphanRemoval=true)
+     */
+    private $characters;
+
+    /**
      * @var Collection|Affectation[]|null
      * @ORM\OneToMany(targetEntity=Affectation::class, mappedBy="parent")
      */
@@ -60,7 +68,7 @@ class Affectation extends EntityBase
     /**
      * @var Affectation|null
      * @ORM\ManyToOne(targetEntity=Affectation::class, inversedBy="childs")
-     * @ORM\JoinColumn(name="parent", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $parent;
 
@@ -73,6 +81,7 @@ class Affectation extends EntityBase
         $this->setDefault();
         $this->setObsolete();
         $this->childs = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -85,6 +94,51 @@ class Affectation extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|CharacterAffectation[]|null
+     */
+    public function getCharacters(): ?Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param CharacterAffectation $character
+     * @return self
+     */
+    public function addCharacter(CharacterAffectation $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setAffectation($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param CharacterAffectation $character
+     * @return self
+     */
+    public function removeCharacter(CharacterAffectation $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getAffectation() === $this) {
+                $character->setAffectation(null);
+            }
+        }
+
+        return $this;
     }
 
     /**

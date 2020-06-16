@@ -72,9 +72,15 @@ class Rank extends EntityBase
     /**
      * @var Accreditation|null
      * @ORM\ManyToOne(targetEntity=Accreditation::class, inversedBy="ranksMin")
-     * @ORM\JoinColumn(name="lvl_accred_min", onDelete="SET NULL"))
+     * @ORM\JoinColumn(name="lvl_accred_min_id", referencedColumnName="id", onDelete="SET NULL"))
      */
     private $accreditationMin;
+
+    /**
+     * @var Colection|Character[]|null
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="rank")
+     */
+    private $characters;
 
     /**
      * @var float|null
@@ -131,6 +137,7 @@ class Rank extends EntityBase
         $this->setType();
         $this->rolesMin = new ArrayCollection();
         $this->rolesMax = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -164,6 +171,51 @@ class Rank extends EntityBase
     public function setAccreditationMin(?Accreditation $accreditationMin): self
     {
         $this->accreditationMin = $accreditationMin;
+
+        return $this;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|Character[]|null
+     */
+    public function getCharacters(): ?Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setRank($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getRank() === $this) {
+                $character->setRank(null);
+            }
+        }
 
         return $this;
     }

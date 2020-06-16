@@ -56,6 +56,12 @@ class Profession extends EntityBase
     private $id;
 
     /**
+     * @var Collection|Character[]|null
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="profession")
+     */
+    private $characters;
+
+    /**
      * @var string|null Picture name
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
      */
@@ -83,6 +89,7 @@ class Profession extends EntityBase
         $this->setObsolete();
         $this->setType();
         $this->specialities = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -95,6 +102,51 @@ class Profession extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|Character[]|null
+     */
+    public function getCharacters(): ?Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setProfession($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getProfession() === $this) {
+                $character->setProfession(null);
+            }
+        }
+
+        return $this;
     }
 
     /**

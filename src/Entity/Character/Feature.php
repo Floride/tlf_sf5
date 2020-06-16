@@ -56,6 +56,12 @@ class Feature extends EntityBase
     private $id;
 
     /**
+     * @var Collection|CharacterFeature[]|null
+     * @ORM\OneToMany(targetEntity=CharacterFeature::class, mappedBy="feature", orphanRemoval=true)
+     */
+    private $characters;
+
+    /**
      * @var Collection|Skill[]|null
      * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="featurePrimae")
      */
@@ -113,7 +119,7 @@ class Feature extends EntityBase
     private $valueAverage;
     
     /**
-     * Constructor
+     * Feature Constructor
      */
     public function __construct()
     {
@@ -124,6 +130,7 @@ class Feature extends EntityBase
         $this->skillSecundae = new ArrayCollection();
         $this->skillTertiae = new ArrayCollection();
         $this->skillQuartae = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -136,6 +143,51 @@ class Feature extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|CharacterFeature[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param CharacterFeature $character
+     * @return self
+     */
+    public function addCharacter(CharacterFeature $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setFeature($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param CharacterFeature $character
+     * @return self
+     */
+    public function removeCharacter(CharacterFeature $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getFeature() === $this) {
+                $character->setFeature(null);
+            }
+        }
+
+        return $this;
     }
 
     /**

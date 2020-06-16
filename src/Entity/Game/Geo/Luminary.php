@@ -42,7 +42,7 @@ class Luminary extends EntityBase
     /**
      * @var Luminary|null
      * @ORM\ManyToOne(targetEntity=Luminary::class, inversedBy="dependencies")
-     * @ORM\JoinColumn(name="around", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="around_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $around;
 
@@ -55,7 +55,7 @@ class Luminary extends EntityBase
     /**
      * @var LuminaryType|null
      * @ORM\ManyToOne(targetEntity=LuminaryType::class, inversedBy="luminaries")
-     * @ORM\JoinColumn(name="type", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $type;
 

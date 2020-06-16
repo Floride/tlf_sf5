@@ -5,6 +5,8 @@ namespace App\Entity\Character;
 use DateTimeImmutable;
 use App\Mapping\EntityBase;
 use App\Entity\Character\Rank;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
 use App\Helper\ORM\IsDefaultableTrait;
@@ -58,7 +60,7 @@ class Role extends EntityBase
 
     /**
      * @ORM\ManyToOne(targetEntity=Accreditation::class, inversedBy="rolesMin")
-     * @ORM\JoinColumn(name="lvl_accred_min", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="lvl_accred_min_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $accreditationMin;
 
@@ -77,16 +79,22 @@ class Role extends EntityBase
     /**
      * @var Rank|null
      * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMin")
-     * @ORM\JoinColumn(name="rank_min", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="rank_min_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $rankMin;
 
     /**
      * @var Rank|null
      * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="rolesMax")
-     * @ORM\JoinColumn(name="rank_max", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="rank_max_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $rankMax;
+
+    /**
+     * @var Collection|Character[]|null
+     * @ORM\ManyToMany(targetEntity=Character::class, mappedBy="roles")
+     */
+    private $characters;
 
     /**
      * Role Constructor
@@ -98,6 +106,7 @@ class Role extends EntityBase
         $this->setPlayable();
         $this->setObsolete();
         $this->setType();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -120,6 +129,48 @@ class Role extends EntityBase
     public function setAccreditationMin(?Accreditation $accreditationMin): self
     {
         $this->accreditationMin = $accreditationMin;
+
+        return $this;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|Character[]|null
+     */
+    public function getCharacters(): ?Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->addRole($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            $character->removeRole($this);
+        }
 
         return $this;
     }
@@ -219,4 +270,5 @@ class Role extends EntityBase
     }
     
     /* ---------------------- Autres méthodes ---------------------- */
+
 }

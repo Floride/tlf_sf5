@@ -2,6 +2,8 @@
 // src\Entity\Game\Geo\Place.php
 namespace App\Entity\Game\Geo;
 
+use App\Entity\BirthPlace\BirthPlace;
+use App\Entity\Character\Character;
 use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Game\Geo\Luminary;
@@ -41,28 +43,42 @@ class Place extends EntityBase
     private $id;
 
     /**
-     * @var PlaceType|null
-     * @ORM\ManyToOne(targetEntity=PlaceType::class, inversedBy="places")
-     * @ORM\JoinColumn(name="type", onDelete="SET NULL")
+     * @var Collection|Character[]|null
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="birthPlace")
      */
-    private $type;
+    private $birthCharacters;
+
+    /**
+     * @var Collection|Place[]|null
+     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="parent")
+     */
+    private $childs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Luminary::class, inversedBy="places")
-     * @ORM\JoinColumn(name="luminary", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="luminary_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $luminary;
 
     /**
+     * @var Place|null
      * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="childs")
-     * @ORM\JoinColumn(name="parent", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="parent")
+     * @var Collection|Character[]|null
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="recruitmentPlace")
      */
-    private $childs;
+    private $recruitmentCharacters;
+
+    /**
+     * @var PlaceType|null
+     * @ORM\ManyToOne(targetEntity=PlaceType::class, inversedBy="places")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $type;
 
     /**
      * Place Constructor
@@ -73,6 +89,9 @@ class Place extends EntityBase
         $this->setObsolete();
         $this->setType();
         $this->childs = new ArrayCollection();
+        $this->birthPlaces = new ArrayCollection();
+        $this->birthCharacters = new ArrayCollection();
+        $this->recruitmentCharacters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -85,6 +104,51 @@ class Place extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getBirthCharacters
+     * 
+     * @return Collection|Character[]|null
+     */
+    public function getBirthCharacters(): Collection
+    {
+        return $this->birthCharacters;
+    }
+
+    /**
+     * addBirthCharacter
+     *
+     * @param Character $birthCharacter
+     * @return self
+     */
+    public function addBirthCharacter(Character $birthCharacter): self
+    {
+        if (!$this->birthCharacters->contains($birthCharacter)) {
+            $this->birthCharacters[] = $birthCharacter;
+            $birthCharacter->setBirthPlace($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeBirthCharacter
+     *
+     * @param Character $birthCharacter
+     * @return self
+     */
+    public function removeBirthCharacter(Character $birthCharacter): self
+    {
+        if ($this->birthCharacters->contains($birthCharacter)) {
+            $this->birthCharacters->removeElement($birthCharacter);
+            // set the owning side to null (unless already changed)
+            if ($birthCharacter->getBirthPlace() === $this) {
+                $birthCharacter->setBirthPlace(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -168,6 +232,51 @@ class Place extends EntityBase
     public function setParent(?Place $parent = null): Place
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * getRecruitmentCharacters
+     * 
+     * @return Collection|Character[]
+     */
+    public function getRecruitmentCharacters(): Collection
+    {
+        return $this->recruitmentCharacters;
+    }
+
+    /**
+     * addRecruitmentCharacter
+     *
+     * @param Character $recruitmentCharacter
+     * @return self
+     */
+    public function addRecruitmentCharacter(Character $recruitmentCharacter): self
+    {
+        if (!$this->recruitmentCharacters->contains($recruitmentCharacter)) {
+            $this->recruitmentCharacters[] = $recruitmentCharacter;
+            $recruitmentCharacter->setRecruitmentPlace($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeRecruitmentCharacter
+     *
+     * @param Character $recruitmentCharacter
+     * @return self
+     */
+    public function removeRecruitmentCharacter(Character $recruitmentCharacter): self
+    {
+        if ($this->recruitmentCharacters->contains($recruitmentCharacter)) {
+            $this->recruitmentCharacters->removeElement($recruitmentCharacter);
+            // set the owning side to null (unless already changed)
+            if ($recruitmentCharacter->getRecruitmentPlace() === $this) {
+                $recruitmentCharacter->setRecruitmentPlace(null);
+            }
+        }
 
         return $this;
     }

@@ -4,6 +4,8 @@ namespace App\Entity\Character;
 
 use DateTimeImmutable;
 use App\Mapping\EntityBase;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Character\Feature;
 use App\Helper\ORM\TypeableTrait;
@@ -56,7 +58,7 @@ class Skill extends EntityBase
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillPrimae")
-     * @ORM\JoinColumn(name="feature_1", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="feature_1_id", referencedColumnName="id", onDelete="SET NULL")
      * @Assert\NotBlank
      */
     private $featurePrimae;
@@ -64,21 +66,21 @@ class Skill extends EntityBase
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillSecundae")
-     * @ORM\JoinColumn(name="feature_2", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="feature_2_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $featureSecundae;
 
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillTertiae")
-     * @ORM\JoinColumn(name="feature_3", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="feature_3_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $featureTertiae;
 
     /**
      * @var Feature|null
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="skillQuartae")
-     * @ORM\JoinColumn(name="feature_4", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="feature_4_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $featureQuartae;
 
@@ -99,6 +101,11 @@ class Skill extends EntityBase
      * @ORM\Column(name="value", type="smallint", nullable=true)
      */
     private $value;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CharacterSkill::class, mappedBy="skill", orphanRemoval=true)
+     */
+    private $characters;
     
     /**
      * Skill Constructor
@@ -108,6 +115,7 @@ class Skill extends EntityBase
         parent::__construct();
         $this->setType();
         $this->setObsolete();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -358,5 +366,36 @@ class Skill extends EntityBase
         }
 
         return $return;
+    }
+
+    /**
+     * @return Collection|CharacterSkill[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(CharacterSkill $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(CharacterSkill $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getSkill() === $this) {
+                $character->setSkill(null);
+            }
+        }
+
+        return $this;
     }
 }

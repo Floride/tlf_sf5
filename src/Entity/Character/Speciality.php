@@ -4,6 +4,8 @@ namespace App\Entity\Character;
 
 use DateTimeImmutable;
 use App\Mapping\EntityBase;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\NameableTrait;
 use App\Helper\ORM\TypeableTrait;
@@ -56,6 +58,12 @@ class Speciality extends EntityBase
     private $id;
 
     /**
+     * @var Collection|Character[]|null
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="speciality")
+     */
+    private $characters;
+
+    /**
      * @var string|null Picture name
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
      */
@@ -70,7 +78,7 @@ class Speciality extends EntityBase
     /**
      * @var Profession|null
      * @ORM\ManyToOne(targetEntity=Profession::class, inversedBy="specialities")
-     * @ORM\JoinColumn(name="profession", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="profession_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $profession;
 
@@ -84,6 +92,7 @@ class Speciality extends EntityBase
         $this->setPlayable();
         $this->setObsolete();
         $this->setType();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -96,6 +105,51 @@ class Speciality extends EntityBase
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|Character[]|null
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setSpeciality($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getSpeciality() === $this) {
+                $character->setSpeciality(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -170,4 +224,5 @@ class Speciality extends EntityBase
     }
     
     /* ---------------------- Autres méthodes ---------------------- */
+
 }
