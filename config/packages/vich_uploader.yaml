@@ -2,6 +2,14 @@ vich_uploader:
     db_driver: orm
 
     mappings:
+        character_picture:
+            uri_prefix: /images/characters
+            upload_destination: '%kernel.project_dir%/public/images/characters'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            
         character_feature_picture:
             uri_prefix: /images/characters/features
             upload_destination: '%kernel.project_dir%/public/images/characters/features'
@@ -27,7 +35,7 @@ vich_uploader:
             delete_on_remove: true
         
         character_rank_picture:
-            uri_prefix: /images/characters/badges
+            uri_prefix: /images/characters/badges/ranks
             upload_destination: '%kernel.project_dir%/public/images/characters/badges/ranks'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
             inject_on_load: false

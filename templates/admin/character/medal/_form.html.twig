@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-4">
-            {{ form_row(form.picture) }}
+            {{ form_row(form.pictureFile) }}
             {% if not medal.picture or medal.picture == '' %}
                 <img src="{{ asset('images/characters/medals/default.png') }}" alt="image par defaut - Médaille" />
             {% else %}

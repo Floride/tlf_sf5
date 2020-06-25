@@ -6,7 +6,6 @@ use App\Entity\Site\Parameter;
 use App\Repository\Site\ParameterRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class ParameterExtension
@@ -20,25 +19,19 @@ use Doctrine\ORM\EntityManagerInterface;
 class ParameterExtension extends AbstractExtension
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $manager;
-    
-    /**
      * @var ParameterRepository 
      */
     private $parameterRepository;
 
     /**
-     * Constructor
+     * ParameterExtension Constructor
      *
      * @param EntityManagerInterface $objectManager
      * 
      * @return void
      */
-    public function __construct(EntityManagerInterface $entityManager, ParameterRepository $parameterRepository)
+    public function __construct(ParameterRepository $parameterRepository)
     {
-        $this->manager = $entityManager; 
         $this->parameterRepository = $parameterRepository; 
     }
 

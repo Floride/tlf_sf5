@@ -2,9 +2,10 @@
 
 namespace App\Repository\Character;
 
+use Doctrine\ORM\Query;
+use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Character\CharacterFeature;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method CharacterFeature|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,17 @@ class CharacterFeatureRepository extends ServiceEntityRepository
         parent::__construct($registry, CharacterFeature::class);
     }
 
-    // /**
-    //  * @return CharacterFeature[] Returns an array of CharacterFeature objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * findByNameQuery
+     *
+     * @param string|null $order
+     * @return Query
+     */
+    public function findByNameQuery(?string $order = 'ASC'): Query 
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('cf')
+            ->orderBy('cf.name', $order)
             ->getQuery()
-            ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?CharacterFeature
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

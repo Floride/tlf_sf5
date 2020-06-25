@@ -47,7 +47,7 @@ class SpecialityType extends AbstractType
                 'label' => 'label.type',
                 'choices' => array_flip(Speciality::TYPE)
             ])
-            ->add('picture', FileType::class, [
+            ->add('pictureFile', FileType::class, [
                 'label' => 'label.badge',
                 'required' => false,
             ])

@@ -5,6 +5,10 @@
     {{ siteParams('site_title_abbr') }} - {{ 'Tableau de bord' }} - V{{ siteParams('site_version')|number_format(0) }} {{ siteParams('site_release') }}
 {% endblock %}
 
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block nav %}
 
     {% include "admin/elements/_nav.html.twig" %}
@@ -15,4 +19,13 @@
     <div class="container main-container">
         {% block body_content %}{% endblock %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 {% endblock %}

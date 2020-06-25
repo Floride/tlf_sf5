@@ -3,7 +3,7 @@
 namespace App\Entity\Character;
 
 use App\Entity\Game\Affectation;
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Character\CharacterAffectationRepository;
@@ -39,14 +39,14 @@ class CharacterAffectation extends EntityBase
     private $affectation;
 
     /**
-     * @var DateTimeImmutable|null
-     * @ORM\Column(name="begin_at", type="datetime_immutable", nullable=false)
+     * @var DateTimeInterface|null
+     * @ORM\Column(name="begin_at", type="datetime", nullable=false)
      */
     private $beginAt;
 
     /**
-     * @var DateTimeImmutable|null
-     * @ORM\Column(name="end_at", type="datetime_immutable", nullable=true, options={"default" : null})
+     * @var DateTimeInterface|null
+     * @ORM\Column(name="end_at", type="datetime", nullable=true, options={"default" : null})
      */
     private $endAt;
 
@@ -102,9 +102,9 @@ class CharacterAffectation extends EntityBase
     /**
      * getBeginAt
      *
-     * @return DateTimeImmutable|null
+     * @return DateTimeInterface|null
      */
-    public function getBeginAt(): ?DateTimeImmutable
+    public function getBeginAt(): ?DateTimeInterface
     {
         return $this->beginAt;
     }
@@ -112,10 +112,10 @@ class CharacterAffectation extends EntityBase
     /**
      * setBeginAt
      *
-     * @param DateTimeImmutable|null $beginAt
+     * @param DateTimeInterface|null $beginAt
      * @return self
      */
-    public function setBeginAt(?DateTimeImmutable $beginAt = null): self
+    public function setBeginAt(?DateTimeInterface $beginAt = null): self
     {
         $this->beginAt = $beginAt;
 
@@ -148,9 +148,9 @@ class CharacterAffectation extends EntityBase
     /**
      * getEndAt
      *
-     * @return DateTimeImmutable|null
+     * @return DateTimeInterface|null
      */
-    public function getEndAt(): ?DateTimeImmutable
+    public function getEndAt(): ?DateTimeInterface
     {
         return $this->endAt;
     }
@@ -158,10 +158,10 @@ class CharacterAffectation extends EntityBase
     /**
      * setEndAt
      *
-     * @param DateTimeImmutable|null $endAt
+     * @param DateTimeInterface|null $endAt
      * @return self
      */
-    public function setEndAt(?DateTimeImmutable $endAt = null): self
+    public function setEndAt(?DateTimeInterface $endAt = null): self
     {
         $this->endAt = $endAt;
 

@@ -1,4 +1,5 @@
 {# templates\admin\character\skill\_list.html.twig #}
+{% trans_default_domain 'forms' %}
 <div class="row">
     <div class="col-12">
     
@@ -21,13 +22,12 @@
 
                     <td>{{ skill.abbreviation }}</td>
                     
-                    <td>{% if skill.type == 1 %}
-                            Connaissance
-                        {% elseif skill.type == 2 %}
-                            Pratique
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                    <td>
+                        {% for key, type in constant('TYPE', skill) %}
+                            {% if skill.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td class="text-center">
@@ -37,7 +37,7 @@
                     </td>
                 <tr>
             {% else %}
-                <tr><td colsan="4" class="text-center">- Aucun enregistrement -</td></tr>
+                <tr><td colspan="4" class="text-center">- Aucun enregistrement -</td></tr>
             {% endfor %}
             </tbody>
         </table>

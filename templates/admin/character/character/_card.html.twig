@@ -1,0 +1,51 @@
+{# templates\admin\character\character\_card.html.twig #}
+{% trans_default_domain 'forms' %}
+<div class="card-deck">
+    {% for character in characters %}
+    <div class="col-3">
+        <div class="card mb-4">
+            {% set iden = character.firstname ~ ' ' ~ character.lastname %} 
+            {% if '' != character.nickname %}
+                {% set iden = character.firstname ~ ' ' ~ character.lastname ~ ' (' ~ character.nickname ~ ')' %}
+            {% endif %}
+            {% if not character.picture or character.picture == '' %}
+                <img  class="card-img-top"
+                    src="{{ asset('images/characters/default.png') }}" 
+                    alt="image par defaut - Avatar"
+                    data-toggle="modal" data-target="#character{{ character.id }}"
+                />
+            {% else %}
+                <img class="card-img-top"
+                    src="{{ vich_uploader_asset(character) }}" 
+                    alt="{{ iden }}"
+                    data-toggle="modal" data-target="#character{{ character.id }}"
+                />
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title text-bold text-center">{{ iden }}</h5>
+                Profession : {% if character.speciality %}
+                    {{ character.speciality.name }} (<i>{{ character.profession.name }}</i>)
+                {% else %}
+                        {{ character.profession.name }}
+                {% endif %}
+                fonction(s): {% for role in character.roles %}
+                    {{ role.name }}
+                {% endfor %}
+            </div>
+            <div class="card-footer text-center">
+                
+                {% include "admin/character/character/_action.html.twig" %}
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="col-12 text-center">- Aucun enregistrement -</td></tr>
+    {% endfor %}
+</div>
+
+{% for character in characters %}
+    
+    {% include "admin/character/character/_modal.html.twig"  with {'title': 'character' ~ character.id } %}
+
+{% endfor %}

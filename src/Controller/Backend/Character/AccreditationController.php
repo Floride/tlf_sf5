@@ -69,6 +69,7 @@ class AccreditationController extends AbstractCrudController
     {
         // Toutes les accreditations = false
         $accreds = $this->accreditationRepository->findAll();
+        
         foreach ($accreds as $accred) {
             if ($accred != $accreditation) {
                 $accred->setDefault(false);
@@ -187,6 +188,7 @@ class AccreditationController extends AbstractCrudController
         $accreditation = new Accreditation();
         $form = $this->createForm(AccreditationType::class, $accreditation);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->save($accreditation);
             $this->sendFlashMessage('save_ok', 'accréditation', false);

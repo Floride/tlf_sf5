@@ -2,7 +2,8 @@
 // src\Entity\Character\Character.php
 namespace App\Entity\Character;
 
-use DateTimeImmutable;
+use App\Entity\User;
+use DateTimeInterface;
 use App\Mapping\EntityBase;
 use App\Entity\Character\Rank;
 use App\Entity\Character\Role;
@@ -33,6 +34,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="c_character")
+ * @Vich\Uploadable
  */
 class Character extends EntityBase
 {
@@ -43,6 +45,15 @@ class Character extends EntityBase
         0 => 'Unknown',
         1 => 'Male',
         2 => 'Female'
+    ];
+
+    const STATUS = [
+        0 => 'Active',
+        1 => 'K.I.A.',
+        2 => 'DCD',
+        3 => 'I.I.A.',
+        4 => 'Injured',
+        5 => 'M.I.A.'
     ];
     
     /**
@@ -76,8 +87,8 @@ class Character extends EntityBase
     private $biography;
 
     /**
-     * @var DateTimeImmutable|null Date of Birth
-     * @ORM\Column(name="birth_date", type="datetime_immutable", nullable=false)
+     * @var DateTimeInterface|null Date of Birth
+     * @ORM\Column(name="birth_date", type="datetime", nullable=false)
      * @Assert\NotBlank
      */
     private $birthDate;
@@ -90,6 +101,16 @@ class Character extends EntityBase
     private $birthPlace;
 
     /**
+     * @var string Email
+     * @ORM\Column(name="email", type="string", length=180, nullable=false, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "L'Email '{{ value }}' n'est pas un email valide."
+     * )
+     */
+    private $email;
+
+    /**
      * @var Collection|CharacterFeature[]|null
      * @ORM\OneToMany(targetEntity=CharacterFeature::class, mappedBy="character", orphanRemoval=true)
      */
@@ -97,10 +118,10 @@ class Character extends EntityBase
 
     /**
      * @var string|null
-     * @ORM\Column(name="firthname", type="string", length=100, nullable=false)
+     * @ORM\Column(name="firstname", type="string", length=100, nullable=false)
      * @Assert\NotBlank
      */
-    private $fistname;
+    private $firstname;
 
     /**
      * @var string|null
@@ -129,7 +150,7 @@ class Character extends EntityBase
 
     /**
      * @var File|null
-     * @Vich\UploadableField(mapping="character_feature_picture", fileNameProperty="picture")
+     * @Vich\UploadableField(mapping="character_picture", fileNameProperty="picture")
      */
     private $pictureFile;
 
@@ -184,6 +205,18 @@ class Character extends EntityBase
     private $speciality;
 
     /**
+     * @var int|null
+     * @ORM\Column(name="status", type="smallint", options={"default" : 0})
+     */
+    private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="characters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
      * Character Constructor
      */
     public function __construct()
@@ -191,6 +224,7 @@ class Character extends EntityBase
         parent::__construct();
         $this->setDefault();
         $this->setEnable(); 
+        $this->setStatus();
         $this->accreditations = new ArrayCollection();
         $this->affectations = new ArrayCollection();
         $this->features = new ArrayCollection();
@@ -220,7 +254,7 @@ class Character extends EntityBase
      * addAccreditation
      *
      * @param Accreditation $accreditation
-     * @return self
+     * @return Character
      */
     public function addAccreditation(Accreditation $accreditation): self
     {
@@ -235,7 +269,7 @@ class Character extends EntityBase
      * removeAccreditation
      *
      * @param Accreditation $accreditation
-     * @return self
+     * @return Character
      */
     public function removeAccreditation(Accreditation $accreditation): self
     {
@@ -259,7 +293,7 @@ class Character extends EntityBase
      * addAffectation
      *
      * @param CharacterAffectation $affectation
-     * @return self
+     * @return Character
      */
     public function addAffectation(CharacterAffectation $affectation): self
     {
@@ -275,7 +309,7 @@ class Character extends EntityBase
      * removeAffectation
      *
      * @param CharacterAffectation $affectation
-     * @return self
+     * @return Character
      */
     public function removeAffectation(CharacterAffectation $affectation): self
     {
@@ -304,7 +338,7 @@ class Character extends EntityBase
      * setBiography
      *
      * @param string|null $biography
-     * @return self
+     * @return Character
      */
     public function setBiography(?string $biography = null): self
     {
@@ -316,9 +350,9 @@ class Character extends EntityBase
     /**
      * getBirthDate
      *
-     * @return DateTimeImmutable|null
+     * @return DateTimeInterface|null
      */
-    public function getBirthDate(): ?DateTimeImmutable
+    public function getBirthDate(): ?DateTimeInterface
     {
         return $this->birthDate;
     }
@@ -326,10 +360,10 @@ class Character extends EntityBase
     /**
      * setBirthDate
      *
-     * @param DateTimeImmutable|null $birthDate
-     * @return self
+     * @param DateTimeInterface|null $birthDate
+     * @return Character
      */
-    public function setBirthDate(?DateTimeImmutable $birthDate = null): self
+    public function setBirthDate(?DateTimeInterface $birthDate = null): self
     {
         $this->birthDate = $birthDate;
 
@@ -350,11 +384,34 @@ class Character extends EntityBase
      * setBirthPlace
      *
      * @param Place|null $birthPlace
-     * @return self
+     * @return Character
      */
     public function setBirthPlace(?Place $birthPlace = null): self
     {
         $this->birthPlace = $birthPlace;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return  null|string
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set email
+     *
+     * @param   string  $email
+     * @return  Character
+     */
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
@@ -373,7 +430,7 @@ class Character extends EntityBase
      * addFeature
      *
      * @param CharacterFeature $feature
-     * @return self
+     * @return Character
      */
     public function addFeature(CharacterFeature $feature): self
     {
@@ -389,7 +446,7 @@ class Character extends EntityBase
      * removeFeature
      *
      * @param CharacterFeature $feature
-     * @return self
+     * @return Character
      */
     public function removeFeature(CharacterFeature $feature): self
     {
@@ -400,6 +457,29 @@ class Character extends EntityBase
                 $feature->setCharacter(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * getFirstname
+     *
+     * @return string|null
+     */
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * setLastname
+     *
+     * @param string|null $firstname
+     * @return Character
+     */
+    public function setFirstname(?string $firstname = null): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }
@@ -418,7 +498,7 @@ class Character extends EntityBase
      * addMedal
      *
      * @param CharacterMedal $medal
-     * @return self
+     * @return Character
      */
     public function addMedal(CharacterMedal $medal): self
     {
@@ -434,7 +514,7 @@ class Character extends EntityBase
      * removeMedal
      *
      * @param CharacterMedal $medal
-     * @return self
+     * @return Character
      */
     public function removeMedal(CharacterMedal $medal): self
     {
@@ -463,7 +543,7 @@ class Character extends EntityBase
      * setFistname
      *
      * @param string|null $fistname
-     * @return self
+     * @return Character
      */
     public function setFistname(?string $fistname = null): self
     {
@@ -486,7 +566,7 @@ class Character extends EntityBase
      * setLastname
      *
      * @param string|null $lastname
-     * @return self
+     * @return Character
      */
     public function setLastname(?string $lastname = null): self
     {
@@ -509,7 +589,7 @@ class Character extends EntityBase
      * setNickname
      *
      * @param string|null $nickname
-     * @return self
+     * @return Character
      */
     public function setNickname(?string $nickname = null): self
     {
@@ -532,7 +612,7 @@ class Character extends EntityBase
      * Set picture name
      *
      * @param string|null $pictureName
-     * @return self
+     * @return Character
      */
     public function setPicture(?string $pictureName = null): self
     {
@@ -554,13 +634,13 @@ class Character extends EntityBase
      * Set picture file
      *
      * @param  File|UploadedFile|null $file
-     * @return self
+     * @return Character
      */
     public function setPictureFile(?File $file = null): self
     {
         $this->pictureFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->setUpdatedAt(new DateTimeInterface('now'));
         }
 
         return $this;
@@ -580,7 +660,7 @@ class Character extends EntityBase
      * setProfession
      *
      * @param Profession|null $profession
-     * @return self
+     * @return Character
      */
     public function setProfession(?Profession $profession = null): self
     {
@@ -603,7 +683,7 @@ class Character extends EntityBase
      * setRank
      *
      * @param Rank|null $rank
-     * @return self
+     * @return Character
      */
     public function setRank(?Rank $rank = null): self
     {
@@ -626,7 +706,7 @@ class Character extends EntityBase
      * setRecruitmentPlace
      *
      * @param Place|null $recruitmentPlace
-     * @return self
+     * @return Character
      */
     public function setRecruitmentPlace(?Place $recruitmentPlace = null): self
     {
@@ -649,7 +729,7 @@ class Character extends EntityBase
      * addRole
      *
      * @param Role $role
-     * @return self
+     * @return Character
      */
     public function addRole(Role $role): self
     {
@@ -664,7 +744,7 @@ class Character extends EntityBase
      * removeRole
      *
      * @param Role $role
-     * @return self
+     * @return Character
      */
     public function removeRole(Role $role): self
     {
@@ -689,7 +769,7 @@ class Character extends EntityBase
      * setSexe
      *
      * @param integer|null $sexe
-     * @return self
+     * @return Character
      */
     public function setSexe(?int $sexe = 0): self
     {
@@ -711,7 +791,7 @@ class Character extends EntityBase
      * addSkill
      *
      * @param CharacterSkill $skill
-     * @return self
+     * @return Character
      */
     public function addSkill(CharacterSkill $skill): self
     {
@@ -727,7 +807,7 @@ class Character extends EntityBase
      * removeSkill
      *
      * @param CharacterSkill $skill
-     * @return self
+     * @return Character
      */
     public function removeSkill(CharacterSkill $skill): self
     {
@@ -756,11 +836,57 @@ class Character extends EntityBase
      * setSpeciality
      *
      * @param Speciality|null $speciality
-     * @return self
+     * @return Character
      */
     public function setSpeciality(?Speciality $speciality = null): self
     {
         $this->speciality = $speciality;
+
+        return $this;
+    }
+
+    /**
+     * getStatus
+     *
+     * @return integer|null
+     */
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    /**
+     * setStatus
+     *
+     * @param int|null $status
+     * @return self
+     */
+    public function setStatus(?int $status = 0): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * getUser
+     *
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * setUser
+     *
+     * @param User|null $user
+     * @return self
+     */
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

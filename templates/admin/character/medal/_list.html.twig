@@ -1,4 +1,5 @@
 {# templates\admin\character\medal\_list.html.twig #}
+{% trans_default_domain 'forms' %}
 <div class="row">
     <div class="col-12">
     
@@ -24,33 +25,19 @@
                     <td>{{ medal.value }} ({{ medal.coeficientXp }})</td>
                     
                     <td>
-                        {% if medal.type == 1 %}
-                            Personnel
-                        {% elseif medal.type == 2 %}
-                            Unité
-                        {% elseif medal.type == 3 %}
-                            Mixte
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                        {% for key, type in constant('TYPE', medal) %}
+                            {% if medal.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td>
-                        {% if medal.category == 1 %}
-                            Achèvement
-                        {% elseif medal.category == 2 %}
-                            Honneur
-                        {% elseif medal.category == 3 %}
-                            Bravoure
-                        {% elseif medal.category == 4 %}
-                            Régimentaire
-                        {% elseif medal.category == 5 %}
-                            Fédérale
-                        {% elseif medal.category == 6 %}
-                            Autre
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                        {% for key, category in constant('CATEGORY', medal) %}
+                            {% if medal.category == key %}
+                                {{ category|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td class="text-center">
@@ -60,7 +47,7 @@
                     </td>
                 <tr>
             {% else %}
-                <tr><td colsan="4" class="text-center">- Aucun enregistrement -</td></tr>
+                <tr><td colspan="4" class="text-center">- Aucun enregistrement -</td></tr>
             {% endfor %}
             </tbody>
         </table>

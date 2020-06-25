@@ -1,0 +1,64 @@
+{# templates\admin\character\character\_modal.html.twig #}
+{% trans_default_domain 'forms' %}
+<!-- Modal {{ title }} -->
+<div class="modal fade" id="{{ title }}" tabindex="-1" role="dialog" aria-labelledby="{{ title }}Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ title }}Label">
+                    {{ character.rank.name }} 
+                    {{ character.firstname }} {{ character.lastname }} 
+                    {% if '' != character.nickname %}
+                        ({{ character.nickname }})
+                    {% endif %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-4">
+
+                    <div class="col-4">
+                        {% if not character.picture or character.picture == '' %}
+                            <img src="{{ asset('images/characters/default.png') }}" alt="image par defaut - Avatar" class="picture_user_mini"  />
+                        {% else %}
+                            {% set iden = character.firstname ~ ' ' ~ character.lastname %} 
+                            {% if '' != character.nickname %}
+                                {% set iden = character.firstname ~ ' ' ~ character.lastname ~ ' (' ~ character.nickname ~ ')' %}
+                            {% endif %}
+                            <img src="{{ vich_uploader_asset(character) }}" alt="{{ iden }}" class="picture_user_mini" />
+                        {% endif %}
+                    </div>
+
+                    <div class="col-8 small text-justify">
+                        <p>
+                        {% if character.speciality %}
+                            {{ character.speciality.name }} (<i>{{ character.profession.name }}</i>)
+                        {% else %}
+                             {{ character.profession.name }}
+                        {% endif %} 
+                        <br />
+                        
+                        {% for role in character.roles %}
+                            {{ role.name }}
+                            {% if loop.index < character.roles|length %}, {% endif %}
+                        {% endfor %}
+                        </p>
+                        <p>
+                        {{ character.biography|nl2br }}
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-header">
+                <small></small>
+            </div>
+
+        </div>
+    </div>
+</div>

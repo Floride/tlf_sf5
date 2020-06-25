@@ -2,7 +2,7 @@
 // src\Entity\Character\Feature.php
 namespace App\Entity\Character;
 
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Mapping\EntityBase;
 use App\Entity\Character\Skill;
 use Doctrine\ORM\Mapping as ORM;
@@ -416,7 +416,7 @@ class Feature extends EntityBase
     {
         $this->pictureFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->setUpdatedAt(new DateTimeInterface('now'));
         }
 
         return $this;

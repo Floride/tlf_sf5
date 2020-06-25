@@ -2,9 +2,11 @@
 // src\Entity\User.php
 namespace App\Entity;
 
-use DateTimeImmutable;
+use App\Entity\Character\Character;
 use DateTimeInterface;
 use App\Mapping\EntityBase;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\Helper\ORM\IsEnablableTrait;
@@ -59,8 +61,8 @@ class User extends EntityBase implements UserInterface
     private $biography;
     
     /**
-     * @var DateTimeImmutable|null Date of Birth
-     * @ORM\Column(name="birth_date",type="datetime_immutable", nullable=true)
+     * @var DateTimeInterface|null Date of Birth
+     * @ORM\Column(name="birth_date",type="datetime", nullable=true)
      */
     private $birthDate;
 
@@ -75,20 +77,26 @@ class User extends EntityBase implements UserInterface
     private $email;
 
     /**
+     * @var Collection|Character[]|null
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="user")
+     */
+    private $characters;
+
+    /**
      * @var string|null Firstname
-     * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="firstname", type="string", length=50, nullable=true)
      */
     private $firstname;
     
     /**
-     * @var DateTimeImmutable|null Date of Last connexion
+     * @var DateTimeInterface|null Date of Last connexion
      * @ORM\Column(name="last_connexion",type="datetime_immutable", nullable=true)
      */
     private $lastConnexion;
 
     /**
      * @var string|null Lastname
-     * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="lastname", type="string", length=50, nullable=true)
      */
     private $lastname;
 
@@ -147,6 +155,7 @@ class User extends EntityBase implements UserInterface
     {
         parent::__construct();
         $this->setSexe();
+        $this->characters = new ArrayCollection();
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -239,6 +248,51 @@ class User extends EntityBase implements UserInterface
     public function setBirthDate(?DateTimeInterface $date = null): self
     {
         $this->birthDate = $date;
+
+        return $this;
+    }
+
+    /**
+     * getCharacters
+     * 
+     * @return Collection|Character[]|null
+     */
+    public function getCharacters(): ?Collection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * addCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * removeCharacter
+     *
+     * @param Character $character
+     * @return self
+     */
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getUser() === $this) {
+                $character->setUser(null);
+            }
+        }
 
         return $this;
     }
@@ -372,7 +426,7 @@ class User extends EntityBase implements UserInterface
     {
         $this->pictureFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->setUpdatedAt(new DateTimeInterface('now'));
         }
 
         return $this;
@@ -532,9 +586,7 @@ class User extends EntityBase implements UserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
-    {
-    }
+    public function eraseCredentials() {}
 
     /**
      * Genere un token

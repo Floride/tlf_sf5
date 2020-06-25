@@ -1,0 +1,29 @@
+{# templates\admin\character\character\edit.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_content %}
+    
+    {% include "admin/elements/_header.html.twig" with {
+            'h_title':'Personnage : Personnages',
+            'h_path_retour':'admin_character_list'
+        }
+    %}
+
+    {% include "admin/elements/_sub_header.html.twig" with {
+            'sh_description':'Modifier un personnage',
+            'sh_lien':'',
+            'sh_btn_txt':''
+        }
+    %}
+
+    {% include "admin/character/character/_form.html.twig" with {'button': 'Enregistrer'} %}
+
+    {% include "admin/character/character/_feature.html.twig" %}
+
+    {% include "admin/character/character/_skill.html.twig" %}
+
+    {% include "admin/character/character/_affectation.html.twig" %}
+
+    {% include "admin/character/character/_medal.html.twig" %}
+
+{% endblock %}

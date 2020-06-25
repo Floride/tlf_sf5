@@ -48,7 +48,7 @@
             <div class="row">
 
                 <div class="col-12">
-                    {{ form_row(form.picture) }}
+                    {{ form_row(form.pictureFile) }}
                     {% if not feature.picture or feature.picture == '' %}
                         <img src="{{ asset('images/characters/features/default.png') }}" alt="image par defaut - Caractéristique" />
                     {% else %}

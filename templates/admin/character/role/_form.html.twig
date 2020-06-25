@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-4">
-            {{ form_row(form.picture) }}
+            {{ form_row(form.pictureFile) }}
             {% if not role.picture or role.picture == '' %}
                 <img src="{{ asset('images/characters/badges/roles/default.png') }}" alt="image par defaut - Fonction" />
             {% else %}

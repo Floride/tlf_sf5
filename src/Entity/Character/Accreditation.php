@@ -47,7 +47,7 @@ class Accreditation extends EntityBase
     
     const CATEGORY = [
         0 => 'Not specified',
-        1 => 'Régimental',
+        1 => 'Regimental',
         2 => 'Commissioner',
         3 => 'Other'
     ];

@@ -40,7 +40,7 @@ class ProfessionType extends AbstractType
                 'label' => 'label.description',
                 'required' => true,
             ])
-            ->add('picture', FileType::class, [
+            ->add('pictureFile', FileType::class, [
                 'label' => 'label.badge',
                 'required' => false,
             ])

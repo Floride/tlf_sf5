@@ -47,7 +47,7 @@ class MedalType extends AbstractType
                 'label' => 'label.coeficientXp',
                 'required' => false,
             ])
-            ->add('picture', FileType::class, [
+            ->add('pictureFile', FileType::class, [
                 'label' => 'label.illustration',
                 'required' => false,
             ])

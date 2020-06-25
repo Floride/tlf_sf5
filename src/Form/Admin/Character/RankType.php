@@ -64,7 +64,7 @@ class RankType extends AbstractType
                 'label' => 'label.score_rank_ol',
                 'required' => false,
             ])
-            ->add('picture', FileType::class, [
+            ->add('pictureFile', FileType::class, [
                 'label' => 'label.illustration',
                 'required' => false,
             ])

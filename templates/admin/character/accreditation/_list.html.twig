@@ -1,4 +1,5 @@
 {# templates\admin\character\accreditation\_list.html.twig #}
+{% trans_default_domain 'forms' %}
 <div class="row">
     <div class="col-12">
     
@@ -24,27 +25,19 @@
                     <td>{{ accreditation.abbreviation }}</td>
                     
                     <td>
-                        {% if accreditation.type == 1 %}
-                            Militaire
-                        {% elseif accreditation.type == 2 %}
-                            Civile
-                        {% elseif accreditation.type == 3 %}
-                            Mixte
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                        {% for key, type in constant('TYPE', accreditation) %}
+                            {% if accreditation.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td>
-                        {% if accreditation.category == 1 %}
-                            Régimentaire
-                        {% elseif accreditation.category == 2 %}
-                            Commissariale
-                        {% elseif accreditation.category == 3 %}
-                            Autre
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                        {% for key, category in constant('CATEGORY', accreditation) %}
+                            {% if accreditation.category == key %}
+                                {{ category|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td class="text-center">

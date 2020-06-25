@@ -46,7 +46,7 @@
         </div>
 
         <div class="col-4">
-            {{ form_row(form.picture) }}
+            {{ form_row(form.pictureFile) }}
             {% if not rank.picture or rank.picture == '' %}
                 <img src="{{ asset('images/characters/badges/ranks/default.png') }}" alt="image par defaut - grade" />
             {% else %}

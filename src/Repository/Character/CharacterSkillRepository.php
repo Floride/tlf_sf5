@@ -2,9 +2,10 @@
 
 namespace App\Repository\Character;
 
+use Doctrine\ORM\Query;
 use App\Entity\Character\CharacterSkill;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method CharacterSkill|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,17 @@ class CharacterSkillRepository extends ServiceEntityRepository
         parent::__construct($registry, CharacterSkill::class);
     }
 
-    // /**
-    //  * @return CharacterSkill[] Returns an array of CharacterSkill objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * findByNameQuery
+     *
+     * @param string|null $order
+     * @return Query
+     */
+    public function findByNameQuery(?string $order = 'ASC'): Query 
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('cs')
+            ->orderBy('cs.name', $order)
             ->getQuery()
-            ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?CharacterSkill
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

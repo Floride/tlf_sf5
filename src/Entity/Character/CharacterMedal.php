@@ -2,7 +2,7 @@
 // src\Entity\Character\CharacterMedal.php
 namespace App\Entity\Character;
 
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Character\CharacterMedalRepository;
@@ -31,8 +31,8 @@ class CharacterMedal extends EntityBase
     private $id;
 
     /**
-     * @var DateTimeImmutable|null
-     * @ORM\Column(name="attribute_at", type="datetime_immutable", nullable=false)
+     * @var DateTimeInterface|null
+     * @ORM\Column(name="attribute_at", type="datetime", nullable=false)
      */
     private $attributeAt;
 
@@ -61,7 +61,7 @@ class CharacterMedal extends EntityBase
     public function __construct()
     {
         parent::__construct();
-        $this->setAttributeAt(new DateTimeImmutable());
+        $this->setAttributeAt(new DateTimeInterface());
     }
 
     /* ---------------------- Setters & Getters ---------------------- */
@@ -79,9 +79,9 @@ class CharacterMedal extends EntityBase
     /**
      * getAttributeAt
      *
-     * @return DateTimeImmutable|null
+     * @return DateTimeInterface|null
      */
-    public function getAttributeAt(): ?DateTimeImmutable
+    public function getAttributeAt(): ?DateTimeInterface
     {
         return $this->attributeAt;
     }
@@ -89,11 +89,11 @@ class CharacterMedal extends EntityBase
     /**
      * setAttributeAt
      *
-     * @param DateTimeImmutable|null $date
+     * @param DateTimeInterface|null $date
      * 
      * @return self
      */
-    public function setAttributeAt(?DateTimeImmutable $date = null): self
+    public function setAttributeAt(?DateTimeInterface $date = null): self
     {
         $this->attributeAt = $date;
 

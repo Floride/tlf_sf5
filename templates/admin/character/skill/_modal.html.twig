@@ -1,4 +1,5 @@
 {# templates\admin\character\skill\_modal.html.twig #}
+{% trans_default_domain 'forms' %}
 <!-- Modal {{ title }} -->
 <div class="modal fade" id="{{ title }}" tabindex="-1" role="dialog" aria-labelledby="{{ title }}Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -14,13 +15,13 @@
                 <div class="row mb-4">
 
                     <div class="col-12 small text-justify">
-                    [ {% if skill.type == 1 %}
-                        Connaissance
-                    {% elseif skill.type == 2 %}
-                        Pratique
-                    {% else %}
-                        Non précisée
-                    {% endif %} ]<br />
+                    [ 
+                        {% for key, type in constant('TYPE', skill) %}
+                            {% if skill.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}    
+                    ]<br />
                     {{ skill.description|nl2br }}
                     </div>
 

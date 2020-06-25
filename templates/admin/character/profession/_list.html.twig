@@ -1,4 +1,5 @@
 {# templates\admin\character\profession\_list.html.twig #}
+{% trans_default_domain 'forms' %}
 <div class="row">
     <div class="col-12">
     
@@ -25,17 +26,12 @@
 
                     <td>{{ profession.description|nl2br }}</td>
                     
-                    <td>{% if profession.type == 1 %}
-                            Militaire
-                        {% elseif profession.type == 2 %}
-                            Civile
-                        {% elseif profession.type == 3 %}
-                            Mixte
-                        {% elseif profession.type == 3 %}
-                            Autre
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                    <td>
+                        {% for key, type in constant('TYPE', profession) %}
+                            {% if profession.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td class="text-center">

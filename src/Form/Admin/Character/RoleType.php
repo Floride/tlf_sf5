@@ -54,7 +54,7 @@ class RoleType extends AbstractType
                 'choices' => array_flip(Role::TYPE),
                 'required' => true,
             ])
-            ->add('picture', FileType::class, [
+            ->add('pictureFile', FileType::class, [
                 'label' => 'label.illustration',
                 'required' => false,
             ])

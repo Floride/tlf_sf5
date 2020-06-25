@@ -2,7 +2,7 @@
 
 namespace App\Entity\Character;
 
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Mapping\EntityBase;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -236,7 +236,7 @@ class Medal extends EntityBase
     {
         $this->pictureFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->setUpdatedAt(new DateTimeInterface('now'));
         }
 
         return $this;
@@ -284,7 +284,7 @@ class Medal extends EntityBase
     {
         $this->ribbonFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->setUpdatedAt(new DateTimeInterface('now'));
         }
 
         return $this;

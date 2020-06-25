@@ -58,9 +58,9 @@ class RoleFixtures extends Fixture implements DependentFixtureInterface
                 ->setName($r['name'])
                 ->setAbbreviation($r['abbreviation'])
                 ->setDescription($faker->paragraph(5, true))
-                ->setObsolete(false)
-                ->setDefault((isset($r['default'])) ? true : false)
-                ->setPlayable((isset($r['playable'])) ? true : false)
+                ->setObsolete((isset($r['obsolete']) && true == $r['obsolete']) ? true : false)
+                ->setDefault((isset($r['default']) && true == $r['default']) ? true : false)
+                ->setPlayable((isset($r['playable']) && true == $r['playable']) ? true : false)
                 ->setType($r['type'])
                 ->setRankMin($r['rankMin'])
                 ->setRankMin((isset($r['rankMax'])) ? $r['rankMax'] : null)
@@ -355,6 +355,14 @@ class RoleFixtures extends Fixture implements DependentFixtureInterface
                 'type' => 1,
                 'rankMin' => $rank['Cpl'],
                 'accredMin' => $accreditations['ACDL']
+            ],
+            [
+                'name' => 'Pirate',
+                'abbreviation' => 'Pi',
+                'type' => 2,
+                'rankMin' => $rank['Civ'],
+                'accredMin' => $accreditations['AL'],
+                'obsolete' => true,
             ],
         ];
     }

@@ -1,0 +1,117 @@
+{# templates\admin\character\caharcter\_form.html.twig #}
+{{ form_start(form) }}
+    <div class="row">
+
+        <div class="col-8">
+
+            <div class="row">
+                <div class="col-4">
+                    {{ form_row(form.firstname) }}
+                </div>
+                <div class="col-4">
+                    {{ form_row(form.lastname) }}
+                </div>
+                <div class="col-4">
+                    {{ form_row(form.nickname) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.user) }}
+                </div>
+            </div>
+
+            <div class="row">
+            
+                <div class="col-12">
+                    {{ form_row(form.biography) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-2">
+                    {{ form_row(form.sexe) }}
+                </div>
+            
+                <div class="col-3">
+                    {{ form_row(form.birthDate) }}
+                </div>
+            
+                <div class="col-3">
+                    {{ form_row(form.status) }}
+                </div>
+
+                <div class="col-4">
+                    {{ form_row(form.rank) }}
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <div class="col-6">
+                    {{ form_row(form.birthPlace) }}
+                </div>
+                
+                <div class="col-6">
+                    {{ form_row(form.recruitmentPlace) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-6">
+                    {{ form_row(form.profession) }}
+                </div>
+                
+                <div class="col-6">
+                    {{ form_row(form.speciality) }}
+                </div>
+
+            </div>
+
+            <div class="row">
+            
+                <div class="col-6">
+                    {{ form_row(form.accreditations) }}
+                </div>
+                
+                <div class="col-6">
+                    {{ form_row(form.roles) }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-4">
+            {{ form_row(form.pictureFile) }}
+            {% if not character.picture or character.picture == '' %}
+                <img src="{{ asset('images/characters/default.png') }}" alt="image par defaut - Avatar" />
+            {% else %}
+                {% set iden = character.firstname ~ ' ' ~ character.lastname %} 
+                {% if '' != character.nickname %}
+                    {% set iden = character.firstname ~ ' ' ~ character.lastname ~ ' (' ~ character.nickname ~ ')' %}
+                {% endif %}
+                <a href="" class="admin_delete_user_picture" />
+                    <span class="title">{{ iden }}</span>
+                    <span class="description">Cliquer pour supprimer cette image.</span>
+                    <span class="bg"></span>
+                    <img src="{{ vich_uploader_asset(character) }}" alt="{{ iden }}" class="picture_user" />
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">{{ button }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

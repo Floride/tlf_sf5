@@ -3,7 +3,7 @@
 namespace App\DataFixtures\Game;
 
 use Faker\Factory;
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Entity\Game\Affectation;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;

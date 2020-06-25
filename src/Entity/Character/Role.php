@@ -2,7 +2,7 @@
 // src\Entity\Character\Role.php
 namespace App\Entity\Character;
 
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Mapping\EntityBase;
 use App\Entity\Character\Rank;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -217,7 +217,7 @@ class Role extends EntityBase
     {
         $this->pictureFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->setUpdatedAt(new DateTimeInterface('now'));
         }
 
         return $this;

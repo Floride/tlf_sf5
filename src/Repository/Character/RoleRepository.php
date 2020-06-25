@@ -4,6 +4,7 @@ namespace App\Repository\Character;
 
 use Doctrine\ORM\Query;
 use App\Entity\Character\Role;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -28,10 +29,25 @@ class RoleRepository extends ServiceEntityRepository
      */
     public function findByNameQuery(?string $order = 'ASC'): Query 
     {
-        return $this->createQueryBuilder('c')
-            ->OrderBy('c.type', 'ASC')
-            ->addOrderBy('c.name', $order)
+        return $this->createQueryBuilder('r')
+            ->OrderBy('r.type', 'ASC')
+            ->addOrderBy('r.name', $order)
             ->getQuery()
+        ;
+    }
+    
+    /**
+     * getObsolete
+     *
+     * @param bool $bool
+     * 
+     * @return QueryBuilder
+     */
+    public function getObsolete(bool $bool = false): QueryBuilder
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.obsolete = :obsolete')
+            ->setParameter('obsolete', $bool)
         ;
     }
 }

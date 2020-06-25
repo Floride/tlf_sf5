@@ -1,4 +1,5 @@
 {# templates\admin\character\role\_modal.html.twig #}
+{% trans_default_domain 'forms' %}
 <!-- Modal {{ title }} -->
 <div class="modal fade" id="{{ title }}" tabindex="-1" role="dialog" aria-labelledby="{{ title }}Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -15,15 +16,11 @@
 
                     <div class="col-12 small text-justify">
                     [ 
-                        {% if role.type == 1 %}
-                            Militaire
-                        {% elseif role.type == 2 %}
-                            Civil
-                        {% elseif role.type == 3 %}
-                            Mixte
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                       {% for key, type in constant('TYPE', role) %}
+                            {% if role.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}
                     ]<br />
                     {{ role.description|nl2br }}
                     </div>

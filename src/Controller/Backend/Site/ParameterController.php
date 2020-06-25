@@ -2,7 +2,7 @@
 // src\Controller\Backend\Site\ParameterController.php
 namespace App\Controller\Backend\Site;
 
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Entity\Site\Parameter;
 use App\Form\Admin\Site\ParameterType;
 use Doctrine\ORM\EntityManagerInterface;

@@ -1,4 +1,5 @@
 {# templates\admin\character\rank\_list.html.twig #}
+{% trans_default_domain 'forms' %}
 <div class="row">
     <div class="col-12">
     
@@ -24,29 +25,19 @@
                     <td>{{ rank.abbreviation }}</td>
                     
                     <td>
-                        {% if rank.type == 1 %}
-                            Militaire
-                        {% elseif rank.type == 2 %}
-                            Civil
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                        {% for key, type in constant('TYPE', rank) %}
+                            {% if rank.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td>
-                        {% if rank.category == 1 %}
-                            Homme du Rang
-                        {% elseif rank.category == 2 %}
-                            Sous-officier
-                        {% elseif rank.category == 3 %}
-                            Officier
-                        {% elseif rank.category == 4 %}
-                            Officier Général
-                        {% elseif rank.category == 5 %}
-                            Elève
-                        {% else %}
-                            Non précisée
-                        {% endif %}
+                        {% for key, category in constant('CATEGORY', rank) %}
+                            {% if rank.category == key %}
+                                {{ category|trans }}
+                            {% endif %}
+                        {% endfor %}
                     </td>
 
                     <td class="text-center">

@@ -1,4 +1,5 @@
 {# templates\admin\character\feature\_modal.html.twig #}
+{% trans_default_domain 'forms' %}
 <!-- Modal {{ title }} -->
 <div class="modal fade" id="{{ title }}" tabindex="-1" role="dialog" aria-labelledby="{{ title }}Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -15,13 +16,11 @@
 
                     <div class="col-12 small text-justify">
                     [ Caractéristique 
-                    {% if feature.type == 1 %}
-                        Physique
-                    {% elseif feature.type == 2 %}
-                        Mentale
-                    {% else %}
-                        Non précisée
-                    {% endif %}
+                        {% for key, type in constant('TYPE', feature) %}
+                            {% if feature.type == key %}
+                                {{ type|trans }}
+                            {% endif %}
+                        {% endfor %}
                     ]<br />
                     {{ feature.description|nl2br }}
                     </div>

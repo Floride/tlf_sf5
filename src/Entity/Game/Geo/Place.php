@@ -49,6 +49,12 @@ class Place extends EntityBase
     private $birthCharacters;
 
     /**
+     * @var bool|null
+     * @ORM\Column(name="is_birth_place", type="boolean", options={"default" : false})
+     */
+    private $birthPlace;
+
+    /**
      * @var Collection|Place[]|null
      * @ORM\OneToMany(targetEntity=Place::class, mappedBy="parent")
      */
@@ -72,6 +78,12 @@ class Place extends EntityBase
      * @ORM\OneToMany(targetEntity=Character::class, mappedBy="recruitmentPlace")
      */
     private $recruitmentCharacters;
+
+    /**
+     * @var bool|null
+     * @ORM\Column(name="is_recruitment_place", type="boolean", options={"default" : false})
+     */
+    private $recruitmentPlace;
 
     /**
      * @var PlaceType|null
@@ -147,6 +159,29 @@ class Place extends EntityBase
                 $birthCharacter->setBirthPlace(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * getBirthPlace
+     *
+     * @return boolean|null
+     */
+    public function getBirthPlace(): ?bool
+    {
+        return $this->birthPlace;
+    }
+
+    /**
+     * setBirthPlace
+     *
+     * @param boolean|null $bool
+     * @return self
+     */
+    public function setBirthPlace(?bool $bool = false): self
+    {
+        $this->birthPlace = $bool;
 
         return $this;
     }
@@ -277,6 +312,29 @@ class Place extends EntityBase
                 $recruitmentCharacter->setRecruitmentPlace(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * getRecruitmentPlace
+     *
+     * @return boolean|null
+     */
+    public function getRecruitmentPlace(): ?bool
+    {
+        return $this->recruitmentPlace;
+    }
+
+    /**
+     * setRecruitmentPlace
+     *
+     * @param boolean|null $bool
+     * @return self
+     */
+    public function setRecruitmentPlace(?bool $bool = false): self
+    {
+        $this->recruitmentPlace = $bool;
 
         return $this;
     }

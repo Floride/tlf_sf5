@@ -2,9 +2,9 @@
 // src\Mapping\EntityBase.php
 namespace App\Mapping;
 
-use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class EntityBase

@@ -69,6 +69,21 @@ class PlaceFixtures extends Fixture implements DependentFixtureInterface
                 ->setType($list[random_int(0, count($list) - 1)])
             ;
             
+            $type = $place->getType()->getName();
+            
+            if ('Ville' == $type || 'Cité' == $type || 'Métroplexe' == $type 
+                || 'Station Orbitale' == $type || 'Base Scientifique' == $type 
+                || 'Vaisseau Spatial' == $type) {
+                $place->setBirthPlace(true);
+            } else {
+                $place->setBirthPlace(false);
+            }
+            if ('Cité' == $type || 'Métroplexe' == $type || 'Station Orbitale' == $type) {
+                $place->setRecruitmentPlace(true);
+            } else {
+                $place->setRecruitmentPlace(false);
+            }
+            
             $manager->persist($place);
         }
 

@@ -2,7 +2,7 @@
 // src\Entity\Character\Profession.php
 namespace App\Entity\Character;
 
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Mapping\EntityBase;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\ORM\TypeableTrait;
@@ -191,7 +191,7 @@ class Profession extends EntityBase
     {
         $this->pictureFile = $file;
         if (null !== $file) {
-            $this->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->setUpdatedAt(new DateTimeInterface('now'));
         }
 
         return $this;

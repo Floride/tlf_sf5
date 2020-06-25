@@ -53,7 +53,7 @@
         <div class="row">
             <div class="col-12">
 
-                {{ form_row(form.picture) }}
+                {{ form_row(form.pictureFile) }}
 
                 {% if not user.picture or user.picture == '' %}
                     <img src="{{ asset('images/users/default.png') }}" alt="image par defaut - Utilisateur" class="picture_user" />

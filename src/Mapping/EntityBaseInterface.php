@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
 interface EntityBaseInterface
 {
     /**
+     * Updated Timestamps
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -27,7 +29,7 @@ interface EntityBaseInterface
      *
      * @return null|DateTimeInterface
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): ?DateTimeInterface;
 
     /**
      * Set createdAt
@@ -40,9 +42,9 @@ interface EntityBaseInterface
     /**
      * Get updatedAt
      *
-     * @return DateTimeInterface $createdAt
+     * @return null|DateTimeInterface $createdAt
      */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): ?DateTimeInterface;
 
     /**
      * Set updatedAt

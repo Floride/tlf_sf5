@@ -1,9 +1,13 @@
 # ------- A ------- #
 Achivment: Achèvement
+Active: Actif / Active
 # ------- B ------- #
 # ------- C ------- #
 Civilian: Civil
+Commissar: Commissaire
+Commissioner: Commissariat
 # ------- D ------- #
+DCD: Mort(e)
 # ------- E ------- #
 # ------- F ------- #
 Federal: Fédérale
@@ -12,17 +16,21 @@ Female: Femme
 # ------- H ------- #
 Honor: Honneur
 # ------- I ------- #
-Unknown: Inconnu
+I.I.A.: Bléssé(e) au Combat
+Injured: Bléssé(e)
 # ------- J ------- #
 # ------- K ------- #
+K.I.A.: Tué(e) au Combat
 Knowledge: Connaissance
 # ------- L ------- #
 label:
   abbreviation: Abreviation
   accreditation: Accréditation
+  accreditations: Accréditation(s)
   accreditation_min: Accréditation Minimum
   affectation: Affectation
   affectation_parent: Sous l'autorité de 
+  avatar: Avatar
   badge: Badge (illustration)
   biography: Biographie
   birthDate: Date de Naissance
@@ -40,9 +48,13 @@ label:
   lastname: Nom
   level: Niveau
   name: Nom
+  nickname: Surnom
   new_password: Nouveau mot de passe
   obsolete: Obsolète
   photo: Photo
+  place:
+    birth: Lieu de naissance
+    recruitment: Lieu de recrutement
   profession: Profession
   pseudo: Pseudo
   pseudonyme: Pseudonyme
@@ -52,20 +64,26 @@ label:
   response: Réponse
   ribbon: Réduction (illustration)
   role: Fonction
+  roles: Fonction(s)
   sexe: Sexe
   score_rank_std: Point(s) de grade
   score_rank_ol: Point(s) de grade (Off. Liaison)
   skillReplaceBy: Compétence remplacée par
+  speciality: Spécialité
+  status: Statut
   type: Type
   username: Nom d'Utilisateur
+  user: Joueur
   value: Valeur
   valueFixe: Valeur Fixe
   valueMax: Valeur Maximum
   valueMin: Valeur Minimum
   valueAverage: Valeur Moyenne
 # ------- M ------- #
+M.I.A.: Perdu(e) en mission
 Male: Homme
 Mental: Mentale
+Military: Militaire
 Mixte: Mixte
 # ------- N ------- #
 Not specified: Non précisée
@@ -82,19 +100,27 @@ placeholder:
   featureQuartae: "- Choisissez une caractéristique -"
   featureSecundae: "- Choisissez une caractéristique -"
   featureTertiae: "- Choisissez une caractéristique -"
+  place:
+    birth: "- Choississez un Lieu de naissance -"
+    recruitment: "- Choississez un Lieu de recrutement -"
   profession: "- Choississez une profession -"
+  rank: "- Choississez un grade - "
   rank_min: Grade Minimum
   rank_max: Grade Maximum
+  speciality: Spécialité
   type: "- Choississez un type -"
+  user: Joueur
 Physical: Physique
 Practice: Pratique
 # ------- Q ------- #
 # ------- R ------- #
+Regiment: Régiment
 Regimental: Régimentaire
 # ------- S ------- #
 # ------- T ------- #
 # ------- U ------- #
 Unit: Unité
+Unknown: Inconnu
 # ------- V ------- #
 Valor: Bravoure
 # ------- W ------- #

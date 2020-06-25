@@ -81,18 +81,19 @@ class UserFixtures extends Fixture
                 case 'Nicolas':
                     $user->setValid(true); // On définit le compte comme validé
                 case 'Sylvain':
-                    // On définit le role ROLE_ADMIN
-                    $user->setRoles(['ROLE_ADMIN']);
-                    break;
+                    $user->setEnable(true) // On définit le compte comme actif
+                        ->setRoles(['ROLE_ADMIN']); // On définit le role ROLE_ADMIN
+                break;
                 case 'Anna':
-                    // On définit le role ROLE_USER qui est le role de base
-                    $user->setRoles(['ROLE_USER'])
+                    $user->setRoles(['ROLE_USER']) // On définit le role ROLE_USER qui est le role de base
+                        ->setEnable(false)
                         ->setBan(true) // Bannie
                     ;
-                    break;
+                break;
                 default:
-                    // On définit le role ROLE_USER qui est le role de base
-                    $user->setRoles(['ROLE_USER']);
+                    $user->setEnable(true) // On définit le compte comme actif
+                        ->setRoles(['ROLE_USER']) // On définit le role ROLE_USER qui est le role de base
+                    ;
                     break;
             }
 

@@ -2,7 +2,7 @@
 // src\Controller\Backend\Site\FaqController.php
 namespace App\Controller\Backend\Site;
 
-use DateTimeImmutable;
+use DateTimeInterface;
 use App\Entity\Site\Faq;
 use App\Form\Admin\Site\FaqType;
 use App\Repository\Site\FaqRepository;

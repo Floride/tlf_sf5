@@ -1,0 +1,65 @@
+{# templates\admin\character\character\_list.html.twig #}
+{% trans_default_domain 'forms' %}
+<div class="row">
+    <div class="col-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-bold">Nom</th>
+
+                    <th class="text-bold">Grade</th>
+                    
+                    <th class="text-bold">Profession</th>
+
+                    <th class="text-bold">Fonction</th>
+
+                    <th class="text-bold text-center">Action</th>
+                <tr>
+            </thead>
+            <tbody>
+            {% for character in characters %}
+                <tr>
+                    <td>
+                        {{ character.firstname }} {{ character.lastname }} 
+                        {% if '' != character.nickname %}
+                            ({{ character.nickname }})
+                        {% endif %}
+                    </td>
+
+                    <td>{{ character.rank.name }} ({{ character.rank.abbreviation }})</td>
+                    
+                    <td>
+                        {% if character.speciality %}
+                            {{ character.speciality.name }} (<i>{{ character.profession.name }}</i>)
+                        {% else %}
+                             {{ character.profession.name }}
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% for role in character.roles %}
+                            {{ role.name }}
+                        {% endfor %}
+                    </td>
+
+                    <td class="text-center">
+
+                        {% include "admin/character/character/_action.html.twig" %}
+
+                    </td>
+                <tr>
+            {% else %}
+                <tr><td colspan="5" class="text-center">- Aucun enregistrement -</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% for character in characters %}
+    
+    {% include "admin/character/character/_modal.html.twig"  with {'title': 'character' ~ character.id } %}
+
+{% endfor %}

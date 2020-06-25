@@ -34,7 +34,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'security_login';
-    public const SUCCESS_ROUTE = 'accueil';
+    public const SUCCESS_ROUTE = 'home_welcome';
 
     /**
      * @var EntityManagerInterface
