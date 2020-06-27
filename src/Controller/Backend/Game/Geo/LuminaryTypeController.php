@@ -60,7 +60,7 @@ class LuminaryTypeController extends AbstractCrudController
      * @param LuminaryType $luminaryType
      * @param Request  $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -68,7 +68,7 @@ class LuminaryTypeController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, LuminaryType $luminaryType): Response
+    public function delete(Request $request, LuminaryType $luminaryType): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_game_geo_luminaryType_delete_' . $luminaryType->getId(), $request->get('_token'))) {
             $this->suppression($luminaryType);
@@ -86,7 +86,7 @@ class LuminaryTypeController extends AbstractCrudController
      * @param LuminaryType $luminaryType
      * @param Request  $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("{id}/edit", 
      *      name="edit", 
@@ -94,7 +94,7 @@ class LuminaryTypeController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, LuminaryType $luminaryType): Response
+    public function edit(Request $request, LuminaryType $luminaryType)
     {
         $form = $this->createForm(L_Type::class, $luminaryType);
         $form->handleRequest($request);
@@ -145,14 +145,14 @@ class LuminaryTypeController extends AbstractCrudController
      * @param LuminaryType $luminaryType
      * @param Request  $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $luminaryType = new LuminaryType();
         
@@ -178,7 +178,7 @@ class LuminaryTypeController extends AbstractCrudController
      * @param Request    $request
      * @param LuminaryType $luminaryType
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -186,7 +186,7 @@ class LuminaryTypeController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, LuminaryType $luminaryType): Response
+    public function obsolete(Request $request, LuminaryType $luminaryType): RedirectResponse
     {
         $luminaryType->setObsolete(!$luminaryType->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($luminaryType);

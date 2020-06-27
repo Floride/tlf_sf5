@@ -419,9 +419,9 @@ class Character extends EntityBase
     /**
      * getCharacterFeatures
      * 
-     * @return Collection|CharacterFeature[]
+     * @return Collection|CharacterFeature[]|null
      */
-    public function getFeatures(): Collection
+    public function getFeatures(): ?Collection
     {
         return $this->features;
     }
@@ -718,9 +718,9 @@ class Character extends EntityBase
     /**
      * getRoles
      * 
-     * @return Collection|Role[]
+     * @return Collection|Role[]|null
      */
-    public function getRoles(): Collection
+    public function getRoles(): ?Collection
     {
         return $this->roles;
     }
@@ -780,9 +780,9 @@ class Character extends EntityBase
     /**
      * getSkills
      * 
-     * @return Collection|CharacterSkill[]
+     * @return Collection|CharacterSkill[]|null
      */
-    public function getSkills(): Collection
+    public function getSkills(): ?Collection
     {
         return $this->skills;
     }

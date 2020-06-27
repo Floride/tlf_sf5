@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -61,16 +60,16 @@ class UserController extends AbstractCrudController
      *
      * @param User $user
      *
-     * @return Response
+     * @return RedirectResponse|Response
      *
      * @Route("/{id}/banned",
      *      name="banned", requirements={"id"="\d+"}, methods={"GET"})
      */
-    public function banned(User $user): Response
+    public function banned(User $user)
     {
         $beforeBan = $user; 
         // TODO : Email pour informer bannissement du compte
-        $user->setBanned(!$user->getBanned()); // Mise à jour statut is_Banned
+        $user->setBan(!$user->getBan()); // Mise à jour statut is_Banned
         $this->save($user);
 
         return $this->redirectToRoute(self::RETURN_ROUTE);
@@ -82,7 +81,7 @@ class UserController extends AbstractCrudController
      * @param Request $request
      * @param User $user
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete",
      *      name="delete",
@@ -90,7 +89,7 @@ class UserController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_user_delete_' . $user->getId(), $request->get('_token'))) {
             if (!$user->getEnable() && !$user->getBan()) {
@@ -116,7 +115,7 @@ class UserController extends AbstractCrudController
      * @param Request $request
      * @param User $user
      *
-     * @return Response
+     * @return RedirectResponse|Response
      *
      * @Route("/{id}/edit",
      *      name="edit",
@@ -124,7 +123,7 @@ class UserController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -147,7 +146,7 @@ class UserController extends AbstractCrudController
      *
      * @param User $user
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/enable",
      *      name="enable",
@@ -155,7 +154,7 @@ class UserController extends AbstractCrudController
      *      methods={"GET"}
      * )
      */
-    public function enable(User $user): Response
+    public function enable(User $user): RedirectResponse
     {
         $user->setEnable(!$user->getEnable()); // Mise à jour statut is_enable
         $this->save($user);
@@ -195,14 +194,14 @@ class UserController extends AbstractCrudController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      *
      * @Route("/new",
      *      name="new",
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
         $pwd = uniqid();
@@ -210,8 +209,8 @@ class UserController extends AbstractCrudController
         $form->handleRequest($request);
  
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setEnabled(true);
-            $user->setValided(false);
+            $user->setEnable(true);
+            $user->setValid(false);
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
                 $pwd
@@ -235,7 +234,7 @@ class UserController extends AbstractCrudController
      *
      * @param User $user
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/valid",
      *      name="valid",
@@ -243,9 +242,9 @@ class UserController extends AbstractCrudController
      *      methods={"GET"}
      * )
      */
-    public function valided(User $user): Response
+    public function valided(User $user): RedirectResponse
     {
-        $user->setValided(!$user->getValided()); // Mise à jour statut is_valid
+        $user->setValid(!$user->getValid()); // Mise à jour statut is_valid
         $this->save($user);
         // TODO : Email pour demander confirmation email
 

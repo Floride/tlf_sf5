@@ -54,10 +54,10 @@ class MedalController extends AbstractCrudController
     /**
      * Delete
      *
-     * @param Request    $request
-     * @param Medal $medal
+     * @param Request $request
+     * @param Medal   $medal
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -65,7 +65,7 @@ class MedalController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Medal $medal): Response
+    public function delete(Request $request, Medal $medal): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_medal_delete_' . $medal->getId(), $request->get('_token'))) {
             $this->suppression($medal);
@@ -81,10 +81,10 @@ class MedalController extends AbstractCrudController
     /**
      * Edit
      *
-     * @param Request    $request
-     * @param Medal $medal
+     * @param Request $request
+     * @param Medal   $medal
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -92,7 +92,7 @@ class MedalController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Medal $medal): Response
+    public function edit(Request $request, Medal $medal)
     {
         $form = $this->createForm(MedalType::class, $medal);
         $form->handleRequest($request);
@@ -143,14 +143,14 @@ class MedalController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $medal = new Medal();
         $form = $this->createForm(MedalType::class, $medal);
@@ -172,10 +172,10 @@ class MedalController extends AbstractCrudController
     /**
      * Playable
      *
-     * @param Request    $request
-     * @param Medal $medal
+     * @param Request $request
+     * @param Medal   $medal
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -183,7 +183,7 @@ class MedalController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, Medal $medal): Response
+    public function obsolete(Request $request, Medal $medal): RedirectResponse
     {
         $medal->setObsolete(!$medal->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($medal);

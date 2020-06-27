@@ -16,13 +16,23 @@
         }
     %}
 
+    <hr />
+
     {% include "admin/character/character/_form.html.twig" with {'button': 'Enregistrer'} %}
 
-    {% include "admin/character/character/_feature.html.twig" %}
+    <hr />
+
+    {% include "admin/character/character/_feature.html.twig" with {'features': character.features } %}
+
+    <hr />
 
     {% include "admin/character/character/_skill.html.twig" %}
 
+    <hr />
+
     {% include "admin/character/character/_affectation.html.twig" %}
+
+    <hr />
 
     {% include "admin/character/character/_medal.html.twig" %}
 

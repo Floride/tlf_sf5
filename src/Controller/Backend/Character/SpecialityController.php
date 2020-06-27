@@ -57,7 +57,7 @@ class SpecialityController extends AbstractCrudController
      * @param Request    $request
      * @param Speciality $speciality
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/default", 
      *      name="default", 
@@ -65,7 +65,7 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function default(Request $request, Speciality $speciality): Response
+    public function default(Request $request, Speciality $speciality): RedirectResponse
     {
         $specs = $this->specialityRepository->findBy(['profession' => $speciality->getProfession()]);
         foreach ($specs as $spec) {
@@ -88,7 +88,7 @@ class SpecialityController extends AbstractCrudController
      * @param Request    $request
      * @param Speciality $speciality
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -96,7 +96,7 @@ class SpecialityController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Speciality $speciality): Response
+    public function delete(Request $request, Speciality $speciality): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_speciality_delete_' . $speciality->getId(), $request->get('_token'))) {
             $this->suppression($speciality);
@@ -115,7 +115,7 @@ class SpecialityController extends AbstractCrudController
      * @param Request    $request
      * @param Speciality $speciality
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -123,7 +123,7 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Speciality $speciality): Response
+    public function edit(Request $request, Speciality $speciality)
     {
         $form = $this->createForm(SpecialityType::class, $speciality);
         $form->handleRequest($request);
@@ -174,14 +174,14 @@ class SpecialityController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $speciality = new Speciality();
         $form = $this->createForm(SpecialityType::class, $speciality);
@@ -206,7 +206,7 @@ class SpecialityController extends AbstractCrudController
      * @param Request    $request
      * @param Speciality $speciality
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/playable", 
      *      name="playable", 
@@ -214,7 +214,7 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function playable(Request $request, Speciality $speciality): Response
+    public function playable(Request $request, Speciality $speciality): RedirectResponse
     {
         $speciality->setPlayable(!$speciality->getPlayable()); // Mise à jour statut is_playable
         $this->save($speciality);
@@ -229,7 +229,7 @@ class SpecialityController extends AbstractCrudController
      * @param Request    $request
      * @param Speciality $speciality
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -237,7 +237,7 @@ class SpecialityController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, Speciality $speciality): Response
+    public function obsolete(Request $request, Speciality $speciality): RedirectResponse
     {
         $speciality->setObsolete(!$speciality->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($speciality);

@@ -57,7 +57,7 @@ class AccreditationController extends AbstractCrudController
      * @param Request    $request
      * @param Accreditation $accreditation
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/default", 
      *      name="default", 
@@ -65,7 +65,7 @@ class AccreditationController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function default(Request $request, Accreditation $accreditation): Response
+    public function default(Request $request, Accreditation $accreditation): RedirectResponse
     {
         // Toutes les accreditations = false
         $accreds = $this->accreditationRepository->findAll();
@@ -90,7 +90,7 @@ class AccreditationController extends AbstractCrudController
      * @param Request    $request
      * @param Accreditation $accreditation
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -98,7 +98,7 @@ class AccreditationController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Accreditation $accreditation): Response
+    public function delete(Request $request, Accreditation $accreditation): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_accreditation_delete_' . $accreditation->getId(), $request->get('_token'))) {
             $this->suppression($accreditation);
@@ -117,7 +117,7 @@ class AccreditationController extends AbstractCrudController
      * @param Request    $request
      * @param Accreditation $accreditation
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -125,7 +125,7 @@ class AccreditationController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Accreditation $accreditation): Response
+    public function edit(Request $request, Accreditation $accreditation)
     {
         $form = $this->createForm(AccreditationType::class, $accreditation);
         $form->handleRequest($request);
@@ -176,14 +176,14 @@ class AccreditationController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $accreditation = new Accreditation();
         $form = $this->createForm(AccreditationType::class, $accreditation);
@@ -208,7 +208,7 @@ class AccreditationController extends AbstractCrudController
      * @param Request    $request
      * @param Accreditation $accreditation
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/playable", 
      *      name="playable", 
@@ -216,7 +216,7 @@ class AccreditationController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function playable(Request $request, Accreditation $accreditation): Response
+    public function playable(Request $request, Accreditation $accreditation): RedirectResponse
     {
         $accreditation->setPlayable(!$accreditation->getPlayable()); // Mise à jour statut is_playable
         $this->save($accreditation);

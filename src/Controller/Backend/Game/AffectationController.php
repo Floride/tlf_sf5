@@ -60,7 +60,7 @@ class AffectationController extends AbstractCrudController
      * @param Request     $request
      * @param Affectation $affectation
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/default", 
      *      name="default", 
@@ -68,7 +68,7 @@ class AffectationController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function default(Request $request, Affectation $affectation): Response
+    public function default(Request $request, Affectation $affectation): RedirectResponse
     {
         $affects = $this->affectationRepository->findAll();
         foreach ($affects as $affect) {
@@ -91,7 +91,7 @@ class AffectationController extends AbstractCrudController
      * @param Affectation $affectation
      * @param Request     $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -99,7 +99,7 @@ class AffectationController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Affectation $affectation): Response
+    public function delete(Request $request, Affectation $affectation): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_game_affectation_delete_' . $affectation->getId(), $request->get('_token'))) {
             $this->suppression($affectation);
@@ -117,7 +117,7 @@ class AffectationController extends AbstractCrudController
      * @param Affectation $affectation
      * @param Request     $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("{id}/edit", 
      *      name="edit", 
@@ -125,7 +125,7 @@ class AffectationController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Affectation $affectation): Response
+    public function edit(Request $request, Affectation $affectation)
     {
         $form = $this->createForm(AffectationType::class, $affectation);
         $form->handleRequest($request);
@@ -170,14 +170,14 @@ class AffectationController extends AbstractCrudController
      * @param Affectation $affectation
      * @param Request     $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $affectation = new Affectation();
         
@@ -203,7 +203,7 @@ class AffectationController extends AbstractCrudController
      * @param Request     $request
      * @param Affectation $affectation
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -211,7 +211,7 @@ class AffectationController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, Affectation $affectation): Response
+    public function obsolete(Request $request, Affectation $affectation): RedirectResponse
     {
         $affectation->setObsolete(!$affectation->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($affectation);

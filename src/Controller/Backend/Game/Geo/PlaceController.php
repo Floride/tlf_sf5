@@ -60,7 +60,7 @@ class PlaceController extends AbstractCrudController
      * @param Place   $place
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -68,7 +68,7 @@ class PlaceController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Place $place): Response
+    public function delete(Request $request, Place $place): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_game_geo_place_delete_' . $place->getId(), $request->get('_token'))) {
             $this->suppression($place);
@@ -86,7 +86,7 @@ class PlaceController extends AbstractCrudController
      * @param Place   $place
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("{id}/edit", 
      *      name="edit", 
@@ -94,7 +94,7 @@ class PlaceController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Place $place): Response
+    public function edit(Request $request, Place $place)
     {
         $form = $this->createForm(PlaceType::class, $place);
         $form->handleRequest($request);
@@ -145,14 +145,14 @@ class PlaceController extends AbstractCrudController
      * @param Place   $place
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $place = new Place();
         
@@ -178,7 +178,7 @@ class PlaceController extends AbstractCrudController
      * @param Place   $place
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -186,7 +186,7 @@ class PlaceController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, Place $place): Response
+    public function obsolete(Request $request, Place $place): RedirectResponse
     {
         $place->setObsolete(!$place->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($place);

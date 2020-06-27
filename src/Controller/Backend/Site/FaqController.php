@@ -61,7 +61,7 @@ class FaqController extends AbstractCrudController
      * @param Faq     $faq
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -69,7 +69,7 @@ class FaqController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Faq $faq): Response
+    public function delete(Request $request, Faq $faq): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_site_faq_delete_' . $faq->getId(), $request->get('_token'))) {
             $this->suppression($faq);
@@ -87,7 +87,7 @@ class FaqController extends AbstractCrudController
      * @param Faq     $faq
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("{id}/edit", 
      *      name="edit", 
@@ -95,7 +95,7 @@ class FaqController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Faq $faq): Response
+    public function edit(Request $request, Faq $faq)
     {
         $form = $this->createForm(FaqType::class, $faq);
         $form->handleRequest($request);
@@ -145,14 +145,14 @@ class FaqController extends AbstractCrudController
      * @param Faq     $faq
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $faq = new Faq();
         

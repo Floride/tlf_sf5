@@ -57,7 +57,7 @@ class RoleController extends AbstractCrudController
      * @param Request $request
      * @param Role    $role
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/default", 
      *      name="default", 
@@ -65,7 +65,7 @@ class RoleController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function default(Request $request, Role $role): Response
+    public function default(Request $request, Role $role): RedirectResponse
     {
         $role->setDefault(!$role->getDefault()); // Mise à jour statut is_default
         $this->save($role);
@@ -79,7 +79,7 @@ class RoleController extends AbstractCrudController
      * @param Request    $request
      * @param Role $role
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -87,7 +87,7 @@ class RoleController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Role $role): Response
+    public function delete(Request $request, Role $role): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_role_delete_' . $role->getId(), $request->get('_token'))) {
             $this->suppression($role);
@@ -106,7 +106,7 @@ class RoleController extends AbstractCrudController
      * @param Request    $request
      * @param Role $role
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -114,7 +114,7 @@ class RoleController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Role $role): Response
+    public function edit(Request $request, Role $role)
     {
         $form = $this->createForm(RoleType::class, $role);
         $form->handleRequest($request);
@@ -165,14 +165,14 @@ class RoleController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $role = new Role();
         $form = $this->createForm(RoleType::class, $role);
@@ -197,7 +197,7 @@ class RoleController extends AbstractCrudController
      * @param Request    $request
      * @param Role $role
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/playable", 
      *      name="playable", 
@@ -205,7 +205,7 @@ class RoleController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function playable(Request $request, Role $role): Response
+    public function playable(Request $request, Role $role): RedirectResponse
     {
         $role->setPlayable(!$role->getPlayable()); // Mise à jour statut is_playable
         $this->save($role);
@@ -220,7 +220,7 @@ class RoleController extends AbstractCrudController
      * @param Request    $request
      * @param Role $role
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -228,7 +228,7 @@ class RoleController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, Role $role): Response
+    public function obsolete(Request $request, Role $role): RedirectResponse
     {
         $role->setObsolete(!$role->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($role);

@@ -57,7 +57,7 @@ class SkillController extends AbstractCrudController
      * @param Request $request
      * @param Skill   $skill
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete",
      *      name="delete",
@@ -65,7 +65,7 @@ class SkillController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Skill $skill): Response
+    public function delete(Request $request, Skill $skill): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_skill_delete_' . $skill->getId(), $request->get('_token'))) {
             $this->suppression($skill);
@@ -83,7 +83,7 @@ class SkillController extends AbstractCrudController
      * @param Request $request
      * @param Skill   $skill
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -91,7 +91,7 @@ class SkillController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Skill $skill): Response
+    public function edit(Request $request, Skill $skill)
     {
         $form = $this->createForm(SkillType::class, $skill);
         $form->handleRequest($request);
@@ -141,14 +141,14 @@ class SkillController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $skill = new Skill();
         $form = $this->createForm(SkillType::class, $skill);

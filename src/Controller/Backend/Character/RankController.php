@@ -57,7 +57,7 @@ class RankController extends AbstractCrudController
      * @param Request $request
      * @param Rank   $rank
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete",
      *      name="delete",
@@ -65,7 +65,7 @@ class RankController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Rank $rank): Response
+    public function delete(Request $request, Rank $rank): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_rank_delete_' . $rank->getId(), $request->get('_token'))) {
             $this->suppression($rank);
@@ -83,7 +83,7 @@ class RankController extends AbstractCrudController
      * @param Request $request
      * @param Rank   $rank
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -91,7 +91,7 @@ class RankController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Rank $rank): Response
+    public function edit(Request $request, Rank $rank)
     {
         $form = $this->createForm(RankType::class, $rank);
         $form->handleRequest($request);
@@ -141,14 +141,14 @@ class RankController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $rank = new Rank();
         $form = $this->createForm(RankType::class, $rank);

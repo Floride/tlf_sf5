@@ -57,7 +57,7 @@ class FeatureController extends AbstractCrudController
      * @param Request $request
      * @param Feature $feature
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -65,7 +65,7 @@ class FeatureController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Feature $feature): Response
+    public function delete(Request $request, Feature $feature): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_feature_delete_' . $feature->getId(), $request->get('_token'))) {
             $this->suppression($feature);
@@ -83,7 +83,7 @@ class FeatureController extends AbstractCrudController
      * @param Request $request
      * @param Feature $feature
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -91,7 +91,7 @@ class FeatureController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Feature $feature): Response
+    public function edit(Request $request, Feature $feature)
     {
         $form = $this->createForm(FeatureType::class, $feature);
         $form->handleRequest($request);
@@ -142,14 +142,14 @@ class FeatureController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new",
      *      name="new",
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $feature = new Feature();
         $form = $this->createForm(FeatureType::class, $feature);

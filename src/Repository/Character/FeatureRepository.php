@@ -50,4 +50,20 @@ class FeatureRepository extends ServiceEntityRepository
             ->getQuery()
         ;
     }
+
+    /**
+     * findAllActive
+     * 
+     * @return array|null
+     */
+    public function findAllActive(): ?array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.obsolete = false')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+        
+    }
 }

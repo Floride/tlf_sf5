@@ -57,7 +57,7 @@ class ProfessionController extends AbstractCrudController
      * @param Request    $request
      * @param Profession $profession
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -65,7 +65,7 @@ class ProfessionController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Profession $profession): Response
+    public function delete(Request $request, Profession $profession): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_profession_delete_' . $profession->getId(), $request->get('_token'))) {
             $this->suppression($profession);
@@ -84,7 +84,7 @@ class ProfessionController extends AbstractCrudController
      * @param Request    $request
      * @param Profession $profession
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -92,7 +92,7 @@ class ProfessionController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Profession $profession): Response
+    public function edit(Request $request, Profession $profession)
     {
         $form = $this->createForm(ProfessionType::class, $profession);
         $form->handleRequest($request);
@@ -143,14 +143,14 @@ class ProfessionController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $profession = new Profession();
         $form = $this->createForm(ProfessionType::class, $profession);
@@ -175,7 +175,7 @@ class ProfessionController extends AbstractCrudController
      * @param Request    $request
      * @param Profession $profession
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/playable", 
      *      name="playable", 
@@ -183,7 +183,7 @@ class ProfessionController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function playable(Request $request, Profession $profession): Response
+    public function playable(Request $request, Profession $profession): RedirectResponse
     {
         $profession->setPlayable(!$profession->getPlayable()); // Mise à jour statut is_playable
         $this->save($profession);
@@ -198,7 +198,7 @@ class ProfessionController extends AbstractCrudController
      * @param Request    $request
      * @param Profession $profession
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -206,7 +206,7 @@ class ProfessionController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, Profession $profession): Response
+    public function obsolete(Request $request, Profession $profession): RedirectResponse
     {
         $profession->setObsolete(!$profession->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($profession);

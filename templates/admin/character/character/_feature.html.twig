@@ -5,3 +5,13 @@
         <h2>Caractéristique(s) :</h2>
     </div>
 </div>
+
+<div class="row">
+    {% for characterFeature in features %}
+    <div class="col-4">
+        {% set feature = characterFeature.feature %}
+        {% set score = feature.valueAverage + characterFeature.value + characterFeature.experienceUpgrade %}
+        {{ feature.name }} [{{ feature.abbreviation }}] : {{ score }}
+    </div>
+    {% endfor %}
+</div>

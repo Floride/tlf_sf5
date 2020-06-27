@@ -2,9 +2,10 @@
 //src\Controller\Frontend\SecurityController.php
 namespace App\Controller\Frontend;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use LogicException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -25,12 +26,12 @@ class SecurityController extends AbstractController
     /**
      * Page de connexion
      *
-     * @return Response
+     * @return RedirectResponse|Response
      *
      * @Route("/login", 
      *      name="login", methods={"GET", "POST"})
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home_welcome');
@@ -53,15 +54,17 @@ class SecurityController extends AbstractController
     /**
      * Page de déconnexion
      *
-     * @return Response
+     * @return void
+     * 
+     * @throws LogicException
      *
      * @Route("/logout",
      *      name="logout",
      *      methods={"GET"}
      * )
      */
-    public function logout()
+    public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

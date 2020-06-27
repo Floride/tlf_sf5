@@ -61,7 +61,7 @@ class ParameterController extends AbstractCrudController
      * @param Parameter $parameter
      * @param Request   $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete",
@@ -69,7 +69,7 @@ class ParameterController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Parameter $parameter): Response
+    public function delete(Request $request, Parameter $parameter): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_site_parameter_delete_' . $parameter->getId(), $request->get('_token'))) {
             $this->suppression($parameter);
@@ -87,7 +87,7 @@ class ParameterController extends AbstractCrudController
      * @param Parameter $parameter
      * @param Request   $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/site/parameter/{id}/edit", 
      *      name="edit", 
@@ -95,7 +95,7 @@ class ParameterController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Parameter $parameter): Response
+    public function edit(Request $request, Parameter $parameter)
     {
         $form = $this->createForm(ParameterType::class, $parameter);
         $form->handleRequest($request);
@@ -144,14 +144,14 @@ class ParameterController extends AbstractCrudController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new",
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $parametereter = new Parameter();
         

@@ -60,7 +60,7 @@ class PlaceTypeController extends AbstractCrudController
      * @param PlaceType   $placeType
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -68,7 +68,7 @@ class PlaceTypeController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, PlaceType $placeType): Response
+    public function delete(Request $request, PlaceType $placeType): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_game_geo_placeType_delete_' . $placeType->getId(), $request->get('_token'))) {
             $this->suppression($placeType);
@@ -86,7 +86,7 @@ class PlaceTypeController extends AbstractCrudController
      * @param PlaceType   $placeType
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("{id}/edit", 
      *      name="edit", 
@@ -94,7 +94,7 @@ class PlaceTypeController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, PlaceType $placeType): Response
+    public function edit(Request $request, PlaceType $placeType)
     {
         $form = $this->createForm(P_Type::class, $placeType);
         $form->handleRequest($request);
@@ -145,14 +145,14 @@ class PlaceTypeController extends AbstractCrudController
      * @param PlaceType   $placeType
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $placeType = new PlaceType();
         
@@ -175,10 +175,10 @@ class PlaceTypeController extends AbstractCrudController
     /**
      * Obsolete
      *
-     * @param PlaceType   $placeType
-     * @param Request $request
+     * @param PlaceType $placeType
+     * @param Request   $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/obsolete", 
      *      name="obsolete", 
@@ -186,7 +186,7 @@ class PlaceTypeController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function obsolete(Request $request, PlaceType $placeType): Response
+    public function obsolete(Request $request, PlaceType $placeType): RedirectResponse
     {
         $placeType->setObsolete(!$placeType->getObsolete()); // Mise à jour statut is_obsolete
         $this->save($placeType);

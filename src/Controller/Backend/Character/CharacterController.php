@@ -5,12 +5,20 @@ namespace App\Controller\Backend\Character;
 use App\Entity\Character\Character;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Controller\AbstractCrudController;
+use App\Entity\Character\CharacterAffectation;
+use App\Entity\Character\CharacterFeature;
+use App\Entity\Character\CharacterMedal;
+use App\Entity\Character\CharacterSkill;
+use App\Entity\Character\Feature;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Form\Admin\Character\CharacterType;
+use App\Repository\Character\CharacterFeatureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Character\CharacterRepository;
+use App\Repository\Character\CharacterSkillRepository;
+use App\Repository\Character\FeatureRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -57,7 +65,7 @@ class CharacterController extends AbstractCrudController
      * @param Request    $request
      * @param Character $character
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/default", 
      *      name="default", 
@@ -89,7 +97,7 @@ class CharacterController extends AbstractCrudController
      * @param Request    $request
      * @param Character $character
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @Route("/{id}/delete", 
      *      name="delete", 
@@ -97,7 +105,7 @@ class CharacterController extends AbstractCrudController
      *      methods={"DELETE"}
      * )
      */
-    public function delete(Request $request, Character $character): Response
+    public function delete(Request $request, Character $character): RedirectResponse
     {
         if ($this->isCsrfTokenValid('admin_character_delete_' . $character->getId(), $request->get('_token'))) {
             $this->suppression($character);
@@ -116,7 +124,7 @@ class CharacterController extends AbstractCrudController
      * @param Request    $request
      * @param Character $character
      *
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/{id}/edit",
      *      name="edit",
@@ -124,10 +132,19 @@ class CharacterController extends AbstractCrudController
      *      methods={"GET", "POST"}
      * )
      */
-    public function edit(Request $request, Character $character): Response
+    public function edit(
+            Request $request, 
+            Character $character, 
+            FeatureRepository $featureRepository
+        ): Response
     {
         $form = $this->createForm(CharacterType::class, $character);
         $form->handleRequest($request);
+        
+        if ($character->getFeatures()->isEmpty()) {
+            $features = $featureRepository->findAllActive();
+            $this->addFeatures($character, $features);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->save($character);
@@ -135,10 +152,10 @@ class CharacterController extends AbstractCrudController
 
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
-
+        dump($character->getFeatures());
         return $this->render('admin/character/character/edit.html.twig', [
             'character' => $character,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
     
@@ -175,14 +192,17 @@ class CharacterController extends AbstractCrudController
      * 
      * @param Request $request
      * 
-     * @return Response
+     * @return RedirectResponse|Response
      * 
      * @Route("/new", 
      *      name="new", 
      *      methods={"GET", "POST"}
      * )
      */
-    public function new(Request $request): Response
+    public function new(
+            Request $request,
+            FeatureRepository $featureRepository
+        ): Response
     {
         $character = new Character();
         $form = $this->createForm(CharacterType::class, $character);
@@ -192,6 +212,11 @@ class CharacterController extends AbstractCrudController
             $this->save($character);
             $this->sendFlashMessage('save_ok', 'personnage');
             
+            if ($character->getFeatures()->isEmpty()) {
+                $features = $featureRepository->findAllActive();
+                $this->addFeatures($character, $features);
+            }
+
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
 
@@ -199,5 +224,39 @@ class CharacterController extends AbstractCrudController
             'character' => $character,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * addFeatures
+     * 
+     * @param Character $character
+     * @param array $features
+     * 
+     * @return void
+     */
+    private function addFeatures(Character $character, array $features): void 
+    {
+        foreach ($features as $feature) {
+            $value = random_int(0, 100) - $feature->getValueAverage();
+            if ($value > 100) {
+                $value = 100;
+            } elseif ($value < ($feature->getValueAverage()/2)) {
+                $value = ($feature->getValueAverage()/3);
+            } else {
+                $value = $value;
+            }
+            $characterFeature = (New CharacterFeature())
+                ->setCharacter($character)
+                ->setFeature($feature)
+                ->setValue($value)
+                ->setExperienceUpgrade(0)
+            ;
+
+            $this->manager->persist($characterFeature);
+        }
+
+        $this->manager->flush();
+        
+        return;
     }
 }
