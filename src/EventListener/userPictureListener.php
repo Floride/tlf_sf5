@@ -4,6 +4,15 @@ namespace App\EventListener;
 
 use Vich\UploaderBundle\Event\Event;
 
+/**
+ * Class class userPictureListener
+ *
+ * PHP version 7.2.5
+ *
+ * @package    App\EventListener
+ * @author     Sylvain FLORIDE <sfloride@gmail.com>
+ * @version    1.0.0
+ */
 class userPictureListener
 {
     public function onVichUploaderPreUpload(Event $event)
@@ -11,7 +20,6 @@ class userPictureListener
         $object = $event->getObject();
         $mapping = $event->getMapping();
         
-        //dump($event);
-        // do your stuff with $object and/or $mapping...
+        dump($object, $mapping);
     }
 }

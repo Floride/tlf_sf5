@@ -213,6 +213,10 @@ ul.adminMenu h5 {
     color: black;
 } 
 
+.hiddenField {
+    display: none;
+}
+
 .form_delete {
     display: inline-block;
 }

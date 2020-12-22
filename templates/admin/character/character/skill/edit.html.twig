@@ -1,0 +1,18 @@
+{# templates\admin\character\character\skill\edit.html.twig #}
+
+{{ form_start(form) }}
+<tr>
+    <td>
+        {{ characterSkill.skill.name }} [{{ characterSkill.skill.abbreviation }}]
+    </td>
+    <td class="text-bold text-center">
+        {{ score }}
+    </td>
+    <td>
+        {{ form_row(form.experienceUpgrade) }}
+    </td>
+    <td>
+        <button class="btn btn-primary">Enregistrer</button>
+    </td>
+</tr>
+{{ form_end(form) }}

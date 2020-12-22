@@ -9,6 +9,8 @@
         }
     %}
 
+    {% include "admin/elements/_alert.html.twig" %}
+
     {% include "admin/elements/_sub_header.html.twig" with {
             'sh_description':'Modifier un personnage',
             'sh_lien':'',
@@ -16,24 +18,85 @@
         }
     %}
 
-    <hr />
-
     {% include "admin/character/character/_form.html.twig" with {'button': 'Enregistrer'} %}
 
     <hr />
 
-    {% include "admin/character/character/_feature.html.twig" with {'features': character.features } %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Caractéristiques</h2>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-12">
+        
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-bold">Nom</th>
+
+                        <th class="text-bold">Valeur</th>
+                        
+                        <th class="text-bold">Modificateur initiale</th>
+
+                        <th class="text-bold">Modificateur XPs</th>
+
+                        <th class="text-bold text-center">Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+                {% for characterFeature in character.features %}
+                    {{ render(controller(
+                    'App\\Controller\\Backend\\Character\\CharacterFeatureController::edit',
+                    { 'id': characterFeature.id }
+                )) }}
+                {% else %}
+                    <tr><td colspan="5" class="text-center">- Aucun enregistrement -</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    
     <hr />
 
-    {% include "admin/character/character/_skill.html.twig" %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Compétences</h2>
+        </div>
+    </div>
 
-    <hr />
+    <div class="row">
+        <div class="col-12">
+        
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-bold">Nom</th>
 
-    {% include "admin/character/character/_affectation.html.twig" %}
+                        <th class="text-bold">Valeur</th>
 
-    <hr />
+                        <th class="text-bold">Modificateur XPs</th>
 
-    {% include "admin/character/character/_medal.html.twig" %}
+                        <th class="text-bold text-center">Action</th>
+                    <tr>
+                </thead>
+                <tbody>
+                {% for characterskill in character.skills %}
+                    {{ render(controller(
+                    'App\\Controller\\Backend\\Character\\CharacterskillController::edit',
+                    { 'id': characterskill.id }
+                )) }}
+                {% else %}
+                    <tr><td colspan="5" class="text-center">- Aucun enregistrement -</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 
 {% endblock %}

@@ -152,7 +152,7 @@ class CharacterController extends AbstractCrudController
 
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
-        dump($character->getFeatures());
+        
         return $this->render('admin/character/character/edit.html.twig', [
             'character' => $character,
             'form' => $form->createView()
@@ -212,10 +212,9 @@ class CharacterController extends AbstractCrudController
             $this->save($character);
             $this->sendFlashMessage('save_ok', 'personnage');
             
-            if ($character->getFeatures()->isEmpty()) {
-                $features = $featureRepository->findAllActive();
-                $this->addFeatures($character, $features);
-            }
+            // Charactéristiques
+            $features = $featureRepository->findAllActive();
+            $this->addFeatures($character, $features);
 
             return $this->redirectToRoute(self::RETURN_ROUTE);
         }
@@ -230,21 +229,28 @@ class CharacterController extends AbstractCrudController
      * addFeatures
      * 
      * @param Character $character
-     * @param array $features
+     * @param Feature[] $features
      * 
      * @return void
      */
     private function addFeatures(Character $character, array $features): void 
     {
         foreach ($features as $feature) {
-            $value = random_int(0, 100) - $feature->getValueAverage();
-            if ($value > 100) {
-                $value = 100;
-            } elseif ($value < ($feature->getValueAverage()/2)) {
-                $value = ($feature->getValueAverage()/3);
-            } else {
-                $value = $value;
+            $min = $feature->getValueMin();
+            $ave = $feature->getValueAverage();
+            $max = $feature->getValueMax();
+            $value = random_int($min, $max);
+            
+            switch (true) {
+                case ($value > $max):
+                    $value = $max;
+                break;
+                case ($value < $min):
+                    $value = $min + ($min / 3);
+                break;
             }
+            $value -= $ave;
+
             $characterFeature = (New CharacterFeature())
                 ->setCharacter($character)
                 ->setFeature($feature)
